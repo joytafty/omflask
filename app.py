@@ -12,7 +12,7 @@ app.config.update(
 	DEBUG = True,
 )
 
-app.config["SECRET_KEY"] = '1b4fa1302f0e00db43af7648aaff4a1dc2486ffccd95754e'
+app.config["SECRET_KEY"] = 'T\x9cs;\x8b\xce-@\xac\xbb\xc9m\xeb\xe8\x1f\x85]\xd2M\xf5\xae$I\x9a'
 
 ### marker for flask app generator - keep this line
 
@@ -43,6 +43,22 @@ def favicon():
 @app.errorhandler(404)
 def page_not_found(e):
 	return render_template('404.html'), 404
+
+#----------------------------------------
+# database
+#----------------------------------------
+
+from mongoengine import connect
+from flask.ext.mongoengine import MongoEngine
+
+DB_NAME = 'jrflask'
+DB_USERNAME = 'jrflaskadmin'
+DB_PASSWORD = 'jrflask12345'
+DB_HOST_ADDRESS = 'ds031278.mongolab.com:31278/jrflask'
+
+app.config["MONGODB_DB"] = DB_NAME
+connect(DB_NAME, host='mongodb://' + DB_USERNAME + ':' + DB_PASSWORD + '@' + DB_HOST_ADDRESS)
+db = MongoEngine(app)
 
 #----------------------------------------
 # launch
