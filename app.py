@@ -32,6 +32,13 @@ def page_not_found(e):
 def index():
 	return render_template('index.html')
 
+@app.route("/about")
+def about():
+	return render_template('about.html')
+
+@app.route("/plans")
+def plans():
+	return render_template('plans.html')	
 #----------------------------------------
 # handlers
 #----------------------------------------
@@ -47,7 +54,7 @@ def page_not_found(e):
 #----------------------------------------
 # database
 #----------------------------------------
-
+# Mongo Lab Database connection
 from mongoengine import connect
 from flask.ext.mongoengine import MongoEngine
 
