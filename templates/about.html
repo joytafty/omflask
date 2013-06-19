@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% block title %} - About{% endblock %}
 {% block content %}
-  <p>About [OptMe]!</p>
-  {% if not session.logged_in %}
-     <p>You are not logged in.</p>
-{% else %}
-     <p>You are logged in.</p>
+  <h3>  About Optimized Me </h3>
+	{% if 'usr' in session %}
+     <p>Thank you for logging in.</p>
+	{% else %}
+	 <p>Please log in for more information.</p>
 {% endif %}
 {% endblock %}

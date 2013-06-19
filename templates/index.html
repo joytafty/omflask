@@ -2,9 +2,9 @@
 {% block title %} - Home{% endblock %}
 {% block content %}
   <p>Welcome to Optimize Me!</p>
-  {% if not session.logged_in %}
-     <p>You are not logged in.</p>
+	{% if 'usr' in session %}
+	 <p>Thank you for logging in.</p>
 {% else %}
-     <p>You are logged in.</p>
+     <p>Please log in for more information.</p>
 {% endif %}
 {% endblock %}

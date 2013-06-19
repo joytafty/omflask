@@ -1,75 +1,66 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
+<html>
+	<head>
 	{% block head %}
-	<title>Welcome to Optimize Me Dashboard{% block title %}{% endblock %}</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="">
-	<meta name="keywords" content="">
-	<meta name="author" content="">
-	<meta charset="utf-8">
-
-	<meta property="og:title" content=""/>
-	<meta property="og:type" content="website"/>
-	<meta property="og:url" content=""/>
-	<meta property="og:image" content="" />
-	<meta property="og:site_name" content='myflask'/>
-	<meta property="og:description" content=""/>
-
-	<link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel="stylesheet">
-	<style> body { padding-top: 60px; } </style>
-
-	<!-- SUPPORT FOR IE6-8 OF HTML5 ELEMENTS -->
-	<!--[if lt IE 9]>
-		  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]-->
-
-	<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
-	<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+		<title>Welcome to Optimize Me Dashboard</title>
+		<link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel="stylesheet">
+		<style> body { padding-top: 80px; } </style>
+		<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
 	{% endblock %}
-  </head>
+	</head>	
 
-  <body>
-
+	<body>
 	{% block navbar %}
 	<div class="navbar navbar-fixed-top">
 		<div class="navbar-inner">
 			<div class="container">
-			  <a class="brand" href="/">[Optimize Me]</a>
-			  <div class="nav-collapse">
-				<ul class="nav">
-				</ul>
-				{% block navbar_right %}
-				<ul class="nav pull-right">
-					<li><a href="/">Welcome</a></li>
-					<li><a href="/about">What we do</a></li>
-					<li><a href="/plans">Plans</a></li>
-					{% if not session.logged_in %}
-                    <li><a href="#">Login or Signup</a></li>
-                  {% else %}
-                    <li><a href="#">Logout</a></li>
-                  {% endif %}
-				</ul>
-				{% endblock %}
-			  </div><!--/.nav-collapse -->
+				<a class="brand" href="/">[Optimize Me]</a>
+				<div class="nav-collapse">
+					<ul class="nav">
+					</ul>
+					{% block navbar_right %}
+					<ul class="nav pull-right">
+						<li><a href="/">Welcome</a></li>
+						<li><a href="{{url_for('main')}}">Main</a></li>
+						{% if 'usr' in session %}
+						<li><a href="{{url_for('login')}}">logout</a></li>
+						{% else %}
+						<li><a href="{{url_for('login')}}">login</a></li>
+						{% endif %}
+						<li><a href="{{url_for('about')}}">About</a></li>
+					</ul>
+					{% endblock %}					
+				</div>
 			</div>
-		  </div>
+		</div>
 	</div>
 	{% endblock %}
 
 	<div class="container page">
 		<div class="content">
 		  {% block content %}
+		  Content place holder
 		  {% endblock %}
 		</div>
+	</div>
 
-		<hr>
-
+	<!-- Flashing message -->	
+		<div id="flashed">
+		{% with messages = get_flashed_messages() %}
+		{% for message in messages %}
+			{{message}}
+		{% endfor %}
+		{% endwith %}
+		
 		{% block footer %}
 		<footer class="footer">
-			<p>&copy; [OptMe]</p>
+			<p>&copy; [Optimize Me]: Contact Us</p>
 		</footer>
 		{% endblock %}
-	</div>
-  </body>
+		</div>
+		<script src="http://code.jquery.com/jquery-latest.js"></script>
+    	<script src="js/bootstrap.min.js"></script>
+
+	</body>
 </html>

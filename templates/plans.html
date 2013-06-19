@@ -2,10 +2,11 @@
 {% block title %} - Plans{% endblock %}
 {% block content %}
   <p>Plans</p>
-  How does our service make your healthier
+  	<h3>  How does our service make your healthier</h3>
+
   {% if not session.logged_in %}
-     <p>You are not logged in.</p>
-{% else %}
-     <p>You are logged in.</p>
+     <p>Please log in for more information.</p>
+	{% else %}
+     <p>Thank you for logging in.</p>
 {% endif %}
 {% endblock %}

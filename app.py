@@ -2,12 +2,17 @@ import os
 from flask import Flask, render_template, send_from_directory, Response, url_for, request
 import json
 
+# Views
+from main import Main
+from login import Login
+from about import About
+from plans import Plans
 #----------------------------------------
 # initialization
 #----------------------------------------
 
 app = Flask(__name__)
-
+app.config.from_object('config')
 app.config.update(
 	DEBUG = True,
 )
@@ -24,21 +29,38 @@ app.config["SECRET_KEY"] = 'T\x9cs;\x8b\xce-@\xac\xbb\xc9m\xeb\xe8\x1f\x85]\xd2M
 # def favicon():
 # 	return send_from_directory(os.path.join(app.root_path, 'static'), 'ico/favicon.ico')
 
-@app.errorhandler(404)
-def page_not_found(e):
-	return render_template('404.html'), 404
+# Routes    
+# Static main view
+# Static main view
+app.add_url_rule('/',
+                 view_func=Main.as_view('main'),
+                 methods=["GET"])
+# Dynamic URL rule
+app.add_url_rule('/login/',
+                 view_func=Login.as_view('login'),
+                 methods=["GET", "POST"])
+app.add_url_rule('/plans/',
+                 view_func=Plans.as_view('plans'),
+                 methods=["GET", "POST"])
+app.add_url_rule('/about/',
+                 view_func=About.as_view('about'),
+                 methods=["GET", "POST"])
 
-@app.route("/")
-def index():
-	return render_template('index.html')
+# @app.errorhandler(404)
+# def page_not_found(e):
+# 	return render_template('404.html'), 404
 
-@app.route("/about")
-def about():
-	return render_template('about.html')
+# @app.route("/")
+# def index():
+# 	return render_template('index.html')
 
-@app.route("/plans")
-def plans():
-	return render_template('plans.html')	
+# @app.route("/about")
+# def about():
+# 	return render_template('about.html')
+
+# @app.route("/plans")
+# def plans():
+# 	return render_template('plans.html')	
 #----------------------------------------
 # handlers
 #----------------------------------------
@@ -66,6 +88,8 @@ DB_HOST_ADDRESS = 'ds031278.mongolab.com:31278/jrflask'
 app.config["MONGODB_DB"] = DB_NAME
 connect(DB_NAME, host='mongodb://' + DB_USERNAME + ':' + DB_PASSWORD + '@' + DB_HOST_ADDRESS)
 db = MongoEngine(app)
+
+# MongoHQ Database connection
 
 #----------------------------------------
 # launch
