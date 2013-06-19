@@ -76,20 +76,32 @@ def page_not_found(e):
 #----------------------------------------
 # database
 #----------------------------------------
-# Mongo Lab Database connection
 from mongoengine import connect
 from flask.ext.mongoengine import MongoEngine
 
-DB_NAME = 'jrflask'
-DB_USERNAME = 'jrflaskadmin'
-DB_PASSWORD = 'jrflask12345'
-DB_HOST_ADDRESS = 'ds031278.mongolab.com:31278/jrflask'
-
-app.config["MONGODB_DB"] = DB_NAME
-connect(DB_NAME, host='mongodb://' + DB_USERNAME + ':' + DB_PASSWORD + '@' + DB_HOST_ADDRESS)
-db = MongoEngine(app)
+# Mongo Lab Database connection
+# DB_NAME = 'jrflask'
+# DB_USERNAME = 'jrflaskadmin'
+# DB_PASSWORD = 'jrflask12345'
+# DB_HOST_ADDRESS = 'ds031278.mongolab.com:31278/jrflask'
+# app.config["MONGODB_DB"] = DB_NAME
+# connect(DB_NAME, host='mongodb://' + DB_USERNAME + ':' + DB_PASSWORD + '@' + DB_HOST_ADDRESS)
 
 # MongoHQ Database connection
+DB_NAME = 'app15407585'
+DB_USERNAME = 'heroku'
+DB_PASSWORD = '6cefeffb1806c2444c074e4b680ff76f'
+DB_HOST_ADDRESS = 'ethan.mongohq.com'
+DB_PORT = 10031
+app.config["MONGODB_DB"] = DB_NAME
+connect(DB_NAME, 
+	username=DB_USERNAME,
+	password=DB_PASSWORD,
+	host='mongodb://' + DB_USERNAME + ':' + DB_PASSWORD + '@' + DB_HOST_ADDRESS + ':' + str(DB_PORT) + '/' + DB_NAME,
+	port=DB_PORT,
+)
+
+db = MongoEngine(app)
 
 #----------------------------------------
 # launch
