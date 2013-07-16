@@ -19,6 +19,7 @@
       google.setOnLoadCallback(drawAnthro);
       google.setOnLoadCallback(drawPhys);
       google.setOnLoadCallback(drawStep);
+      google.setOnLoadCallback(drawBP);
       google.setOnLoadCallback(drawGaugeCVD);      
 
       // Anthropometrics Measurements
@@ -77,7 +78,21 @@
       }
 
       // Blood Pressure and Cholesterol
+      function drawBP() {
+        var d = google.visualization.arrayToDataTable([
+          ['Level', 'Normotension', 'Pre-Hypertension', 'Hypertension I', 'Hypertension II'],
+          ['Systolic',  50, 20, 20, 20]
+          ]);
 
+        var options = {
+          title: 'Blood Pressure',
+          isStacked: true,
+          width: 400, height: 100,
+        };
+
+        var bpbar = new google.visualization.BarChart(document.getElementById('bp_div'));
+        bpbar.draw(d, options);
+      }
 
       // CVD Risks
       function drawGaugeCVD() {
@@ -148,6 +163,10 @@
         <div><h4>Physical Activity</h4></div> 
         <div id='phys_div'></div>
         <div id='steps_div'></div>
+
+        <!-- Table Anthropometrics -->
+        <div><h4>Blood Pressure and Cholesterol</h4></div> 
+        <div id='bp_div'></div>
 
         <!-- CVD Risk Gauge Chart -->
         <div><h4>Cardiovascular Risks</h4></div> 
