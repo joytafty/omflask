@@ -7,6 +7,7 @@ from main import Main
 from login import Login
 from about import About
 from plans import Plans
+from charts import Charts
 #----------------------------------------
 # initialization
 #----------------------------------------
@@ -44,6 +45,9 @@ app.add_url_rule('/plans/',
                  methods=["GET", "POST"])
 app.add_url_rule('/about/',
                  view_func=About.as_view('about'),
+                 methods=["GET", "POST"])
+app.add_url_rule('/charts/',
+                 view_func=Charts.as_view('charts'),
                  methods=["GET", "POST"])
 
 # @app.errorhandler(404)
