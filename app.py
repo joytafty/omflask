@@ -8,6 +8,7 @@ from login import Login
 from about import About
 from plans import Plans
 from charts import Charts
+from d3charts import d3Charts
 #----------------------------------------
 # initialization
 #----------------------------------------
@@ -48,6 +49,9 @@ app.add_url_rule('/about/',
                  methods=["GET", "POST"])
 app.add_url_rule('/charts/',
                  view_func=Charts.as_view('charts'),
+                 methods=["GET", "POST"])
+app.add_url_rule('/d3charts/',
+                 view_func=d3Charts.as_view('d3charts'),
                  methods=["GET", "POST"])
 
 # @app.errorhandler(404)

@@ -3,8 +3,13 @@
     <title>OptMe Dashboard</title>
     <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://raw.github.com/NickQiZhu/dc.js/master/test/dc.css"/>
+    <!-- Loading D3 Visualization Library -->
+    <script type="text/javascript" src="http://mbostock.github.com/d3/d3.min.js"></script>
+    <script type="text/javascript" src="../static/js/dial.chart.js"></script>
+    
     <!-- Loading Google Visualization Library -->
     <script type='text/javascript' src='https://www.google.com/jsapi'></script>
+
     <!-- Loading Google Spreadsheet API -->
     <script type="text/javascript" src="google-spreadsheet.js"></script>
     
@@ -18,7 +23,7 @@
 
       // Anthropometrics Measurements
       function drawAnthro() {
-        var options = {'showRowNumber': true, 'allowHtml': true, width: '40%', height: '125%'};
+        var options = {'showRowNumber': true, 'allowHtml': true, width: '40%', height: '110%'};
         var d = google.visualization.arrayToDataTable([
           ['Measurements', 'Your Measure', 'Ideal Range', 'U.S. Average', 'Notes'],
           ['Height (inches)', 0, 0, 0, true],
@@ -48,28 +53,31 @@
       function drawStep() {
         // Create and populate the data table.
         var data = google.visualization.arrayToDataTable([
-          ['Day', 'Week1', 'Week2', 'Week3'],
-          ['Mon',  165,      938,         522],
-          ['Tue',  135,      1120,        599],
-          ['Wed',  157,      1167,        587],
-          ['Thu',  139,      1110,        615],
-          ['Fri',  157,      1167,        587],
-          ['Sat',  139,      1110,        615],
-          ['Sun',  136,      691,         629]
+          ['Day', 'Week1', 'Week2', 'Average'],
+          ['Mon',  10000,      9308,         9654],
+          ['Tue',  11200,      13500,        12350],
+          ['Wed',  15700,      11607,        13603.5],
+          ['Thu',  13900,      10110,        12005],
+          ['Fri',  11067,      15700,        13383.5],
+          ['Sat',  13090,      11210,        12150],
+          ['Sun',  6910,       10360,         8635]
         ]);
 
         // Create and draw the visualization.
         var ac = new google.visualization.ComboChart(document.getElementById('steps_div'));
         ac.draw(data, {
           title : 'Steps',
-          width: 500,
+          width: 450,
           height: 200,
           vAxis: {title: "Steps"},
           hAxis: {title: "Day of Week"},
           seriesType: "bars",
-          series: {3: {type: "line"}}
+          series: {2: {type: "line"}}
         });
       }
+
+      // Blood Pressure and Cholesterol
+
 
       // CVD Risks
       function drawGaugeCVD() {
@@ -114,7 +122,8 @@
           <ul class="nav pull-right">
             <li><a href="/">Welcome</a></li>
             <li><a href="{{url_for('main')}}">Main</a></li>
-            <li><a href="{{url_for('charts')}}">Charts</a></li>           
+            <li><a href="{{url_for('charts')}}">Google Charts</a></li>
+            <li><a href="{{url_for('d3charts')}}">D3 Charts</a></li>            
             {% if 'usr' in session %}
             <li><a href="{{url_for('login')}}">logout</a></li>
             {% else %}
@@ -126,29 +135,29 @@
         </div>
       </div>
     </div>
-  
-<div class="container page">
-    <div class="content">
-      {% block content %}
-  <!-- Table Anthropometrics -->
-    <div><h4>Anthropometric Measures</h4></div> 
-    <div id='anthro_div'></div>
 
-  <!-- Table Anthropometrics -->
-    <div><h4>Physical Activity</h4></div> 
-    <div id='phys_div'></div>
-    <div id='steps_div'></div>
+  <!-- Main Chart Content -->  
+    <div class="container page">
+      <div class="content">
+        {% block content %}
+        <!-- Table Anthropometrics -->
+        <div><h4>Anthropometric Measures</h4></div> 
+        <div id='anthro_div'></div>
 
-  <!-- CVD Risk Gauge Chart -->
-    <div><h4>Cardiovascular Risks</h4></div> 
-    <div id='gaugeCVD_div'>
-      <input type='button' value='Go Faster' onclick='changeTemp(1)' />
-      <input type='button' value='Slow down' onclick='changeTemp(-1)' />
+        <!-- Table Anthropometrics -->
+        <div><h4>Physical Activity</h4></div> 
+        <div id='phys_div'></div>
+        <div id='steps_div'></div>
+
+        <!-- CVD Risk Gauge Chart -->
+        <div><h4>Cardiovascular Risks</h4></div> 
+        <div id='gaugeCVD_div'>
+          <input type='button' value='Go Faster' onclick='changeTemp(1)' />
+          <input type='button' value='Slow down' onclick='changeTemp(-1)' />
+        </div>
+        {% endblock %}
+      </div>
     </div>
-      {% endblock %}
-    </div>
-  </div>
-</div>
 
   </body>
 </html>
