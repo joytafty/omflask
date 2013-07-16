@@ -1,7 +1,11 @@
+<!DOCTYPE html>
 <html>
   <head>
     <title>OptMe Dashboard</title>
-    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+    <!-- <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet"> -->
+    <link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://raw.github.com/NickQiZhu/dc.js/master/test/dc.css"/>
     <!-- Loading D3 Visualization Library -->
     <script type="text/javascript" src="http://mbostock.github.com/d3/d3.min.js"></script>
@@ -18,13 +22,15 @@
       google.load('visualization', '1', {packages:['corechart','gauge', 'ColumnChart', 'Table']});
       google.setOnLoadCallback(drawAnthro);
       google.setOnLoadCallback(drawPhys);
+      google.setOnLoadCallback(drawBMI);
       google.setOnLoadCallback(drawStep);
+      google.setOnLoadCallback(drawDiet);
       google.setOnLoadCallback(drawBP);
       google.setOnLoadCallback(drawGaugeCVD);      
 
       // Anthropometrics Measurements
       function drawAnthro() {
-        var options = {'showRowNumber': true, 'allowHtml': true, width: '40%', height: '110%'};
+        var options = {'showRowNumber': true, 'allowHtml': true, width: '100%', height: '110%'};
         var d = google.visualization.arrayToDataTable([
           ['Measurements', 'Your Measure', 'Ideal Range', 'U.S. Average', 'Notes'],
           ['Height (inches)', 0, 0, 0, true],
@@ -37,9 +43,36 @@
       dash.draw(d, options);
       }
 
+      // BMI 
+      function drawBMI() {
+        var d = google.visualization.arrayToDataTable([
+          ['Level', '18.5', '18.6-24.9', '25.0-29.9', '>30'],
+          ['',  18.5, 6.3, 4.9, 4.0]
+          ]);
+
+        // d.addColumn({type:'string', role:'annotation'});
+        // d.addColumn({type:'string', role:'annotationText'});
+
+        var options = {
+          title: 'Body Mass Index (kg/m2)',
+          isStacked: true,
+          legend: {position: 'none'},
+          width: '80%', height: '80%',
+          colors: ['#f3b49f', '#ec8f6e', '#e6693e','#e0440e']
+        };
+
+        var bmibar = new google.visualization.BarChart(document.getElementById('bmi_div'));
+        bmibar.draw(d, options);
+      }
+
       // Physical Activity
       function drawPhys() {
-        var options = {'showRowNumber': true, 'allowHtml': true, width: '40%', height: '110%'};
+        var options = {
+          'showRowNumber': true, 
+          'allowHtml': true, 
+          width: '80%', 
+          height: '110%'
+        };
         var d = google.visualization.arrayToDataTable([
           ['Measurements', 'Your Measure', 'Ideal Range', 'Notes'],
           ['Average daily steps', 0, 0, true],
@@ -68,14 +101,33 @@
         var ac = new google.visualization.ComboChart(document.getElementById('steps_div'));
         ac.draw(data, {
           title : 'Steps',
-          width: 450,
-          height: 200,
+          width: '80%',
+          height: '100%',
           vAxis: {title: "Steps"},
           hAxis: {title: "Day of Week"},
           seriesType: "bars",
           series: {2: {type: "line"}}
         });
       }
+
+      // Diet and Metabolism
+      function drawDiet() {
+        var options = {'showRowNumber': true, 'allowHtml': true, width: '100%', height: '110%'};
+        var d = google.visualization.arrayToDataTable([
+          ['Nutrient', 'Intake', 'Needs', 'Difference', 'Notes'],
+          ['Calories (kcals)', 0, 0, 0, true],
+          ['Fat (g)', 0, 0, 0, true],
+          ['Saturated Fat (g)', 0, 0, 0, true],
+          ['Protein (g)', 0, 0, 0, false],
+          ['Carbohygrate (g)', 0, 0, 0, true],
+          ['Fiber (g)', 0, 0, 0, true],
+          ['Sodium (mg)', 0, 0, 0, true]
+        ]);
+          // Create and draw the visualization.
+      var dash = new google.visualization.Table(document.getElementById('diet_div'));
+      dash.draw(d, options);
+      }
+
 
       // Blood Pressure and Cholesterol
       function drawBP() {
@@ -105,7 +157,7 @@
         ]);
 
         var options = {
-          width: 600, height: 200,
+          width: '100%', height: 200,
           redFrom: 80, redTo: 100,
           yellowFrom:50, yellowTo: 80,
           greenFrom:0, greenTo:50,
@@ -126,9 +178,9 @@
 
   <body>
   <!-- Navigation Bar -->
-    <div class="navbar navbar-fixed-top">
+    <div class="navbar">
     <div class="navbar-inner">
-      <div class="container">
+      <div class="container-fluid">
         <a class="brand" href="/">[Optimize Me]</a>
         <div class="nav-collapse">
           <ul class="nav">
@@ -152,28 +204,46 @@
     </div>
 
   <!-- Main Chart Content -->  
-    <div class="container page">
-      <div class="content">
+    <div class="container-fluid">
+      <div class="row-fluid">
         {% block content %}
+        
         <!-- Table Anthropometrics -->
-        <div><h4>Anthropometric Measures</h4></div> 
-        <div id='anthro_div'></div>
+        <div class="span6">
+          <h4>Anthropometric Measures</h4>
+          <div id='anthro_div'></div>
+          <div id='bmi_div'></div>
+        </div> 
+        
+        <!-- Table Physical Activity -->
+        <div class="span6">
+          <h4>Physical Activity</h4>
+          <div id='phys_div'></div>
+          <div id='steps_div'></div>
+        </div> 
 
-        <!-- Table Anthropometrics -->
-        <div><h4>Physical Activity</h4></div> 
-        <div id='phys_div'></div>
-        <div id='steps_div'></div>
+        <!-- Table Diet -->
+        <div class="span6">
+          <h4>Diet and Metabolism</h4>
+          <div id='diet_div'></div>
+        </div> 
 
-        <!-- Table Anthropometrics -->
-        <div><h4>Blood Pressure and Cholesterol</h4></div> 
-        <div id='bp_div'></div>
-
+        <!-- Bar Blood Pressure and Cholesterol -->
+        <div class="span6">
+          <h4>Blood Pressure and Cholesterol</h4>
+          <div id='bp_div'></div>
+        </div> 
+ 
         <!-- CVD Risk Gauge Chart -->
-        <div><h4>Cardiovascular Risks</h4></div> 
-        <div id='gaugeCVD_div'>
+        <div class="span6">
+          <h4>Longevity</h4>
+          <h5>Your cardiovascular risks</h5>
+          <div id='gaugeCVD_div'>
           <input type='button' value='Go Faster' onclick='changeTemp(1)' />
           <input type='button' value='Slow down' onclick='changeTemp(-1)' />
-        </div>
+          </div>
+          <h5>Life expectency</h5>
+        </div> 
         {% endblock %}
       </div>
     </div>
