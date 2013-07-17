@@ -53,7 +53,7 @@ app.add_url_rule('/charts/',
 app.add_url_rule('/d3charts/',
                  view_func=d3Charts.as_view('d3charts'),
                  methods=["GET", "POST"])
-
+# 
 # @app.errorhandler(404)
 # def page_not_found(e):
 # 	return render_template('404.html'), 404

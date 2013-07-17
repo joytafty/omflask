@@ -14,8 +14,8 @@
     <div class="navbar">
     <div class="navbar-inner">
       <div class="container">
-        <a class="brand" href="/">[Optimize Me]</a>
-        <div class="nav-collapse">
+        <a class="brand" href="/"><img src="/static/img/optmelogo.png" alt="OptMeLogo" height="24"></a>
+<!--         <div class="nav-collapse">
           <ul class="nav">
           </ul>
           {% block navbar_right %}
@@ -33,7 +33,7 @@
           </ul>
           {% endblock %}          
         </div>
-      </div>
+ -->      </div>
     </div>
 
   <div class="container-fluid">
@@ -69,20 +69,20 @@
   
     text.label {
       font-family: Arial;
-      font-size: 12px;
+      font-size: 10px;
       fill: white; 
     }
 
     #dial-1 text.label {
-      font-size: 12px;      
+      font-size: 10px;      
     } 
 
     #dial-2 text.label {
-      font-size: 12px;      
+      font-size: 10px;      
     } 
 
     #dial-3 text.label {
-      font-size: 12px;      
+      font-size: 10px;      
     } 
 
     </style>
@@ -93,14 +93,13 @@
 
       (function(chartselector) {
 
-        var w = 960,
-          h = 500;
+        var w = 500, h = 500, rr = 100;
 
         var layout = [ 
-          { x: 125, y: 125, r: 100, m: 100, ticks: 10, mark: 'line', dtit:'full CVD (BMI)'}, 
-          { x: 400, y: 125, r: 100, m: 100, ticks: 2, mark: 'line', dtit:'hard CVD (BMI)' }, 
-          { x: 125, y: 375, r: 100, m: 100, ticks: 2, mark: 'line', dtit:'full CVD (lipids)' }, 
-          { x: 400, y: 375, r: 100, m: 100, ticks: 2, mark: 'line', dtit:'full CVD (lipids)' } 
+          { x: 1.2*rr, y: 125, r: rr, m: 100, ticks: 10, mark: 'line', dtit:'full CVD (BMI)'}, 
+          { x: 3.6*rr, y: 125, r: rr, m: 100, ticks: 2, mark: 'line', dtit:'hard CVD (BMI)' }, 
+          { x: 1.2*rr, y: 375, r: rr, m: 100, ticks: 2, mark: 'line', dtit:'full CVD (lipids)' }, 
+          { x: 3.6*rr, y: 375, r: rr, m: 100, ticks: 2, mark: 'line', dtit:'hard CVD (lipids)' } 
         ];
         var charts = layout.map(function(d) { 
           return NBXDialChart()
@@ -126,6 +125,7 @@
 
         dials.each(function(d, i) { d3.select(this).data([20]).call(charts[i]); });
 
+        // Append dial units
         dials.append("text")
           .data(layout)
           .attr("x", function(d) {return d.r;})
@@ -162,95 +162,53 @@
     <div id="chart" class="span6">
     <h4>Inside Tracker data</h4>
       <!-- Line Plot -->
+
       <style>
-        .background path {
-          fill: none;
-          stroke: none;
-          stroke-width: 20px;
-          pointer-events: stroke;
-        }
 
-        .foreground path {
-          fill: none;
-          stroke: steelblue;
-          stroke-width: 1.5px;
-        }
+      body {
+        font: 10px sans-serif;
+      }
 
-        .axis .title {
-          font-size: 11px;
-          font-weight: bold;
-          text-transform: uppercase;
-        }
+      .axis path,
+      .axis line {
+        fill: none;
+        stroke: #000;
+        shape-rendering: crispEdges;
+      }
 
-        .axis line,
-        .axis path {
-          fill: none;
-          stroke: #000;
-          shape-rendering: crispEdges;
-        }
+      .bar {
+        fill: steelblue;
+      }
 
-        .label {
-          -webkit-transition: fill 125ms linear;
-        }
+      .x.axis path {
+        display: none;
+      }
 
-        .active .label:not(.inactive) {
-          font-weight: bold;
-        }
-
-        .label.inactive {
-          fill: #ccc;
-        }
-
-        .foreground path.inactive {
-          stroke: #ccc;
-          stroke-opacity: .5;
-          stroke-width: 1px;
-        }
       </style>
-      <script src="http://d3js.org/d3.v2.min.js"></script>
+      <script src="http://d3js.org/d3.v3.min.js"></script>
       <script>
 
-      var margin = {top: 30, right: 40, bottom: 20, left: 200},
+      var margin = {top: 20, right: 20, bottom: 30, left: 40},
           width = 960 - margin.left - margin.right,
           height = 500 - margin.top - margin.bottom;
 
-      var dimensions = [
-        {
-          name: "name",
-          scale: d3.scale.ordinal().rangePoints([0, height]),
-          type: String
-        },
-        {
-          name: "Acc. 40º 150%",
-          scale: d3.scale.linear().range([0, height]),
-          type: Number
-        },
-        {
-          name: "Scale",
-          scale: d3.scale.linear().range([height, 0]),
-          type: Number
-        },
-        {
-          name: "Areal",
-          scale: d3.scale.sqrt().range([height, 0]),
-          type: Number
-        },
-        {
-          name: "Angular",
-          scale: d3.scale.linear().range([height, 0]),
-          type: Number
-        }
-      ];
-
       var x = d3.scale.ordinal()
-          .domain(dimensions.map(function(d) { return d.name; }))
-          .rangePoints([0, width]);
+          .rangeRoundBands([0, width], .1);
 
-      var line = d3.svg.line()
-          .defined(function(d) { return !isNaN(d[1]); });
+      var y = d3.scale.linear()
+          .rangeRound([height, 0]);
+
+      var color = d3.scale.ordinal()
+          .range(["#FFFF66", "#FFFF99", "#CCFF99", "#99FF33", "#99CC00", "#FF6666", "#FF0000"]);
+
+      var xAxis = d3.svg.axis()
+          .scale(x)
+          .orient("bottom");
 
       var yAxis = d3.svg.axis()
-          .orient("left");
+          .scale(y)
+          .orient("left")
+          .tickFormat(d3.format(".2s"));
 
       var svg = d3.select("body").append("svg")
           .attr("width", width + margin.left + margin.right)
@@ -258,81 +216,72 @@
         .append("g")
           .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-      var dimension = svg.selectAll(".dimension")
-          .data(dimensions)
-        .enter().append("g")
-          .attr("class", "dimension")
-          .attr("transform", function(d) { return "translate(" + x(d.name) + ")"; });    
+      d3.csv('{{url_for('static', filename='data.csv')}}', function(error, data) {
+        color.domain(d3.keys(data[0]).filter(function(key) { return key !== "State"; }));
 
-      d3.tsv('./insidetrackerdat.tsv', function(data) {
-        dimensions.forEach(function(dimension) {
-          dimension.scale.domain(dimension.type === Number
-              ? d3.extent(data, function(d) { return +d[dimension.name]; })
-              : data.map(function(d) { return d[dimension.name]; }).sort());
+        data.forEach(function(d) {
+          var y0 = 0;
+          d.ages = color.domain().map(function(name) { return {name: name, y0: y0, y1: y0 += +d[name]}; });
+          d.total = d.ages[d.ages.length - 1].y1;
         });
 
-        svg.append("g")
-            .attr("class", "background")
-          .selectAll("path")
-            .data(data)
-          .enter().append("path")
-            .attr("d", draw);
+        data.sort(function(a, b) { return b.total - a.total; });
+
+        x.domain(data.map(function(d) { return d.State; }));
+        y.domain([0, d3.max(data, function(d) { return d.total; })]);
 
         svg.append("g")
-            .attr("class", "foreground")
-          .selectAll("path")
-            .data(data)
-          .enter().append("path")
-            .attr("d", draw);
+            .attr("class", "x axis")
+            .attr("transform", "translate(0," + height + ")")
+            .call(xAxis);
 
-        dimension.append("g")
-            .attr("class", "axis")
-            .each(function(d) { 
-              console.log(d);
-              d3.select(this).call(yAxis.scale(d.scale)); 
-            })
+        svg.append("g")
+            .attr("class", "y axis")
+            .call(yAxis)
           .append("text")
-            .attr("class", "title")
-            .attr("text-anchor", "middle")
-            .attr("y", -9)
-            .text(function(d) { return d.name; });
+            .attr("transform", "rotate(-90)")
+            .attr("y", 6)
+            .attr("dy", ".71em")
+            .style("text-anchor", "end")
+            .text("Blood Biomarkers");
 
-        // Rebind the axis data to simplify mouseover.
-        svg.select(".axis").selectAll("text:not(.title)")
-            .attr("class", "label")
-            .data(data, function(d) { return d.name || d; });
+        var state = svg.selectAll(".state")
+            .data(data)
+          .enter().append("g")
+            .attr("class", "g")
+            .attr("transform", function(d) { return "translate(" + x(d.State) + ",0)"; });
 
-        var projection = svg.selectAll(".axis text,.background path,.foreground path")
-            .on("mouseover", mouseover)
-            .on("mouseout", mouseout);
+        state.selectAll("rect")
+            .data(function(d) { return d.ages; })
+          .enter().append("rect")
+            .attr("width", x.rangeBand())
+            .attr("y", function(d) { return y(d.y1); })
+            .attr("height", function(d) { return y(d.y0) - y(d.y1); })
+            .style("fill", function(d) { return color(d.name); });
 
-        function mouseover(d) {
-          svg.classed("active", true);
-          projection.classed("inactive", function(p) { return p !== d; });
-          projection.filter(function(p) { return p === d; }).each(moveToFront);
-        }
+        var legend = svg.selectAll(".legend")
+            .data(color.domain().slice().reverse())
+          .enter().append("g")
+            .attr("class", "legend")
+            .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
 
-        function mouseout(d) {
-          svg.classed("active", false);
-          projection.classed("inactive", false);
-        }
+        legend.append("rect")
+            .attr("x", width - 18)
+            .attr("width", 18)
+            .attr("height", 18)
+            .style("fill", color);
 
-        function moveToFront() {
-          this.parentNode.appendChild(this);
-        }
+        legend.append("text")
+            .attr("x", width - 24)
+            .attr("y", 9)
+            .attr("dy", ".35em")
+            .style("text-anchor", "end")
+            .text(function(d) { return d; });
+
       });
-
-      function draw(d) {
-        return line(dimensions.map(function(dimension) {
-          return [x(dimension.name), dimension.scale(d[dimension.name])];
-        }));
-      }
-
       </script>
-
-
-    </div>
-
+      </div>
+  <!-- End Line Plot -->
   </div> 
   <!-- End Container -->
 

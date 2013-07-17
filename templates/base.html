@@ -14,15 +14,15 @@
 	{% block navbar %}
 	<div class="navbar navbar-fixed-top">
 		<div class="navbar-inner">
-			<div class="container">
-				<a class="brand" href="/">[Optimize Me]</a>
+			<div class="container-fluid">
+				<a class="brand" href="/"><img src="/static/img/optmelogo.png" alt="OptMeLogo" height="24"></a>
 				<div class="nav-collapse">
 					<ul class="nav">
 					</ul>
 					{% block navbar_right %}
 					<ul class="nav pull-right">
 						<li><a href="/">Welcome</a></li>
-						<li><a href="{{url_for('main')}}">Main</a></li>
+<!-- 						<li><a href="{{url_for('main')}}">Main</a></li> -->
 						<li><a href="{{url_for('charts')}}">Google Charts</a></li>
 						<li><a href="{{url_for('d3charts')}}">D3 Charts</a></li>						
 						{% if 'usr' in session %}
@@ -30,7 +30,7 @@
 						{% else %}
 						<li><a href="{{url_for('login')}}">login</a></li>
 						{% endif %}
-						<li><a href="{{url_for('about')}}">About</a></li>
+						<!-- <li><a href="{{url_for('about')}}">About</a></li> -->
 					</ul>
 					{% endblock %}					
 				</div>
