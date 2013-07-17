@@ -4,7 +4,7 @@
 	<h3>Please log in to access your dashboard</h3>
 	<!-- Logged in -->
 	{% if 'usr' in session %}
-		<p>Welcome back {{session['usr']}} :) </p>
+		<p>Welcome back {{session['usr']}} !</p>
 		<form action="{{url_for('login')}}" method="post">
 			<input type="submit" name="logout" value="logout" />
 		</form>

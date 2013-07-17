@@ -2,8 +2,7 @@ import flask, flask.views
 
 # Dictionary of username and password
 users = {'jrimchala':'bacon', 
-        'jrimchala2':'lovebacon',
-        'jrim':'bacony'}
+        'redstar':'redstar123'};
 
 class Login(flask.views.MethodView):
     def get(self):

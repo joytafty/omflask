@@ -23,10 +23,12 @@
 					<ul class="nav pull-right">
 						<li><a href="/">Welcome</a></li>
 <!-- 						<li><a href="{{url_for('main')}}">Main</a></li> -->
-						<li><a href="{{url_for('charts')}}">Google Charts</a></li>
-						<li><a href="{{url_for('d3charts')}}">D3 Charts</a></li>						
+<!-- 						<li><a href="{{url_for('charts')}}">Google Charts</a></li>
+						<li><a href="{{url_for('d3charts')}}">D3 Charts</a></li>						 -->
 						{% if 'usr' in session %}
 						<li><a href="{{url_for('login')}}">logout</a></li>
+						<li><a href="{{url_for('charts')}}">Google Charts</a></li>
+						<li><a href="{{url_for('d3charts')}}">D3 Charts</a></li>						
 						{% else %}
 						<li><a href="{{url_for('login')}}">login</a></li>
 						{% endif %}
