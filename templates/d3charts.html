@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-    <title>dials</title>       
+    <title>Alternative Gauge Plot</title>       
     <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
     <script type="text/javascript" src="http://mbostock.github.com/d3/d3.min.js"></script>
     <script type="text/javascript" src="../static/js/dial.chart.js"></script>
@@ -19,6 +19,10 @@
 
     #dial-2 .needle path {
       fill: steelblue;
+    }
+
+    #dial-3 .needle path {
+      fill: beige;
     }
           
     circle.label {
@@ -37,11 +41,15 @@
     }
 
     #dial-1 text.label {
-      font-size: 16px;      
+      font-size: 12px;      
     } 
 
     #dial-2 text.label {
-      font-size: 14px;      
+      font-size: 12px;      
+    } 
+
+    #dial-2 text.label {
+      font-size: 12px;      
     } 
 
     </style>
@@ -50,7 +58,7 @@
 <body style="background-color:#FFFFFF">
 
 <!-- Navigation Bar -->
-    <div class="navbar navbar-fixed-top">
+    <div class="navbar">
     <div class="navbar-inner">
       <div class="container">
         <a class="brand" href="/">[Optimize Me]</a>
@@ -75,10 +83,13 @@
       </div>
     </div>
 
+  <div class="container-fluid">
+
   <!-- Gauge Plot -->
-  <button id="update" onclick="transition()">Update</button>
-  <div id="chart">
-  </div>
+  <div id="chart" class="span6">
+  <h4>Alternative Gauge Chart</h4>
+  <button id="update" onclick="increase()">Increase</button>
+  <button id="update" onclick="increase()">Decrease</button>
   <script type="text/javascript">
 
     (function(chartselector) {
@@ -87,9 +98,10 @@
           h = 500;
 
       var layout = [ 
-        { x: 150, y: 250, r: 80, m: 100, ticks: 2, mark: 'line' }, 
-        { x: 460, y: 250, r: 100, m: 50, ticks: 4, mark: 'line' }, 
-        { x: 810, y: 250, r: 80, m: 80, ticks: 2, mark: 'circle' } 
+        { x: 300, y: 150, r: 80, m: 100, ticks: 10, mark: 'line', dtit:'boo2'}, 
+        { x: 500, y: 150, r: 80, m: 100, ticks: 2, mark: 'line', dtit:'boo3' }, 
+        { x: 300, y: 350, r: 80, m: 100, ticks: 2, mark: 'line', dtit:'boo4' }, 
+        { x: 500, y: 350, r: 80, m: 100, ticks: 2, mark: 'line', dtit:'boo5' } 
       ];
       var charts = layout.map(function(d) { 
         return NBXDialChart()
@@ -115,7 +127,17 @@
 
       dials.each(function(d, i) { d3.select(this).data([20]).call(charts[i]); });
 
-      window.transition = function() {
+      dials.append("text")
+        .attr("x", 80)
+        .attr("y", 100)
+        .style("text-anchor", "middle")
+        .style("fill", "beige")
+        .text(
+          // function(d,i) {return "risk " + (i+1)}
+          function(d,i) {return "risk " + (i+1)}
+          );
+
+      window.increase = function() {
         dials.each(function(d, i) { 
           d3.select(this)
               .data([ Math.random() * charts[i].domain()[1] ])
@@ -125,6 +147,8 @@
 
     })('#chart');
   </script>
-  
+  </div>
+  </div>
+
 </body>
 </html>
