@@ -7,56 +7,9 @@
     <script type="text/javascript" src="http://mbostock.github.com/d3/d3.min.js"></script>
     <script type="text/javascript" src="../static/js/dial.chart.js"></script>
 
-    <style type="text/css">
-
-    #dial-0 .needle path {
-      fill: beige;
-    }
-
-    #dial-1 .needle path {
-      fill: #b21f24;
-    }
-
-    #dial-2 .needle path {
-      fill: steelblue;
-    }
-
-    #dial-3 .needle path {
-      fill: beige;
-    }
-          
-    circle.label {
-      fill: white;
-    }       
-    
-    line.label {
-      stroke: white; 
-      stroke-width: 1px;
-    }
-    
-    text.label {
-      font-family: Arial;
-      font-size: 12px;
-      fill: white; 
-    }
-
-    #dial-1 text.label {
-      font-size: 12px;      
-    } 
-
-    #dial-2 text.label {
-      font-size: 12px;      
-    } 
-
-    #dial-2 text.label {
-      font-size: 12px;      
-    } 
-
-    </style>
-
   </head>
-<body style="background-color:#FFFFFF">
 
+<body style="background-color:#FFFFFF">
 <!-- Navigation Bar -->
     <div class="navbar">
     <div class="navbar-inner">
@@ -85,70 +38,303 @@
 
   <div class="container-fluid">
 
-  <!-- Gauge Plot -->
-  <div id="chart" class="span6">
-  <h4>Alternative Gauge Chart</h4>
-  <button id="update" onclick="increase()">Increase</button>
-  <button id="update" onclick="increase()">Decrease</button>
-  <script type="text/javascript">
+    <!-- Gauge Plot -->
+    <div id="chart" class="span6">
+    <style type="text/css">
 
-    (function(chartselector) {
+    #dial-0 .needle path {
+      fill: beige;
+    }
 
-      var w = 960,
+    #dial-1 .needle path {
+      fill: #b21f24;
+    }
+
+    #dial-2 .needle path {
+      fill: steelblue;
+    }
+
+    #dial-3 .needle path {
+      fill: beige;
+    }
+        
+    circle.label {
+      fill: white;
+    }       
+  
+    line.label {
+      stroke: white; 
+      stroke-width: 1px;
+    }
+  
+    text.label {
+      font-family: Arial;
+      font-size: 12px;
+      fill: white; 
+    }
+
+    #dial-1 text.label {
+      font-size: 12px;      
+    } 
+
+    #dial-2 text.label {
+      font-size: 12px;      
+    } 
+
+    #dial-3 text.label {
+      font-size: 12px;      
+    } 
+
+    </style>
+    <h4>Predicted CVD Risks</h4>
+    <button id="update" onclick="increase()">Increase</button>
+    <button id="update" onclick="increase()">Decrease</button>
+    <script type="text/javascript">
+
+      (function(chartselector) {
+
+        var w = 960,
           h = 500;
 
-      var layout = [ 
-        { x: 300, y: 150, r: 80, m: 100, ticks: 10, mark: 'line', dtit:'boo2'}, 
-        { x: 500, y: 150, r: 80, m: 100, ticks: 2, mark: 'line', dtit:'boo3' }, 
-        { x: 300, y: 350, r: 80, m: 100, ticks: 2, mark: 'line', dtit:'boo4' }, 
-        { x: 500, y: 350, r: 80, m: 100, ticks: 2, mark: 'line', dtit:'boo5' } 
-      ];
-      var charts = layout.map(function(d) { 
-        return NBXDialChart()
-          .width(d.r * 2)
-          .height(d.r * 2)
-          .domain([0, d.m])
-          .range([-150, 150])
-          .minorTicks(d.ticks)
-          .minorMark(d.mark);
-      });      
+        var layout = [ 
+          { x: 125, y: 125, r: 100, m: 100, ticks: 10, mark: 'line', dtit:'full CVD (BMI)'}, 
+          { x: 400, y: 125, r: 100, m: 100, ticks: 2, mark: 'line', dtit:'hard CVD (BMI)' }, 
+          { x: 125, y: 375, r: 100, m: 100, ticks: 2, mark: 'line', dtit:'full CVD (lipids)' }, 
+          { x: 400, y: 375, r: 100, m: 100, ticks: 2, mark: 'line', dtit:'full CVD (lipids)' } 
+        ];
+        var charts = layout.map(function(d) { 
+          return NBXDialChart()
+            .width(d.r * 2)
+            .height(d.r * 2)
+            .domain([0, d.m])
+            .range([-150, 150])
+            .minorTicks(d.ticks)
+            .minorMark(d.mark);
+        });      
       
-      var svg = d3.select(chartselector)
-        .append('svg:svg')
-          .attr('width', w) 
-          .attr('height', h);
+        var svg = d3.select(chartselector)
+          .append('svg:svg')
+            .attr('width', w) 
+            .attr('height', h);
       
-      var dials = svg.selectAll('g.dial')
+        var dials = svg.selectAll('g.dial')
+            .data(layout)
+          .enter().append('svg:g')
+            .attr('class', 'dial')
+            .attr('id', function(d, i) { return 'dial-' + i; })
+            .attr('transform', function(d) { return 'translate(' + (d.x - d.r) + ',' + (d.y - d.r) + ')'; } );
+
+        dials.each(function(d, i) { d3.select(this).data([20]).call(charts[i]); });
+
+        dials.append("text")
           .data(layout)
-        .enter().append('svg:g')
-          .attr('class', 'dial')
-          .attr('id', function(d, i) { return 'dial-' + i; })
-          .attr('transform', function(d) { return 'translate(' + (d.x - d.r) + ',' + (d.y - d.r) + ')'; } );
+          .attr("x", function(d) {return d.r;})
+          .attr("y", function(d) {return 1.75*d.r})
+          .style("text-anchor", "middle")
+          .style("fill", "beige")
+          .text("(%)");
 
-      dials.each(function(d, i) { d3.select(this).data([20]).call(charts[i]); });
+        // Append dial name
+        dials.append("text")
+          .data(layout)
+          .attr("x", function(d) {return d.r;})
+          .attr("y", function(d) {return 0.8*d.r})
+          .style("text-anchor", "middle")
+          .style("fill", "beige")
+          .text(
+            function(d,i) {
+              return d.dtit;
+            });
 
-      dials.append("text")
-        .attr("x", 80)
-        .attr("y", 100)
-        .style("text-anchor", "middle")
-        .style("fill", "beige")
-        .text(
-          // function(d,i) {return "risk " + (i+1)}
-          function(d,i) {return "risk " + (i+1)}
-          );
-
-      window.increase = function() {
-        dials.each(function(d, i) { 
-          d3.select(this)
+        window.increase = function() {
+          dials.each(function(d, i) { 
+            d3.select(this)
               .data([ Math.random() * charts[i].domain()[1] ])
-            .call(charts[i]); 
-        });
-      };
+              .call(charts[i]); 
+          });
+        };
 
-    })('#chart');
-  </script>
-  </div>
-  </div>
+      })('#chart');
+    </script>
+    </div> 
+    <!-- End Gauge Chart -->
+
+    <div id="chart" class="span6">
+    <h4>Inside Tracker data</h4>
+      <!-- Line Plot -->
+      <style>
+        .background path {
+          fill: none;
+          stroke: none;
+          stroke-width: 20px;
+          pointer-events: stroke;
+        }
+
+        .foreground path {
+          fill: none;
+          stroke: steelblue;
+          stroke-width: 1.5px;
+        }
+
+        .axis .title {
+          font-size: 11px;
+          font-weight: bold;
+          text-transform: uppercase;
+        }
+
+        .axis line,
+        .axis path {
+          fill: none;
+          stroke: #000;
+          shape-rendering: crispEdges;
+        }
+
+        .label {
+          -webkit-transition: fill 125ms linear;
+        }
+
+        .active .label:not(.inactive) {
+          font-weight: bold;
+        }
+
+        .label.inactive {
+          fill: #ccc;
+        }
+
+        .foreground path.inactive {
+          stroke: #ccc;
+          stroke-opacity: .5;
+          stroke-width: 1px;
+        }
+      </style>
+      <script src="http://d3js.org/d3.v2.min.js"></script>
+      <script>
+
+      var margin = {top: 30, right: 40, bottom: 20, left: 200},
+          width = 960 - margin.left - margin.right,
+          height = 500 - margin.top - margin.bottom;
+
+      var dimensions = [
+        {
+          name: "name",
+          scale: d3.scale.ordinal().rangePoints([0, height]),
+          type: String
+        },
+        {
+          name: "Acc. 40º 150%",
+          scale: d3.scale.linear().range([0, height]),
+          type: Number
+        },
+        {
+          name: "Scale",
+          scale: d3.scale.linear().range([height, 0]),
+          type: Number
+        },
+        {
+          name: "Areal",
+          scale: d3.scale.sqrt().range([height, 0]),
+          type: Number
+        },
+        {
+          name: "Angular",
+          scale: d3.scale.linear().range([height, 0]),
+          type: Number
+        }
+      ];
+
+      var x = d3.scale.ordinal()
+          .domain(dimensions.map(function(d) { return d.name; }))
+          .rangePoints([0, width]);
+
+      var line = d3.svg.line()
+          .defined(function(d) { return !isNaN(d[1]); });
+
+      var yAxis = d3.svg.axis()
+          .orient("left");
+
+      var svg = d3.select("body").append("svg")
+          .attr("width", width + margin.left + margin.right)
+          .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+          .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+      var dimension = svg.selectAll(".dimension")
+          .data(dimensions)
+        .enter().append("g")
+          .attr("class", "dimension")
+          .attr("transform", function(d) { return "translate(" + x(d.name) + ")"; });    
+
+      d3.tsv('./insidetrackerdat.tsv', function(data) {
+        dimensions.forEach(function(dimension) {
+          dimension.scale.domain(dimension.type === Number
+              ? d3.extent(data, function(d) { return +d[dimension.name]; })
+              : data.map(function(d) { return d[dimension.name]; }).sort());
+        });
+
+        svg.append("g")
+            .attr("class", "background")
+          .selectAll("path")
+            .data(data)
+          .enter().append("path")
+            .attr("d", draw);
+
+        svg.append("g")
+            .attr("class", "foreground")
+          .selectAll("path")
+            .data(data)
+          .enter().append("path")
+            .attr("d", draw);
+
+        dimension.append("g")
+            .attr("class", "axis")
+            .each(function(d) { 
+              console.log(d);
+              d3.select(this).call(yAxis.scale(d.scale)); 
+            })
+          .append("text")
+            .attr("class", "title")
+            .attr("text-anchor", "middle")
+            .attr("y", -9)
+            .text(function(d) { return d.name; });
+
+        // Rebind the axis data to simplify mouseover.
+        svg.select(".axis").selectAll("text:not(.title)")
+            .attr("class", "label")
+            .data(data, function(d) { return d.name || d; });
+
+        var projection = svg.selectAll(".axis text,.background path,.foreground path")
+            .on("mouseover", mouseover)
+            .on("mouseout", mouseout);
+
+        function mouseover(d) {
+          svg.classed("active", true);
+          projection.classed("inactive", function(p) { return p !== d; });
+          projection.filter(function(p) { return p === d; }).each(moveToFront);
+        }
+
+        function mouseout(d) {
+          svg.classed("active", false);
+          projection.classed("inactive", false);
+        }
+
+        function moveToFront() {
+          this.parentNode.appendChild(this);
+        }
+      });
+
+      function draw(d) {
+        return line(dimensions.map(function(dimension) {
+          return [x(dimension.name), dimension.scale(d[dimension.name])];
+        }));
+      }
+
+      </script>
+
+
+    </div>
+
+  </div> 
+  <!-- End Container -->
 
 </body>
 </html>
