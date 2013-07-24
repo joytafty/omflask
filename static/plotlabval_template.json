@@ -1,0 +1,35 @@
+{
+    "id": 1,
+    "jsonrpc": "2.0",
+    "total": 2,
+    "result": [
+        {
+            "marker": "Glu",
+            "refs": [
+                0,
+                65,
+                94,
+                99,
+                126
+            ],
+            "measured": {
+                "value": 87,
+                "datetime": "04-17-2013"
+            }
+        },
+        {
+            "marker": "Ca",
+            "refs": [
+                0,
+                8.7,
+                9.3,
+                9.9,
+                10.2
+            ],
+            "measured": {
+                "value": 9.7,
+                "datetime": "04-17-2013"
+            }
+        }
+    ]
+}

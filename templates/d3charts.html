@@ -161,7 +161,7 @@
 
     <div id="chart" class="span6">
     <h4>Inside Tracker data</h4>
-      <!-- Line Plot -->
+      <!-- Bar Plot -->
 
       <style>
 
@@ -188,9 +188,9 @@
       <script src="http://d3js.org/d3.v3.min.js"></script>
       <script>
 
-      var margin = {top: 20, right: 20, bottom: 30, left: 40},
-          width = 960 - margin.left - margin.right,
-          height = 500 - margin.top - margin.bottom;
+      var margin = {top: 20, right: 20, bottom: 120, left: 100},
+          width = 360 - margin.left - margin.right,
+          height = 400 - margin.top - margin.bottom;
 
       var x = d3.scale.ordinal()
           .rangeRoundBands([0, width], .1);
@@ -198,8 +198,10 @@
       var y = d3.scale.linear()
           .rangeRound([height, 0]);
 
+      // Plot color "domain" specified by "types" of range value
+      // Color "range" specfied here
       var color = d3.scale.ordinal()
-          .range(["#FFFF66", "#FFFF99", "#CCFF99", "#99FF33", "#99CC00", "#FF6666", "#FF0000"]);
+          .range(["#FF6666", "#FFFF99", "#99FF33", "#FFFF99", "#FF6666"]);
 
       var xAxis = d3.svg.axis()
           .scale(x)
@@ -216,69 +218,163 @@
         .append("g")
           .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-      d3.csv('{{url_for('static', filename='data.csv')}}', function(error, data) {
-        color.domain(d3.keys(data[0]).filter(function(key) { return key !== "State"; }));
+      d3.csv('{{url_for('static', filename='datainsidetracker_onemarker.csv')}}', function(error, data) {
+        color.domain(d3.keys(data[0]).filter(function(key) {return (key != "Marker" && key != "Unit" && key != "date")}));
+        
+        data.forEach( function(d,i) {
+          var z0 = 0;
+          d.vran = color.domain().map(function(name) {
+            return {name: name, z0:z0, z1: z0 += +d[name], zd: +d[name]};
+          });
 
         data.forEach(function(d) {
-          var y0 = 0;
-          d.ages = color.domain().map(function(name) { return {name: name, y0: y0, y1: y0 += +d[name]}; });
-          d.total = d.ages[d.ages.length - 1].y1;
-        });
+            var y0 = 0;
+            d.ages = color.domain().map(function(name) { 
+              return {
+                name: name, 
+                y0: y0, 
+                y1: y0 += +d[name],
+                y2: +d[name]
+              }; 
+            });
+            // d.ages.forEach(function(d) { d.y0 /= y0; d.y1 /= y0; d.y2 /= y0;});
+            d.total = d.ages[d.ages.length - 1].y1;
+          });
 
-        data.sort(function(a, b) { return b.total - a.total; });
-
-        x.domain(data.map(function(d) { return d.State; }));
+        // Make SVG
+        x.domain(data.map(function (d) {return d.date; }));
         y.domain([0, d3.max(data, function(d) { return d.total; })]);
+        
+        gx = svg.append('g')
+              .attr("class", "x axis")
+              .attr("transform", "translate(0," + height + ")")
+              .call(xAxis);
 
-        svg.append("g")
-            .attr("class", "x axis")
-            .attr("transform", "translate(0," + height + ")")
-            .call(xAxis);
-
-        svg.append("g")
+        gy = svg.append('g')
             .attr("class", "y axis")
             .call(yAxis)
-          .append("text")
-            .attr("transform", "rotate(-90)")
-            .attr("y", 6)
-            .attr("dy", ".71em")
-            .style("text-anchor", "end")
-            .text("Blood Biomarkers");
+            .append('text');
 
-        var state = svg.selectAll(".state")
-            .data(data)
-          .enter().append("g")
-            .attr("class", "g")
-            .attr("transform", function(d) { return "translate(" + x(d.State) + ",0)"; });
+        date = svg.selectAll(".date")
+              .data(data)
+            .enter().append("g")
+              .attr("class", "date")
+              .attr('transform', function(d) { 
+                return "translate(" + x(d.date) + ",0)"; });
 
-        state.selectAll("rect")
-            .data(function(d) { return d.ages; })
-          .enter().append("rect")
+        date.selectAll('rect')
+            .data(function (d) {
+              return d.ages;
+            })
+          .enter().append('rect')
             .attr("width", x.rangeBand())
             .attr("y", function(d) { return y(d.y1); })
             .attr("height", function(d) { return y(d.y0) - y(d.y1); })
             .style("fill", function(d) { return color(d.name); });
 
-        var legend = svg.selectAll(".legend")
-            .data(color.domain().slice().reverse())
-          .enter().append("g")
-            .attr("class", "legend")
-            .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+        date.append('text')
+            .attr('transform', 'translate(0,0)')
+            .text(function(d) {
+              return d.Marker + ' (' + d.Unit + ')'
+            });
 
-        legend.append("rect")
-            .attr("x", width - 18)
-            .attr("width", 18)
-            .attr("height", 18)
-            .style("fill", color);
+        date2 = svg.select('.date:first-child').selectAll('.date2');
+        console.log(date2);
 
-        legend.append("text")
-            .attr("x", width - 24)
-            .attr("y", 9)
-            .attr("dy", ".35em")
-            .style("text-anchor", "end")
-            .text(function(d) { return d; });
+        gx.selectAll('.tick.major text')
+            .style('text-anchor', 'end')
+            .attr('transform', 'rotate(-65)');
 
-      });
+        }); // End ForEach loop
+      }); // End load data
+
+      // // Serially load values
+      // // Load reference value   
+      // d3.csv('{{url_for('static', filename='datainsidetracker.csv')}}', function(error, data1) {
+      //   // Specify color domain for reference ranges
+      //   // color.domain(d3.keys(data[0]).filter(function(key) {return key !== "Marker"; }));
+      //   drefs = data1;
+
+      //   // Load results
+      //   d3.csv('{{url_for('static', filename='insideTracker_test_input.csv')}}', function(error, data2) {
+      //     dreads = data2;          
+      //     dreads.push({date:"Reference"});
+
+      //     // Reference ranges by Markers
+      //     var refskey = []; 
+      //     for (ir=0;ir<drefs.length;ir++) {
+      //       refskey.push(drefs[ir].Marker);            
+      //     }
+
+      //     // Measured readout dates
+      //     var date = [];
+      //     for (j=0; j<dreads.length; j++) {
+      //       date[j] = dreads[j].date;
+      //     }
+          
+      //     // Measured readout by Marker
+      //     markers = d3.keys(dreads[0]).filter(function (key) {return (key != "date" && key != "customer_id")});
+      //     for (jm=0; jm<markers.length; jm++) {
+      //       // var reads = [];
+      //       // m = drefs[refskey.indexOf(markers[jm])];
+      //       // Reference value
+      //       // refs = [m.y0, m.y1, m.y2, m.y3, m.y4];
+      //       // Scaled reference value for plotting
+ 
+      //       drefs.forEach(function (d,i) {
+      //         // console.log(d);
+      //         color.domain(d3.keys(drefs[0]).filter(function(key) { return (key !== "Marker" && key != "Unit"); }));
+      //         var temp = 0;
+      //         var z0 = 0;
+      //         var z1 = 0;
+      //         var zd = 0;
+      //         d.vran = color.domain().map(function(name) {
+      //           return {name: name, z0:z0, z1: z0 += +d[name], zd: +d[name]};
+      //         });
+      //       });
+
+      //       // for (jd=0; jd<date.length; jd++) {
+      //       //   reads.push(dreads[jd][markers[jm]]);
+      //       // }
+
+      //       // Plot reference and reads for current marker
+      //       x.domain(dreads.map(function (d) {return d.date; }));
+
+      //       svg.append("g")
+      //             .attr("class", "x axis")
+      //             .attr("transform", "translate(0," + height + ")")
+      //             .call(xAxis);
+
+      //         svg.append("g")
+      //             .attr("class", "y axis")
+      //             .call(yAxis);
+
+      //         var dates = svg.selectAll(".date")
+      //             .data(dreads)
+      //           .enter().append("g")
+      //             .attr("class", "date")
+      //             .attr("transform", function(d) { return "translate(" + x(d.date) + ",0)"; });
+
+      //         var vrefs = svg.selectAll(".refs")
+      //             .data(drefs)
+      //           .enter().append('g')
+      //             .attr('class', 'Marker')
+      //             .attr("transform", function(d) { return "translate(" + x(d.y0) + ",0)"; });
+
+      //         dates.selectAll("rect")
+      //               .data(function(d) { 
+      //                 return d.vran; 
+      //                 console.log(d)
+      //               })
+      //             .enter().append("rect")
+      //               .attr("width", x.rangeBand())
+      //               .attr("y", function(d) { return y(d.zd); })
+      //               .attr("height", function(d) { return y(d.zd) - y(d.z0); })
+      //               .style("fill", function(d) { return color(d.name); });    
+      //       }
+      //   });
+      // });    
+       
       </script>
       </div>
   <!-- End Line Plot -->

@@ -8,7 +8,7 @@ from login import Login
 from about import About
 from plans import Plans
 from charts import Charts
-from d3charts import d3Charts
+from d3charts import d3Charts,dcCharts
 #----------------------------------------
 # initialization
 #----------------------------------------
@@ -53,6 +53,10 @@ app.add_url_rule('/charts/',
 app.add_url_rule('/d3charts/',
                  view_func=d3Charts.as_view('d3charts'),
                  methods=["GET", "POST"])
+app.add_url_rule('/dcindex/',
+                 view_func=dcCharts.as_view('dcindex'),
+                 methods=["GET", "POST"])
+
 # 
 # @app.errorhandler(404)
 # def page_not_found(e):
