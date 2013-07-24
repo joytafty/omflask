@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-    <title>Alternative Gauge Plot</title>       
+    <title>Charting with D3</title>       
     <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
     <script type="text/javascript" src="http://mbostock.github.com/d3/d3.min.js"></script>
     <script type="text/javascript" src="../static/js/dial.chart.js"></script>
@@ -39,7 +39,7 @@
   <div class="container-fluid">
 
     <!-- Gauge Plot -->
-    <div id="chart" class="span6">
+    <div id="gaugechart" class="span6">
     <style type="text/css">
 
     #dial-0 .needle path {
@@ -93,13 +93,13 @@
 
       (function(chartselector) {
 
-        var w = 500, h = 500, rr = 100;
+        var w = 500, h = 500, rr = 80;
 
         var layout = [ 
-          { x: 1.2*rr, y: 125, r: rr, m: 100, ticks: 10, mark: 'line', dtit:'full CVD (BMI)'}, 
-          { x: 3.6*rr, y: 125, r: rr, m: 100, ticks: 2, mark: 'line', dtit:'hard CVD (BMI)' }, 
-          { x: 1.2*rr, y: 375, r: rr, m: 100, ticks: 2, mark: 'line', dtit:'full CVD (lipids)' }, 
-          { x: 3.6*rr, y: 375, r: rr, m: 100, ticks: 2, mark: 'line', dtit:'hard CVD (lipids)' } 
+          { x: 1.0*rr, y: 1.0*rr, r: rr, m: 100, ticks: 10, mark: 'line', dtit:'full CVD (BMI)'}, 
+          { x: 3.2*rr, y: 1.0*rr, r: rr, m: 100, ticks: 2, mark: 'line', dtit:'hard CVD (BMI)' }, 
+          { x: 1.0*rr, y: 3.2*rr, r: rr, m: 100, ticks: 2, mark: 'line', dtit:'full CVD (lipids)' }, 
+          { x: 3.2*rr, y: 3.2*rr, r: rr, m: 100, ticks: 2, mark: 'line', dtit:'hard CVD (lipids)' } 
         ];
         var charts = layout.map(function(d) { 
           return NBXDialChart()
@@ -154,12 +154,12 @@
           });
         };
 
-      })('#chart');
+      })('#gaugechart');
     </script>
     </div> 
     <!-- End Gauge Chart -->
 
-    <div id="chart" class="span6">
+    <div id="colchart" class="span6">
     <h4>Inside Tracker data</h4>
       <!-- Bar Plot -->
 
@@ -212,7 +212,7 @@
           .orient("left")
           .tickFormat(d3.format(".2s"));
 
-      var svg = d3.select("body").append("svg")
+      var svg = d3.select('#colchart').append("svg")
           .attr("width", width + margin.left + margin.right)
           .attr("height", height + margin.top + margin.bottom)
         .append("g")
