@@ -1,17 +1,17 @@
 <!doctype html>
 <html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-    <title>Charting with D3</title>       
-    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
-    <script type="text/javascript" src="http://mbostock.github.com/d3/d3.min.js"></script>
-    <script type="text/javascript" src="../static/js/dial.chart.js"></script>
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  <title>Charting with D3</title>       
+  <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+  <script type="text/javascript" src="http://mbostock.github.com/d3/d3.min.js"></script>
+  <script type="text/javascript" src="../static/js/dial.chart.js"></script>
 
-  </head>
+</head>
 
 <body style="background-color:#FFFFFF">
-<!-- Navigation Bar -->
-    <div class="navbar">
+  <!-- Navigation Bar -->
+  <div class="navbar">
     <div class="navbar-inner">
       <div class="container">
         <a class="brand" href="/"><img src="/static/img/optmelogo.png" alt="OptMeLogo" height="24"></a>
@@ -33,190 +33,199 @@
           </ul>
           {% endblock %}          
         </div>
- -->      </div>
+      -->      </div>
     </div>
 
-  <div class="container-fluid">
+    <!-- Working Layout -->
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <!-- Gauge Chart -->
+        <div id="gaugechart" class="span6">
+          <h4>Predicted CVD Risks</h4>
+          <button id="update" onclick="increase()">Increase</button>
+          <button id="update" onclick="increase()">Decrease</button>
+        </div>
+        <!-- Colume Chart Inside Tracker -->
+        <div id="colchart" class="span6">
+          <h4>Inside Tracker Data</h4>
+        </div>
+      </div>
 
-    <!-- Gauge Plot -->
-    <div id="gaugechart" class="span6">
-    <style type="text/css">
+      <!-- Gauge Plot -->
+      <!--     <div id="gaugechart" class="span6"> -->
+      <style type="text/css">
 
-    #dial-0 .needle path {
-      fill: beige;
-    }
+        #dial-0 .needle path {
+          fill: beige;
+        }
 
-    #dial-1 .needle path {
-      fill: #b21f24;
-    }
+        #dial-1 .needle path {
+          fill: #b21f24;
+        }
 
-    #dial-2 .needle path {
-      fill: steelblue;
-    }
+        #dial-2 .needle path {
+          fill: steelblue;
+        }
 
-    #dial-3 .needle path {
-      fill: beige;
-    }
+        #dial-3 .needle path {
+          fill: beige;
+        }
         
-    circle.label {
-      fill: white;
-    }       
-  
-    line.label {
-      stroke: white; 
-      stroke-width: 1px;
-    }
-  
-    text.label {
-      font-family: Arial;
-      font-size: 10px;
-      fill: white; 
-    }
+        circle.label {
+          fill: white;
+        }       
 
-    #dial-1 text.label {
-      font-size: 10px;      
-    } 
+        line.label {
+          stroke: white; 
+          stroke-width: 1px;
+        }
 
-    #dial-2 text.label {
-      font-size: 10px;      
-    } 
+        text.label {
+          font-family: Arial;
+          font-size: 10px;
+          fill: white; 
+        }
 
-    #dial-3 text.label {
-      font-size: 10px;      
-    } 
+        #dial-1 text.label {
+          font-size: 10px;      
+        } 
 
-    </style>
-    <h4>Predicted CVD Risks</h4>
-    <button id="update" onclick="increase()">Increase</button>
-    <button id="update" onclick="increase()">Decrease</button>
-    <script type="text/javascript">
+        #dial-2 text.label {
+          font-size: 10px;      
+        } 
 
-      (function(chartselector) {
+        #dial-3 text.label {
+          font-size: 10px;      
+        } 
 
-        var w = 500, h = 500, rr = 80;
+      </style>
+      <script type="text/javascript">
 
-        var layout = [ 
+        (function(chartselector) {
+
+          var w = 500, h = 500, rr = 80;
+
+          var layout = [ 
           { x: 1.0*rr, y: 1.0*rr, r: rr, m: 100, ticks: 10, mark: 'line', dtit:'full CVD (BMI)'}, 
           { x: 3.2*rr, y: 1.0*rr, r: rr, m: 100, ticks: 2, mark: 'line', dtit:'hard CVD (BMI)' }, 
           { x: 1.0*rr, y: 3.2*rr, r: rr, m: 100, ticks: 2, mark: 'line', dtit:'full CVD (lipids)' }, 
           { x: 3.2*rr, y: 3.2*rr, r: rr, m: 100, ticks: 2, mark: 'line', dtit:'hard CVD (lipids)' } 
-        ];
-        var charts = layout.map(function(d) { 
-          return NBXDialChart()
+          ];
+          var charts = layout.map(function(d) { 
+            return NBXDialChart()
             .width(d.r * 2)
             .height(d.r * 2)
             .domain([0, d.m])
             .range([-150, 150])
             .minorTicks(d.ticks)
             .minorMark(d.mark);
-        });      
-      
-        var svg = d3.select(chartselector)
-          .append('svg:svg')
-            .attr('width', w) 
-            .attr('height', h);
-      
-        var dials = svg.selectAll('g.dial')
-            .data(layout)
-          .enter().append('svg:g')
-            .attr('class', 'dial')
-            .attr('id', function(d, i) { return 'dial-' + i; })
-            .attr('transform', function(d) { return 'translate(' + (d.x - d.r) + ',' + (d.y - d.r) + ')'; } );
+          });      
 
-        dials.each(function(d, i) { d3.select(this).data([20]).call(charts[i]); });
+          var svg = d3.select(chartselector)
+          .append('svg:svg')
+          .attr('width', w) 
+          .attr('height', h);
+
+          var dials = svg.selectAll('g.dial')
+          .data(layout)
+          .enter().append('svg:g')
+          .attr('class', 'dial')
+          .attr('id', function(d, i) { return 'dial-' + i; })
+          .attr('transform', function(d) { return 'translate(' + (d.x - d.r) + ',' + (d.y - d.r) + ')'; } );
+
+          dials.each(function(d, i) { d3.select(this).data([20]).call(charts[i]); });
 
         // Append dial units
         dials.append("text")
-          .data(layout)
-          .attr("x", function(d) {return d.r;})
-          .attr("y", function(d) {return 1.75*d.r})
-          .style("text-anchor", "middle")
-          .style("fill", "beige")
-          .text("(%)");
+        .data(layout)
+        .attr("x", function(d) {return d.r;})
+        .attr("y", function(d) {return 1.75*d.r})
+        .style("text-anchor", "middle")
+        .style("fill", "beige")
+        .text("(%)");
 
         // Append dial name
         dials.append("text")
-          .data(layout)
-          .attr("x", function(d) {return d.r;})
-          .attr("y", function(d) {return 0.8*d.r})
-          .style("text-anchor", "middle")
-          .style("fill", "beige")
-          .text(
-            function(d,i) {
-              return d.dtit;
-            });
+        .data(layout)
+        .attr("x", function(d) {return d.r;})
+        .attr("y", function(d) {return 0.8*d.r})
+        .style("text-anchor", "middle")
+        .style("fill", "beige")
+        .text(
+          function(d,i) {
+            return d.dtit;
+          });
 
         window.increase = function() {
           dials.each(function(d, i) { 
             d3.select(this)
-              .data([ Math.random() * charts[i].domain()[1] ])
-              .call(charts[i]); 
+            .data([ Math.random() * charts[i].domain()[1] ])
+            .call(charts[i]); 
           });
         };
 
       })('#gaugechart');
     </script>
-    </div> 
-    <!-- End Gauge Chart -->
+<!--     </div> 
+-->    <!-- End Gauge Chart -->
 
-    <div id="colchart" class="span6">
+<!--     <div id="colchart" class="span6">
     <h4>Inside Tracker data</h4>
-      <!-- Bar Plot -->
+  -->      <!-- Bar Plot -->
+  <!-- Style for  Colchart -->
+  <style>
+    body {
+      font: 10px sans-serif;
+    }
 
-      <style>
+    .axis path,
+    .axis line {
+      fill: none;
+      stroke: #000;
+      shape-rendering: crispEdges;
+    }
 
-      body {
-        font: 10px sans-serif;
-      }
+    .bar {
+      fill: steelblue;
+    }
 
-      .axis path,
-      .axis line {
-        fill: none;
-        stroke: #000;
-        shape-rendering: crispEdges;
-      }
+    .x.axis path {
+      display: none;
+    }
+  </style>
 
-      .bar {
-        fill: steelblue;
-      }
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script>
 
-      .x.axis path {
-        display: none;
-      }
+    var margin = {top: 20, right: 20, bottom: 120, left: 100},
+    width = 360 - margin.left - margin.right,
+    height = 400 - margin.top - margin.bottom;
 
-      </style>
-      <script src="http://d3js.org/d3.v3.min.js"></script>
-      <script>
+    var x = d3.scale.ordinal()
+    .rangeRoundBands([0, width], .1);
 
-      var margin = {top: 20, right: 20, bottom: 120, left: 100},
-          width = 360 - margin.left - margin.right,
-          height = 400 - margin.top - margin.bottom;
-
-      var x = d3.scale.ordinal()
-          .rangeRoundBands([0, width], .1);
-
-      var y = d3.scale.linear()
-          .rangeRound([height, 0]);
+    var y = d3.scale.linear()
+    .rangeRound([height, 0]);
 
       // Plot color "domain" specified by "types" of range value
       // Color "range" specfied here
       var color = d3.scale.ordinal()
-          .range(["#FF6666", "#FFFF99", "#99FF33", "#FFFF99", "#FF6666"]);
+      .range(["#FF6666", "#FFFF99", "#99FF33", "#FFFF99", "#FF6666"]);
 
       var xAxis = d3.svg.axis()
-          .scale(x)
-          .orient("bottom");
+      .scale(x)
+      .orient("bottom");
 
       var yAxis = d3.svg.axis()
-          .scale(y)
-          .orient("left")
-          .tickFormat(d3.format(".2s"));
+      .scale(y)
+      .orient("left")
+      .tickFormat(d3.format(".2s"));
 
       var svg = d3.select('#colchart').append("svg")
-          .attr("width", width + margin.left + margin.right)
-          .attr("height", height + margin.top + margin.bottom)
-        .append("g")
-          .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
       d3.csv('{{url_for('static', filename='datainsidetracker_onemarker.csv')}}', function(error, data) {
         color.domain(d3.keys(data[0]).filter(function(key) {return (key != "Marker" && key != "Unit" && key != "date")}));
@@ -227,7 +236,7 @@
             return {name: name, z0:z0, z1: z0 += +d[name], zd: +d[name]};
           });
 
-        data.forEach(function(d) {
+          data.forEach(function(d) {
             var y0 = 0;
             d.ages = color.domain().map(function(name) { 
               return {
@@ -246,140 +255,52 @@
         y.domain([0, d3.max(data, function(d) { return d.total; })]);
         
         gx = svg.append('g')
-              .attr("class", "x axis")
-              .attr("transform", "translate(0," + height + ")")
-              .call(xAxis);
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis);
 
         gy = svg.append('g')
-            .attr("class", "y axis")
-            .call(yAxis)
-            .append('text');
+        .attr("class", "y axis")
+        .call(yAxis)
+        .append('text');
 
         date = svg.selectAll(".date")
-              .data(data)
-            .enter().append("g")
-              .attr("class", "date")
-              .attr('transform', function(d) { 
-                return "translate(" + x(d.date) + ",0)"; });
+        .data(data)
+        .enter().append("g")
+        .attr("class", "date")
+        .attr('transform', function(d) { 
+          return "translate(" + x(d.date) + ",0)"; });
 
         date.selectAll('rect')
-            .data(function (d) {
-              return d.ages;
-            })
-          .enter().append('rect')
-            .attr("width", x.rangeBand())
-            .attr("y", function(d) { return y(d.y1); })
-            .attr("height", function(d) { return y(d.y0) - y(d.y1); })
-            .style("fill", function(d) { return color(d.name); });
+        .data(function (d) {
+          return d.ages;
+        })
+        .enter().append('rect')
+        .attr("width", x.rangeBand())
+        .attr("y", function(d) { return y(d.y1); })
+        .attr("height", function(d) { return y(d.y0) - y(d.y1); })
+        .style("fill", function(d) { return color(d.name); });
 
         date.append('text')
-            .attr('transform', 'translate(0,0)')
-            .text(function(d) {
-              return d.Marker + ' (' + d.Unit + ')'
-            });
+        .attr('transform', 'translate(0,0)')
+        .text(function(d) {
+          return d.Marker + ' (' + d.Unit + ')'
+        });
 
         date2 = svg.select('.date:first-child').selectAll('.date2');
         console.log(date2);
 
         gx.selectAll('.tick.major text')
-            .style('text-anchor', 'end')
-            .attr('transform', 'rotate(-65)');
+        .style('text-anchor', 'end')
+        .attr('transform', 'rotate(-65)');
 
         }); // End ForEach loop
       }); // End load data
-
-      // // Serially load values
-      // // Load reference value   
-      // d3.csv('{{url_for('static', filename='datainsidetracker.csv')}}', function(error, data1) {
-      //   // Specify color domain for reference ranges
-      //   // color.domain(d3.keys(data[0]).filter(function(key) {return key !== "Marker"; }));
-      //   drefs = data1;
-
-      //   // Load results
-      //   d3.csv('{{url_for('static', filename='insideTracker_test_input.csv')}}', function(error, data2) {
-      //     dreads = data2;          
-      //     dreads.push({date:"Reference"});
-
-      //     // Reference ranges by Markers
-      //     var refskey = []; 
-      //     for (ir=0;ir<drefs.length;ir++) {
-      //       refskey.push(drefs[ir].Marker);            
-      //     }
-
-      //     // Measured readout dates
-      //     var date = [];
-      //     for (j=0; j<dreads.length; j++) {
-      //       date[j] = dreads[j].date;
-      //     }
-          
-      //     // Measured readout by Marker
-      //     markers = d3.keys(dreads[0]).filter(function (key) {return (key != "date" && key != "customer_id")});
-      //     for (jm=0; jm<markers.length; jm++) {
-      //       // var reads = [];
-      //       // m = drefs[refskey.indexOf(markers[jm])];
-      //       // Reference value
-      //       // refs = [m.y0, m.y1, m.y2, m.y3, m.y4];
-      //       // Scaled reference value for plotting
- 
-      //       drefs.forEach(function (d,i) {
-      //         // console.log(d);
-      //         color.domain(d3.keys(drefs[0]).filter(function(key) { return (key !== "Marker" && key != "Unit"); }));
-      //         var temp = 0;
-      //         var z0 = 0;
-      //         var z1 = 0;
-      //         var zd = 0;
-      //         d.vran = color.domain().map(function(name) {
-      //           return {name: name, z0:z0, z1: z0 += +d[name], zd: +d[name]};
-      //         });
-      //       });
-
-      //       // for (jd=0; jd<date.length; jd++) {
-      //       //   reads.push(dreads[jd][markers[jm]]);
-      //       // }
-
-      //       // Plot reference and reads for current marker
-      //       x.domain(dreads.map(function (d) {return d.date; }));
-
-      //       svg.append("g")
-      //             .attr("class", "x axis")
-      //             .attr("transform", "translate(0," + height + ")")
-      //             .call(xAxis);
-
-      //         svg.append("g")
-      //             .attr("class", "y axis")
-      //             .call(yAxis);
-
-      //         var dates = svg.selectAll(".date")
-      //             .data(dreads)
-      //           .enter().append("g")
-      //             .attr("class", "date")
-      //             .attr("transform", function(d) { return "translate(" + x(d.date) + ",0)"; });
-
-      //         var vrefs = svg.selectAll(".refs")
-      //             .data(drefs)
-      //           .enter().append('g')
-      //             .attr('class', 'Marker')
-      //             .attr("transform", function(d) { return "translate(" + x(d.y0) + ",0)"; });
-
-      //         dates.selectAll("rect")
-      //               .data(function(d) { 
-      //                 return d.vran; 
-      //                 console.log(d)
-      //               })
-      //             .enter().append("rect")
-      //               .attr("width", x.rangeBand())
-      //               .attr("y", function(d) { return y(d.zd); })
-      //               .attr("height", function(d) { return y(d.zd) - y(d.z0); })
-      //               .style("fill", function(d) { return color(d.name); });    
-      //       }
-      //   });
-      // });    
-       
-      </script>
-      </div>
-  <!-- End Line Plot -->
-  </div> 
-  <!-- End Container -->
+</script>
+<!-- </div> -->
+<!-- End Line Plot -->
+<!-- </div>  -->
+<!-- End Container -->
 
 </body>
 </html>
