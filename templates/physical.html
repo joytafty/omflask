@@ -80,7 +80,6 @@
   {% endblock %}
 
   {% block content %}
-  <div class="row-fluid">
   	<div class="span6">  
   		<h4>Your current measurement</h4>
   		<div id='anthro_div' ></div>
@@ -95,8 +94,8 @@
   		<div>
   			<!-- Coach response -->
   			<p id='client'></p>
-  			<p>Here's the summary of your progress this week</p>
   			<pre id='results'></pre>
+  			<!-- <pre id='allinput'></pre> -->
 <!--   			<div id='links'>
   				Source spreadsheet (needs to be <a href='https://docs.google.com/support/bin/answer.py?hl=en&answer=47134'>published</a>):<br/>
   			</div>
@@ -113,22 +112,30 @@
   				googleSpreadsheet.url(url);
   				googleSpreadsheet.load(function(result) {
   					var formdata = result.data;
+  					var ncol = 4;
+  					var fncidx = formdata.indexOf('Client First Name');
+  					var lncidx = formdata.indexOf('Client Last Name');
+  					var nrow = (formdata.length/ncol);
+  					var clidx = 0;
+  					var fnvalpos = ncol*(clidx+1) + fncidx;
+  					var lnvalpos = ncol*(clidx+1) + lncidx;
+  					var fnval = formdata[fnvalpos];
+  					var lnval = formdata[lnvalpos];
   					console.log(result);
-  					console.log(result.data[7]);
-  					$('#client').html(JSON.stringify(formdata[5]).replace(/,/g,",\n"));
+  					console.log(fnval + lnval);
+
+  					$('#client').html(JSON.stringify(
+  						'Welcome back ' + formdata[fnvalpos] + 
+  						'. Here is your weekly recommendations')
+  					.replace(/,/g,",\n"));
+  					
   					$('#results').html(JSON.stringify(formdata[7]).replace(/,/g,",\n"));
   				});
   			</script>
   			<script>
   				$('#iframe').attr("src",url);
   				$('input[name]').val(url);
-      // if (url != sample_url){
-      //   $("div#links").append("<br/><a href='"+document.location.pathname+"'>Original Sample Spreadsheet</a>")
-      // }
   </script>
-
-
-</div>
 </div>
 
 </div>
