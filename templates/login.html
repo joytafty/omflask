@@ -6,7 +6,7 @@
 	{% if 'usr' in session %}
 		<p>Welcome back {{session['usr']}} !</p>
 		<form action="{{url_for('login')}}" method="post">
-			<input type="submit" name="logout" value="logout" />
+			<button type="submit" name="logout" value="logout" class="btn">logout</button>
 		</form>
 
 	<!-- Not Logged in -->	
@@ -15,7 +15,7 @@
 		<form action="{{url_for('login')}}" method="post">
 			<p>Username: <br /><input type="text" name="usr" /></p>
 			<p>Password: <br /><input type="password" name="pswd" /></p>
-			<p><input type="submit" value="submit" /></p>
+			<p><button type="submit" value="submit" class="btn">login</button></p>
 		</form>
 	{% endif %}
 {% endblock %}	
