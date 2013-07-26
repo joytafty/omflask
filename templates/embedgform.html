@@ -7,81 +7,95 @@
 	<meta name="fragment" content="!">
 	<base target="_blank">
 	<link href='/static/forms/client/css/1152744781-formview_embedded_ltr.css' type='text/css' rel='stylesheet'>
-    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+	<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
 </head>
 
 <body class="ss-base-body" dir="ltr">
 	<div class="ss-form-container">
-		<div class="ss-top-of-page">
+<!-- 		<div class="ss-top-of-page">
 			<div class="ss-form-heading">
-				<!-- <h3 class="ss-form-title" dir="ltr">Follow-up visit</h3> -->
+				<h3 class="ss-form-title" dir="ltr">Follow-up visit</h3>
 				<hr class="ss-email-break" style="display:none;">
 			</div>
 		</div>
-		<div class="ss-form">
-			<form action="https://docs.google.com/forms/d/1ir5d8jD_Dje71OFC8ozULxhdzwtEif9OEU6z2jgShCg/formResponse?embedded=true" method="POST" id="ss-form" target="_self" onsubmit="">
-				<ol style="padding-left: 0">
-					<div class="ss-form-question errorbox-good">
-						<div dir="ltr" class="ss-item  ss-text">
-							<div class="ss-form-entry">
-								<label class="ss-q-item-label" for="entry_504912035">
-									<div class="ss-q-title">Client First Name
-									</div>
-									<div class="ss-q-help ss-secondary-text" dir="ltr">
+	-->		
+	<div class="ss-form">
+		<form action="https://docs.google.com/forms/d/1ir5d8jD_Dje71OFC8ozULxhdzwtEif9OEU6z2jgShCg/formResponse?embedded=true" method="POST" id="ss-form" target="_self" onsubmit="">
+			<ol style="padding-left: 0">
 
-									</div>
-								</label>
-								<input type="text" name="entry.504912035" value="" class="ss-q-short" id="entry_504912035" dir="auto">
-							</div>
-						</div>
-					</div> <div class="ss-form-question errorbox-good">
+			<!-- First name text box -->
+				<div class="ss-form-question errorbox-good">
 					<div dir="ltr" class="ss-item  ss-text">
 						<div class="ss-form-entry">
-							<label class="ss-q-item-label" for="entry_2077394765">
-								<div class="ss-q-title">Client Last Name
+							<label class="ss-q-item-label" for="entry_504912035">
+								<div class="ss-q-title">
+									Client First Name
 								</div>
-								<div class="ss-q-help ss-secondary-text" dir="ltr">
-
-								</div>
+<!-- 								<div class="ss-q-help ss-secondary-text" dir="ltr">
+								(place holder for form helper)
+							</div> -->
 							</label>
-							<input type="text" name="entry.2077394765" value="" class="ss-q-short" id="entry_2077394765" dir="auto">
-
+							<input type="text" name="entry.504912035" value="" class="ss-q-short" id="entry_504912035" dir="auto">
 						</div>
 					</div>
 				</div> 
-				<div class="ss-form-question errorbox-good">
-					<div dir="ltr" class="ss-item  ss-paragraph-text">
-						<div class="ss-form-entry">
-							<label class="ss-q-item-label" for="entry_1593116849">
-								<div class="ss-q-title">Notes
-								</div>
-								<div class="ss-q-help ss-secondary-text" dir="ltr">
 
-								</div>
-							</label>
-							<textarea name="entry.1593116849" rows="15" cols="60" class="ss-q-long" id="entry_1593116849" dir="auto">
-							</textarea>
+			<!-- Last name text box -->
+			<div class="ss-form-question errorbox-good">
+				<div dir="ltr" class="ss-item  ss-text">
+					<div class="ss-form-entry">
+						<label class="ss-q-item-label" for="entry_2077394765">
+							<div class="ss-q-title">
+								Client Last Name
+							</div>
+<!-- 							<div class="ss-q-help ss-secondary-text" dir="ltr">
 
-						</div>
+							</div> -->
+						</label>
+						<input type="text" name="entry.2077394765" value="" class="ss-q-short" id="entry_2077394765" dir="auto">
 					</div>
 				</div>
-				<input type="hidden" name="draftResponse" value="[]">
-				<input type="hidden" name="pageHistory" value="0">
+			</div> 
 
-				<div class="ss-item ss-navigate">
-					<table id="navigation-table">
-						<tbody>
-							<tr>
-								<td class="ss-form-entry goog-inline-block" id="navigation-buttons" dir="ltr">
-									<input type="submit" name="submit" value="Submit" id="ss-submit">
-								</td>
-							</tr>
-						</tbody>
-					</table>
+			<!-- Coach's note text area -->
+			<div class="ss-form-question errorbox-good">
+				<div dir="ltr" class="ss-item  ss-paragraph-text">
+					<div class="ss-form-entry">
+						<label class="ss-q-item-label" for="entry_1593116849">
+							<div class="ss-q-title">Coach's Notes
+							</div>
+							<div class="ss-q-help ss-secondary-text" dir="ltr">
+
+							</div>
+						</label>
+						<textarea name="entry.1593116849" rows="12" cols="60" class="ss-q-long" id="entry_1593116849" dir="auto">
+						</textarea>
+
+					</div>
 				</div>
-			</ol>
-		</div>
+			</div>
+<!-- 			<input type="hidden" name="draftResponse" value="[]">
+			<input type="hidden" name="pageHistory" value="0">
+ -->
+			<div class="ss-item ss-navigate">
+				<table id="navigation-table">
+					<tbody>
+						<tr>
+ 							<!-- Submit Button -->
+<!-- 							<td class="ss-form-entry goog-inline-block" id="navigation-buttons" dir="ltr">
+								<input type="submit" name="submit" value="Submit" id="ss-submit">
+							</td> -->
+							<!-- Submit Button -->
+							<td class="ss-form-entry goog-inline-block" id="navigation-buttons" dir="ltr">
+								<button type="submit" name="submit" value="Submit" id="ss-submit" class="btn">Click to Submit</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</ol>
 	</div>
+</div>
 </div>
 </div>
 </div>
