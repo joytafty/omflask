@@ -5,8 +5,9 @@ import json
 # Views
 from main import Main
 from login import Login
+from physical import Physical, Embedgform
 from about import About
-from plans import Plans
+# from plans import Plans
 from charts import Charts
 from d3charts import d3Charts,dcCharts
 #----------------------------------------
@@ -33,16 +34,28 @@ app.config["SECRET_KEY"] = 'T\x9cs;\x8b\xce-@\xac\xbb\xc9m\xeb\xe8\x1f\x85]\xd2M
 
 # Routes    
 # Static main view
-# Static main view
 app.add_url_rule('/',
                  view_func=Main.as_view('main'),
                  methods=["GET"])
 # Dynamic URL rule
+# List of view 
+# 0. Login
+# 1. Welcome/Goal 
+# 2. Physical Measurements ()
+# 3. Physical Activity
+# 4. Diet/Nutrition
+# 5. Cardiovascular Health
+# 6. Blood Work
+# 7. Aging (Longevity)
+
 app.add_url_rule('/login/',
                  view_func=Login.as_view('login'),
                  methods=["GET", "POST"])
-app.add_url_rule('/plans/',
-                 view_func=Plans.as_view('plans'),
+# app.add_url_rule('/plans/',
+#                  view_func=Plans.as_view('plans'),
+#                  methods=["GET", "POST"])
+app.add_url_rule('/physical/',
+                 view_func=Physical.as_view('physical'),
                  methods=["GET", "POST"])
 app.add_url_rule('/about/',
                  view_func=About.as_view('about'),
@@ -56,23 +69,10 @@ app.add_url_rule('/d3charts/',
 app.add_url_rule('/dcindex/',
                  view_func=dcCharts.as_view('dcindex'),
                  methods=["GET", "POST"])
+app.add_url_rule('/embedgform/',
+                 view_func=Embedgform.as_view('embedgform'),
+                 methods=["GET", "POST"])
 
-# 
-# @app.errorhandler(404)
-# def page_not_found(e):
-# 	return render_template('404.html'), 404
-
-# @app.route("/")
-# def index():
-# 	return render_template('index.html')
-
-# @app.route("/about")
-# def about():
-# 	return render_template('about.html')
-
-# @app.route("/plans")
-# def plans():
-# 	return render_template('plans.html')	
 #----------------------------------------
 # handlers
 #----------------------------------------

@@ -10,11 +10,13 @@ argparse==1.2.1
 blinker==1.2
 dargparse==0.2.1
 flask-mongoengine==0.7.0
+google-api-python-client==1.1
 httplib2==0.8
 itsdangerous==0.21
 mongoctl==0.3.6
 mongoengine==0.8.2
 oauth2==1.5.211
 pymongo==2.5.2
+python-gflags==2.0
 verlib==0.1
 wsgiref==0.1.2

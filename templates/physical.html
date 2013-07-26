@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+{% block head %}
+<title>Physical Measurements</title>
+<!-- Loading Google Visualization Library -->
+<script type='text/javascript' src='https://www.google.com/jsapi'></script>
+<script type="text/javascript" src="{{url_for('static', filename='js/google-spreadsheet.js')}}"></script>
+<script type='text/javascript'>
+	google.load('visualization', '1', {packages:['corechart','gauge', 'ColumnChart', 'Table']});
+	google.setOnLoadCallback(drawAnthro);
+	// google.setOnLoadCallback(drawPhys);
+	google.setOnLoadCallback(drawBMI);
+	// Load GData javascript library
+	google.load("gdata", "2.x");
+
+	// Anthropometrics Measurements
+	function drawAnthro() {
+		var options = {'showRowNumber': true, 'allowHtml': true, width: '100%', height: '110%'};
+		var d = google.visualization.arrayToDataTable([
+			['Measurements', 'Your Measure', 'Ideal Range', 'U.S. Average'],
+			['Height (inches)', 0, 0, 0],
+			['Weight (pounds)', 0, 0, 0],
+			['Waist Circumference', 0, 0, 0],
+			['Percent Body Fat', 0, 0, 0]
+			]);
+          // Create and draw the visualization.
+          var dash = new google.visualization.Table(document.getElementById('anthro_div'));
+          dash.draw(d, options);
+      }
+
+      // BMI 
+      function drawBMI() {
+      	var d = google.visualization.arrayToDataTable([
+      		['Date', 'Your Measure', 'Category0', 'Category1', 'Category 2', 'Category 3', 'Category 4'],
+      		['current date', 29.0, 18.5, 1.5, 6.3, 4.9, 9.0],
+      		['new date 1', 24.0, 18.5, 1.5, 6.3, 4.9, 9.0],	
+      		['new date 2', 21.2, 18.5, 1.5, 6.3, 4.9, 9.0],	
+      		['new date 3', 20.2, 18.5, 1.5, 6.3, 4.9, 9.0]	
+      		]);
+
+      	d.addColumn({type:'string', role:'annotation'});
+      	d.addColumn({type:'string', role:'annotationText'});
+
+      	var bmibar = new google.visualization.SteppedAreaChart(document.getElementById('bmi_div'));
+      	bmibar.draw(d, {
+      		title: 'Body Mass Index (kg/m2)',
+      		isStacked: true,
+      		width: '100%',
+      		height: '200%', 
+      		colors: ['#000000', '#FEE08B', '#A6D96A', '#66BD63', '#FDAE61','#D73027'],
+      		series: {0: {type:'line'}},
+      		vAxis: {
+      			title: 'Body Mass Index (kg/m2)',
+      			viewWindowMode:'explicit',
+      			viewWindow:{
+      				max: 40,
+      				min: 14
+      			}
+      		}
+      	});
+      }
+
+      // // Physical Activity
+      // function drawPhys() {
+      // 	var options = {
+      // 		'showRowNumber': true, 
+      // 		'allowHtml': true, 
+      // 		width: '80%', 
+      // 		height: '100%'
+      // 	};
+      // 	var d = google.visualization.arrayToDataTable([
+      // 		['Measurements', 'Your Measure', 'Ideal Range'],
+      // 		['Average daily steps', 0, 0],
+      // 		['Resting heart rate (bmp)', 0, 0]
+      // 		]);
+      //     // Create and draw the visualization.
+      //     var dash = new google.visualization.Table(document.getElementById('phys_div'));
+      //     dash.draw(d, options);
+      // }
+  </script>
+  {% endblock %}
+
+  {% block content %}
+  <div class="row-fluid">
+  	<div class="span6">  
+  		<h4>Your current measurement</h4>
+  		<div id='anthro_div' ></div>
+  		<div id='bmi_div' style='height: 500px; vertical-align: middle;'></div>
+  	</div>
+  	<div class="span6">  
+  		<h4> Your Weekly Recommendations </h4>
+  		<div>
+  			<iframe src="{{url_for('embedgform')}}" width="760" height="500" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
+  		</div>
+  		
+  		<div>
+  			<!-- Coach response -->
+  			<p id='client'></p>
+  			<p>Here's the summary of your progress this week</p>
+  			<pre id='results'></pre>
+  			<div id='links'>
+  				<!-- Source spreadsheet (needs to be <a href='https://docs.google.com/support/bin/answer.py?hl=en&answer=47134'>published</a>):<br/> -->
+  			</div>
+  			<iframe width='500' height='300' frameborder='0' ></iframe>
+  			<script id='script'>
+  				localStorage.clear();
+  				var repo_url = "https://docs.google.com/spreadsheet/pub?key="; 
+  				var key = "0AvOHpkjVVc0ldEFqTTBwbUlyQ2RiZUpscnJsVjNhNnc";
+  				var output = "&output=html"
+  				var source_url = repo_url + key + output;
+  				var url_parameter = document.location.search.split(/\?url=/)[1]
+  				var url = url_parameter || source_url;
+  				var googleSpreadsheet = new GoogleSpreadsheet();
+  				googleSpreadsheet.url(url);
+  				googleSpreadsheet.load(function(result) {
+  					var formdata = result.data;
+  					console.log(result);
+  					console.log(result.data[7]);
+  					$('#client').html(JSON.stringify(formdata[5]).replace(/,/g,",\n"));
+  					$('#results').html(JSON.stringify(formdata[7]).replace(/,/g,",\n"));
+  				});
+  			</script>
+  			<script>
+  				$('#iframe').attr("src",url);
+  				$('input[name]').val(url);
+      // if (url != sample_url){
+      //   $("div#links").append("<br/><a href='"+document.location.pathname+"'>Original Sample Spreadsheet</a>")
+      // }
+  </script>
+
+
+</div>
+</div>
+
+</div>
+{% if 'usr' in session %}
+<p>Thank you for logging in.</p>
+{% else %}
+<p>Please log in for more information.</p>
+{% endif %}
+{% endblock %}

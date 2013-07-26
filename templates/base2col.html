@@ -1,21 +1,18 @@
 <!DOCTYPE html>
 <html>
 	<head>
+	{% block head %}
+		<title>Base Dashboard Page with Two Column</title>
 		<link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel="stylesheet">
 		<style> body { padding-top: 80px; } </style>
 		<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
 		<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
-	{% block head %}
-		<title>Welcome to Optimize Me Dashboard</title>
 	{% endblock %}
 	</head>	
 
 	<body>
-	<!-- Begin TOP navbar -->
 	{% block navbar %}
-	<!-- Headers with navigation -->
 	<div class="navbar navbar-fixed-top">
-		<div class="navbar-inner">
 			<div class="container-fluid">
 				<a class="brand" href="/"><img src="/static/img/optmelogo.png" alt="OptMeLogo" height="24"></a>
 				<div class="nav-collapse">
@@ -25,25 +22,24 @@
 					<ul class="nav pull-right">
 						<li><a href="/">Welcome</a></li>
 <!-- 						<li><a href="{{url_for('main')}}">Main</a></li> -->
+<!-- 						<li><a href="{{url_for('charts')}}">Google Charts</a></li>
+						<li><a href="{{url_for('d3charts')}}">D3 Charts</a></li>						 -->
 						{% if 'usr' in session %}
 						<li><a href="{{url_for('login')}}">logout</a></li>
-						<li><a href="{{url_for('physical')}}">Physical Activity</a></li>
-<!-- 						<li><a href="{{url_for('charts')}}">Google Charts</a></li>
+						<li><a href="{{url_for('charts')}}">G Charts</a></li>
 						<li><a href="{{url_for('d3charts')}}">D3 Charts</a></li>						
- -->						{% else %}
+						{% else %}
 						<li><a href="{{url_for('login')}}">login</a></li>
 						{% endif %}
 					</ul>
 					{% endblock %}					
 				</div>
 			</div>
-		</div>
 	</div>
-	{% endblock %} 
-	<!-- End TOP navbar -->
+	{% endblock %}
 
 	<div class="container page">
-		<div class="row-fluid">
+		<div class="content">
 		  {% block content %}
 		  Content place holder
 		  {% endblock %}
