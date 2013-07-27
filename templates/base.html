@@ -15,7 +15,6 @@
 	{% block navbar %}
 	<!-- Headers with navigation -->
 	<div class="navbar navbar-fixed-top">
-		<div class="navbar-inner">
 			<div class="container-fluid">
 				<a class="brand" href="/"><img src="/static/img/optmelogo.png" alt="OptMeLogo" height="24"></a>
 				<div class="nav-collapse">
@@ -23,32 +22,62 @@
 					</ul>
 					{% block navbar_right %}
 					<ul class="nav pull-right">
-						<li><a href="/">Welcome</a></li>
-<!-- 						<li><a href="{{url_for('main')}}">Main</a></li> -->
+<!-- 						<li><a href="/">Welcome</a></li>
+ --><!-- 						<li><a href="{{url_for('main')}}">Main</a></li> -->
 						{% if 'usr' in session %}
-						<li><a href="{{url_for('login')}}">logout</a></li>
-						<li><a href="{{url_for('physical')}}">Physical Activity</a></li>
-<!-- 						<li><a href="{{url_for('charts')}}">Google Charts</a></li>
-						<li><a href="{{url_for('d3charts')}}">D3 Charts</a></li>						
- -->						{% else %}
+						<!-- <li><a href="{{url_for('login')}}">logout</a></li> -->
+						<form action="{{url_for('login')}}" method="post">
+							<button type="submit" name="logout" value="logout" class="btn">logout</button>
+						</form>
+ 						{% else %}
 						<li><a href="{{url_for('login')}}">login</a></li>
 						{% endif %}
 					</ul>
 					{% endblock %}					
 				</div>
 			</div>
-		</div>
 	</div>
 	{% endblock %} 
 	<!-- End TOP navbar -->
 
 	<div class="container page">
+	{% if 'usr' in session %}
+	<!-- Begin NavTabs -->
+	<ul class="nav nav-tabs">
+	<!-- Tab: Welcome -->
+	  <li class="active"><a href="{{url_for('main')}}">Welcome</a></li>
+	<!-- Tab: Physical Measurements -->
+	  <li class="dropdown">
+		<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+		Physical Measurements
+		<span class="caret"></span>
+		</a>
+		<ul class="dropdown-menu">
+			<li><a href="{{url_for('coach-physical')}}">Coach Page</a></li>	  				
+			<li><a href="{{url_for('client-physical')}}">Client Page</a></li>	  				
+		</ul>
+	  </li>
+
+	<!-- Tab: Physical Measurements -->
+	  <li><a href="#">Physical Activity</a></li>
+	  <li><a href="#">Nutrition</a></li>
+	  <li><a href="#">Cardiovascular Health</a></li>
+	  <li><a href="#">Blood Work</a></li>
+	  <li><a href="#">Aging</a></li>
+	</ul>
+	{% endif %}
+	<!-- End NavTabs -->
+
+	<!-- Begin Content -->	
 		<div class="row-fluid">
+		  <!-- Content block -->
 		  {% block content %}
-		  Content place holder
+		  {% endblock %}
+		  <!-- Comment block for custom coach vs. client view -->
+		  {% block comments %}
 		  {% endblock %}
 		</div>
-	</div>
+	<!-- End Content -->	
 
 	<!-- Flashing message -->	
 		<div id="flashed">
@@ -64,8 +93,10 @@
 		</footer>
 		{% endblock %}
 		</div>
+	</div> 
+	<!-- End Container -->	
+
 		<script src="http://code.jquery.com/jquery-latest.js"></script>
     	<script src="js/bootstrap.min.js"></script>
-
 	</body>
 </html>

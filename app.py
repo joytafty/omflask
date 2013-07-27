@@ -5,8 +5,8 @@ import json
 # Views
 from main import Main
 from login import Login
-from physical import Physical, Embedgform
-from about import About
+from physical import Physical, Embedgform, coachPhysical, clientPhysical
+# from about import About
 # from plans import Plans
 from charts import Charts
 from d3charts import d3Charts,dcCharts
@@ -51,14 +51,14 @@ app.add_url_rule('/',
 app.add_url_rule('/login/',
                  view_func=Login.as_view('login'),
                  methods=["GET", "POST"])
-# app.add_url_rule('/plans/',
-#                  view_func=Plans.as_view('plans'),
-#                  methods=["GET", "POST"])
 app.add_url_rule('/physical/',
                  view_func=Physical.as_view('physical'),
                  methods=["GET", "POST"])
-app.add_url_rule('/about/',
-                 view_func=About.as_view('about'),
+app.add_url_rule('/coach/physical/',
+                 view_func=coachPhysical.as_view('coach-physical'),
+                 methods=["GET", "POST"])
+app.add_url_rule('/client/physical/',
+                 view_func=clientPhysical.as_view('client-physical'),
                  methods=["GET", "POST"])
 app.add_url_rule('/charts/',
                  view_func=Charts.as_view('charts'),

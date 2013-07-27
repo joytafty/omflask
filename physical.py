@@ -10,6 +10,22 @@ class Physical(flask.views.MethodView):
 			return flask.render_template(page)
 		flask.abort(404)
 
+class coachPhysical(flask.views.MethodView):
+	@utils.login_required
+	def get(self, page="coach-physical"):
+		page += ".html"
+		if os.path.isfile('templates/' + page):
+			return flask.render_template(page)
+		flask.abort(404)
+
+class clientPhysical(flask.views.MethodView):
+	@utils.login_required
+	def get(self, page="client-physical"):
+		page += ".html"
+		if os.path.isfile('templates/' + page):
+			return flask.render_template(page)
+		flask.abort(404)
+
 class Embedgform(flask.views.MethodView):
 	@utils.login_required
 	def get(self, page="embedgform"):

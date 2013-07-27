@@ -1,10 +1,13 @@
 Flask==0.10.1
+Flask-Classy==0.6.3
 Flask-Mail==0.8.2
 Flask-OAuth==0.12
 Flask-WTF==0.8.3
 Jinja2==2.7
 MarkupSafe==0.18
+Paste==1.7.5.1
 WTForms==1.0.4
+WebOb==1.2.3
 Werkzeug==0.9.1
 argparse==1.2.1
 blinker==1.2
@@ -19,4 +22,5 @@ oauth2==1.5.211
 pymongo==2.5.2
 python-gflags==2.0
 verlib==0.1
+webapp2==2.5.2
 wsgiref==0.1.2
