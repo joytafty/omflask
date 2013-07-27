@@ -30,7 +30,10 @@
 							<button type="submit" name="logout" value="logout" class="btn">logout</button>
 						</form>
  						{% else %}
-						<li><a href="{{url_for('login')}}">login</a></li>
+ 						<form action="{{url_for('login')}}" method="post">
+							<button type="submit" name="logout" value="logout" class="btn">Go to login page</button>
+						</form>
+						<!-- <li><a href="{{url_for('login')}}">login</a></li> -->
 						{% endif %}
 					</ul>
 					{% endblock %}					
