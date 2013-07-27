@@ -2,39 +2,39 @@ import flask, flask.views
 import os
 import utils
 
-class Physical(flask.views.MethodView):
+class Nutrition(flask.views.MethodView):
 	@utils.login_required
-	def get(self, page="physical"):
+	def get(self, page="nutrition"):
 		page += ".html"
 		if os.path.isfile('templates/' + page):
 			return flask.render_template(page)
 		flask.abort(404)
 
-class coachPhysical(flask.views.MethodView):
+class coachNutrition(flask.views.MethodView):
 	@utils.login_required
-	def get(self, page="coach-physical"):
+	def get(self, page="coach-nutrition"):
 		page += ".html"
 		if os.path.isfile('templates/' + page):
 			return flask.render_template(page)
 		flask.abort(404)
 
-class clientPhysical(flask.views.MethodView):
+class clientNutrition(flask.views.MethodView):
 	@utils.login_required
-	def get(self, page="client-physical"):
+	def get(self, page="client-nutrition"):
 		page += ".html"
 		if os.path.isfile('templates/' + page):
 			return flask.render_template(page)
 		flask.abort(404)
 
-class gformPhysical(flask.views.MethodView):
+class gformNutrition(flask.views.MethodView):
 	@utils.login_required
-	def get(self, page="gformphysical"):
+	def get(self, page="gformNutrition"):
 		page += ".html"
 		if os.path.isfile('templates/' + page):
 			return flask.render_template(page)
 		flask.abort(404)
 
-class gresPhysical(flask.views.MethodView):
+class gresNutrition(flask.views.MethodView):
 	@utils.login_required
 	def get(self, page="gres"):
 		page += ".html"

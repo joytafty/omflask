@@ -56,16 +56,31 @@
 		<span class="caret"></span>
 		</a>
 		<ul class="dropdown-menu">
-			<li><a href="{{url_for('coach-physical')}}">Coach Page</a></li>	  				
-			<li><a href="{{url_for('client-physical')}}">Client Page</a></li>	  				
+			<li><a href="{{url_for('coach-physical')}}">Coach's Notes on Physical Measurements</a></li>	  				
+			<li><a href="{{url_for('client-physical')}}">Client View on Physical Measurements</a></li>	  				
 		</ul>
 	  </li>
 
 	<!-- Tab: Physical Measurements -->
-	  <li><a href="#">Physical Activity</a></li>
-	  <li><a href="#">Nutrition</a></li>
+	  <li class="dropdown">
+	  	<a class="dropdown-toggle" href="#">Physical Activity</a>
+	  </li>
+	<!-- Tab: Nutrition -->
+	  <li class="dropdown">
+		<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+		Nutrition
+		<span class="caret"></span>
+		</a>
+		<ul class="dropdown-menu">
+			<li><a href="{{url_for('coach-nutrition')}}">Coach's Notes on Nutrition</a></li>	  				
+			<li><a href="{{url_for('client-nutrition')}}">Client View on Nutrition</a></li>	  				
+		</ul>
+	  </li>
+	<!-- Tab: Cardiovascular Health -->
 	  <li><a href="#">Cardiovascular Health</a></li>
+	<!-- Tab: Bloodwork -->
 	  <li><a href="#">Blood Work</a></li>
+	<!-- Tab: Aging -->
 	  <li><a href="#">Aging</a></li>
 	</ul>
 	{% endif %}

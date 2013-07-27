@@ -5,7 +5,8 @@ import json
 # Views
 from main import Main
 from login import Login
-from physical import Physical, Embedgform, coachPhysical, clientPhysical
+from physical import Physical, coachPhysical, clientPhysical, gformPhysical, gresPhysical
+from nutrition import Nutrition, coachNutrition, clientNutrition, gformNutrition, gresNutrition
 # from about import About
 # from plans import Plans
 from charts import Charts
@@ -51,6 +52,8 @@ app.add_url_rule('/',
 app.add_url_rule('/login/',
                  view_func=Login.as_view('login'),
                  methods=["GET", "POST"])
+
+# Physical Measurements Views
 app.add_url_rule('/physical/',
                  view_func=Physical.as_view('physical'),
                  methods=["GET", "POST"])
@@ -60,6 +63,28 @@ app.add_url_rule('/coach/physical/',
 app.add_url_rule('/client/physical/',
                  view_func=clientPhysical.as_view('client-physical'),
                  methods=["GET", "POST"])
+app.add_url_rule('/gformPhysical/',
+                 view_func=gformPhysical.as_view('gformphysical'),
+                 methods=["GET", "POST"])
+app.add_url_rule('/gres/',
+                 view_func=gresPhysical.as_view('gres'),
+                 methods=["GET", "POST"])
+
+# Nutrition Views
+app.add_url_rule('/nutrition/',
+                 view_func=Nutrition.as_view('nutrition'),
+                 methods=["GET", "POST"])
+app.add_url_rule('/coach/nutrition/',
+                 view_func=coachNutrition.as_view('coach-nutrition'),
+                 methods=["GET", "POST"])
+app.add_url_rule('/client/nutrition/',
+                 view_func=clientNutrition.as_view('client-nutrition'),
+                 methods=["GET", "POST"])
+app.add_url_rule('/gformNutrition/',
+                 view_func=gformPhysical.as_view('gformnutrition'),
+                 methods=["GET", "POST"])
+
+# Chart Views
 app.add_url_rule('/charts/',
                  view_func=Charts.as_view('charts'),
                  methods=["GET", "POST"])
@@ -68,9 +93,6 @@ app.add_url_rule('/d3charts/',
                  methods=["GET", "POST"])
 app.add_url_rule('/dcindex/',
                  view_func=dcCharts.as_view('dcindex'),
-                 methods=["GET", "POST"])
-app.add_url_rule('/embedgform/',
-                 view_func=Embedgform.as_view('embedgform'),
                  methods=["GET", "POST"])
 
 #----------------------------------------

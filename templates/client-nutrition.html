@@ -1,7 +1,7 @@
-{% extends "physical.html" %}
+{% extends "nutrition.html" %}
 {% block comments %}
 <div class="span6">  
-  <h4> Notes on Your Physical Measurements </h4>
+  <h4> Notes on Your Diet </h4>
  <div>
    <!-- Coach response -->
    <p id='client'></p>
@@ -9,7 +9,7 @@
      <script id='script'>
       localStorage.clear();
       var repo_url = "https://docs.google.com/spreadsheet/pub?key="; 
-      var key = "0AvOHpkjVVc0ldEFqTTBwbUlyQ2RiZUpscnJsVjNhNnc";
+      var key = "0AvOHpkjVVc0ldEFlQkVXUGdDc2ZQLXlqZE14S1JVanc";
       var output = "&output=html"
       var source_url = repo_url + key + output;
       var url_parameter = document.location.search.split(/\?url=/)[1]
