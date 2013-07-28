@@ -8,8 +8,6 @@ from login import Login
 from physical import Physical, coachPhysical, clientPhysical, gformPhysical, gres
 from nutrition import Nutrition, coachNutrition, clientNutrition, gformNutrition
 from activity import Activity, coachActivity, clientActivity, gformActivity
-# from about import About
-# from plans import Plans
 from charts import Charts
 from d3charts import d3Charts,dcCharts
 #----------------------------------------
