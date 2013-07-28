@@ -1,0 +1,10 @@
+{% extends "activity.html" %}
+{% block comments %}
+  	<div class="span6">  
+  		<h4> Physical Activity Recommendations</h4>
+  		<div>
+  			<iframe src="{{url_for('gformactivity')}}" width="760" height="500" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
+  		</div>
+
+</div>
+{% endblock %}

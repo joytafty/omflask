@@ -7,6 +7,7 @@ from main import Main
 from login import Login
 from physical import Physical, coachPhysical, clientPhysical, gformPhysical, gres
 from nutrition import Nutrition, coachNutrition, clientNutrition, gformNutrition
+from activity import Activity, coachActivity, clientActivity, gformActivity
 # from about import About
 # from plans import Plans
 from charts import Charts
@@ -83,6 +84,21 @@ app.add_url_rule('/client/nutrition/',
 app.add_url_rule('/gformNutrition/',
                  view_func=gformNutrition.as_view('gformnutrition'),
                  methods=["GET", "POST"])
+
+# Activity Views
+app.add_url_rule('/activity/',
+                 view_func=Activity.as_view('activity'),
+                 methods=["GET", "POST"])
+app.add_url_rule('/coach/activity/',
+                 view_func=coachActivity.as_view('coach-activity'),
+                 methods=["GET", "POST"])
+app.add_url_rule('/client/activity/',
+                 view_func=clientActivity.as_view('client-activity'),
+                 methods=["GET", "POST"])
+app.add_url_rule('/gformNutrition/',
+                 view_func=gformActivity.as_view('gformactivity'),
+                 methods=["GET", "POST"])
+
 
 # Chart Views
 app.add_url_rule('/charts/',
