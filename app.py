@@ -5,8 +5,8 @@ import json
 # Views
 from main import Main
 from login import Login
-from physical import Physical, coachPhysical, clientPhysical, gformPhysical, gresPhysical
-from nutrition import Nutrition, coachNutrition, clientNutrition, gformNutrition, gresNutrition
+from physical import Physical, coachPhysical, clientPhysical, gformPhysical, gres
+from nutrition import Nutrition, coachNutrition, clientNutrition, gformNutrition
 # from about import About
 # from plans import Plans
 from charts import Charts
@@ -67,7 +67,7 @@ app.add_url_rule('/gformPhysical/',
                  view_func=gformPhysical.as_view('gformphysical'),
                  methods=["GET", "POST"])
 app.add_url_rule('/gres/',
-                 view_func=gresPhysical.as_view('gres'),
+                 view_func=gres.as_view('gres'),
                  methods=["GET", "POST"])
 
 # Nutrition Views
@@ -81,7 +81,7 @@ app.add_url_rule('/client/nutrition/',
                  view_func=clientNutrition.as_view('client-nutrition'),
                  methods=["GET", "POST"])
 app.add_url_rule('/gformNutrition/',
-                 view_func=gformPhysical.as_view('gformnutrition'),
+                 view_func=gformNutrition.as_view('gformnutrition'),
                  methods=["GET", "POST"])
 
 # Chart Views

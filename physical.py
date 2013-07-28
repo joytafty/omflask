@@ -34,7 +34,7 @@ class gformPhysical(flask.views.MethodView):
 			return flask.render_template(page)
 		flask.abort(404)
 
-class gresPhysical(flask.views.MethodView):
+class gres(flask.views.MethodView):
 	@utils.login_required
 	def get(self, page="gres"):
 		page += ".html"
