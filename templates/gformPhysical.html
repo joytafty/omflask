@@ -14,11 +14,15 @@
 	<div class="ss-form">
 
 		<script type="text/javascript">var submitted=false;</script>
-		<form action="https://docs.google.com/forms/d/1ir5d8jD_Dje71OFC8ozULxhdzwtEif9OEU6z2jgShCg/formResponse?embedded=true" method="POST" target="hidden_iframe" onsubmit="submitted=true;">
 		<iframe name="hidden_iframe" id="hidden_iframe"
 		style="display:none;" onload="if(submitted)
-		{window.location='{{url_for('gres')}}';}"></iframe>
-			<ol style="padding-left: 0">
+		{window.location='gres.html'}; console.log(window.location);
+		else {window.location='gformPhysical.html'};"></iframe>
+		<form action="https://docs.google.com/forms/d/1ir5d8jD_Dje71OFC8ozULxhdzwtEif9OEU6z2jgShCg/formResponse?embedded=true" method="POST" target="hidden_iframe" onsubmit="submitted=true;">
+<!-- 		<iframe name="hidden_iframe" id="hidden_iframe"
+		style="display:none;" onload="if(submitted)
+		{window.location='gres.html';}"></iframe>
+ -->			<ol style="padding-left: 0">
 
 			<!-- First name text box -->
 				<div class="ss-form-question errorbox-good">
