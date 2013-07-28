@@ -28,7 +28,7 @@ class clientPhysical(flask.views.MethodView):
 
 class gformPhysical(flask.views.MethodView):
 	@utils.login_required
-	def get(self, page="gformphysical"):
+	def get(self, page="gformPhysical"):
 		page += ".html"
 		if os.path.isfile('templates/' + page):
 			return flask.render_template(page)
