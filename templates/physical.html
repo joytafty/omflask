@@ -94,9 +94,34 @@
 {% block content %}
 <div class="span6">  
   <h4>Current measurement</h4>
+  <div class="row">
+    <div class="span1"></div>
+    <div class="span3"><small class="pull-right">Your Height</small></div>
+    <div class="span2">x feet</div>
+    <div class="span3"></div>
+    <div class="span3"></div>
+  </div>
+
+  <!-- Your Height -->
+  <div class="row">
+    <div class="span1"></div>
+    <div class="span3"><small class="pull-right">Your Weight</small></div>
+    <div class="span2">x lbs</div>
+    <div class="span3"><small class="pull-right">Ideal Range</small></div>
+    <div class="span3">x1 - x2 lbs</div>
+  </div>
+
+    <!-- Your Waist Circumference -->
+  <div class="row">
+    <div class="span1"></div>
+    <div class="span3"><small class="pull-right">Waist</small></div>
+    <div class="span2">x inches</div>
+    <div class="span3"><small class="pull-right">Ideal Range</small></div>
+    <div class="span3">x1 - x2 inches</div>
+  </div>
   <div id='anthro_div' ></div>
   <div id='bmi_div' style='height: 400px; vertical-align: middle;'></div>
-  <div id='bodyfat_div' style='height: 400px; vertical-align: middle;'></div>      
+  <div id='bodyfat_div' style='height: 400px; vertical-align: middle;'></div>     
 </div>
 {% endblock %} <!-- End graph -->
 {% block comments %}
