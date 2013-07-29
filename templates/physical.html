@@ -12,13 +12,13 @@
 
 	// Anthropometrics Measurements
 	function drawAnthro() {
-		var options = {'showRowNumber': true, 'allowHtml': true, width: '100%', height: '110%'};
+		var options = {'showRowNumber': false, 'allowHtml': true, width: '100%', height: '110%'};
 		var d = google.visualization.arrayToDataTable([
-			['Measurements', 'Your Measure', 'Ideal Range', 'U.S. Average'],
-			['Height (inches)', 0, 0, 0],
-			['Weight (pounds)', 0, 0, 0],
-			['Waist Circumference', 0, 0, 0],
-			['Percent Body Fat', 0, 0, 0]
+			['Measurements', '', '', ''],
+			['Your Height', '6 feet', '', ''],
+			['Your Weight', '160 lbs' , 'Ideal Range', '150-170 lbs'],
+			['Waist Circumference', '32 inches', 'Ideal Range', '28-36 inches']
+			// ['Percent Body Fat', 0, 0]
 			]);
           // Create and draw the visualization.
           var dash = new google.visualization.Table(document.getElementById('anthro_div'));
