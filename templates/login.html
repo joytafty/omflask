@@ -4,11 +4,8 @@
 <!-- 	<h3>Please log in to access your dashboard</h3>
  -->	<!-- Logged in -->
 	{% if 'usr' in session %}
-		<p>Welcome back {{session['usr']}} !</p>
-<!-- 		<form action="{{url_for('login')}}" method="post">
-			<button type="submit" name="logout" value="logout" class="btn">logout</button>
-		</form>
- -->
+		<p>Welcome back {{session['usr']}} ! </p>
+		<a href="{{ url_for('welcome') }}">Go to your main page</a>
 	<!-- Not Logged in -->	
 	{% else %}
 		<p>You're not logged in.</p>

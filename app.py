@@ -4,7 +4,8 @@ import json
 
 # Views
 from main import Main
-from login import Login
+from login import Login, Welcome
+from gform import Qpreboarding, Qonboarding, Q24hfood, QInsideTracker
 from physical import Physical, coachPhysical, clientPhysical, gformPhysical, gres
 from nutrition import Nutrition, coachNutrition, clientNutrition, gformNutrition
 from activity import Activity, coachActivity, clientActivity, gformActivity
@@ -38,6 +39,11 @@ app.add_url_rule('/',
                  view_func=Main.as_view('main'),
                  methods=["GET"])
 # Dynamic URL rule
+# List of forms
+# 1. Preboarding questionaire
+# 2. Onboarding questionaire
+# 3. 
+
 # List of view 
 # 0. Login
 # 1. Welcome/Goal 
@@ -50,6 +56,25 @@ app.add_url_rule('/',
 
 app.add_url_rule('/login/',
                  view_func=Login.as_view('login'),
+                 methods=["GET", "POST"])
+
+# Welcome page
+app.add_url_rule('/welcome/',
+                 view_func=Welcome.as_view('welcome'),
+                 methods=["GET", "POST"])
+
+# Form Views
+app.add_url_rule('/questionaire/preboarding/',
+                 view_func=Qpreboarding.as_view('questionnaire-preboarding'),
+                 methods=["GET", "POST"])
+app.add_url_rule('/questionaire/onboarding/',
+                 view_func=Qonboarding.as_view('questionnaire-onboarding'),
+                 methods=["GET", "POST"])
+app.add_url_rule('/questionaire/24hfood/',
+                 view_func=Q24hfood.as_view('questionnaire-24hfood'),
+                 methods=["GET", "POST"])
+app.add_url_rule('/input/insidetracker/',
+                 view_func=QInsideTracker.as_view('input-insidetracker'),
                  methods=["GET", "POST"])
 
 # Physical Measurements Views
@@ -115,7 +140,7 @@ app.add_url_rule('/dcindex/',
 
 @app.route('/favicon.ico')
 def favicon():
-	return send_from_directory(os.path.join(app.root_path, 'static'), 'ico/favicon.ico')
+	return send_from_directory(os.path.join(app.root_path, 'static'), 'ico/optmeico.ico')
 
 @app.errorhandler(404)
 def page_not_found(e):

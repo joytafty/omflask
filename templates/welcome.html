@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block head %}
+<title>Welcome Page</title>
+<script src="{{ url_for('static', filename='js/bootstrap-carousel.js') }}"></script>
+{% endblock %}
+{% block content %}
+<div id="carousel-example-generic" class="carousel slide">
+	<h2> Your Weekly Summary </h2>
+	<!-- Indicators -->
+	<ol class="carousel-indicators">
+		<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+		<li data-target="#carousel-example-generic" data-slide-to="1"></li>
+		<li data-target="#carousel-example-generic" data-slide-to="2"></li>
+		<li data-target="#carousel-example-generic" data-slide-to="3"></li>
+		<li data-target="#carousel-example-generic" data-slide-to="4"></li>
+	</ol>
+
+	<!-- Wrapper for slides -->
+	<div class="carousel-inner">
+		<div class="item active">
+			<img src="{{ url_for('static', filename='report/s0.png') }}" alt="p0">
+<!-- 			<div class="carousel-caption">
+				Health Check In
+				<h3>Summary of your health snapshot</h3>
+				<p></p>
+			</div> -->
+		</div>
+
+		<div class="item">
+			<img src="{{ url_for('static', filename='report/s1.png') }}" alt="p1">
+		</div>
+
+		<div class="item"><img src="{{ url_for('static', filename='report/s2.png') }}" alt="p2"></div>
+		<div class="item"><img src="{{ url_for('static', filename='report/s3.png') }}" alt="p3"></div>
+		<div class="item"><img src="{{ url_for('static', filename='report/s4.png') }}" alt="p4"></div>
+		<div class="item"><img src="{{ url_for('static', filename='report/s5.png') }}" alt="p5"></div>
+		<div class="item"><img src="{{ url_for('static', filename='report/s6.png') }}" alt="p6"></div>
+		<div class="item"><img src="{{ url_for('static', filename='report/s7.png') }}" alt="p7"></div>
+		<div class="item"><img src="{{ url_for('static', filename='report/s8.png') }}" alt="p8"></div>
+		<div class="item"><img src="{{ url_for('static', filename='report/s9.png') }}" alt="p9"></div>
+		<div class="item"><img src="{{ url_for('static', filename='report/s10.png') }}" alt="p10"></div>
+		<div class="item"><img src="{{ url_for('static', filename='report/s11.png') }}" alt="p11"></div>
+		<div class="item"><img src="{{ url_for('static', filename='report/s12.png') }}" alt="p12"></div>
+		<div class="item"><img src="{{ url_for('static', filename='report/s13.png') }}" alt="p13"></div>
+		<div class="item"><img src="{{ url_for('static', filename='report/s14.png') }}" alt="p14"></div>
+		
+	</div>
+
+	<!-- Controls -->
+	<a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+		<span class="icon-prev"></span>
+	</a>
+	<a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+		<span class="icon-next"></span>
+	</a>
+</div>
+<script src="{{ url_for('static', filename='js/bootstrap-carousel.js') }}"></script>
+
+{% endblock %}

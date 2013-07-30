@@ -46,11 +46,29 @@
 	<!-- Begin NavTabs -->
 	<ul class="nav nav-tabs">
 	<!-- Tab: Welcome -->
-	  <li class="active"><a href="{{url_for('main')}}">Welcome</a></li>
+	  <li class="active"><a href="{{url_for('welcome')}}">Welcome</a></li>
+
+	  <!-- Tab: Questionnaire -->
+	    <li class="dropdown">
+	  	<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+	  	Questionnaires
+	  	<span class="caret"></span>
+	  	</a>
+	  	<ul class="dropdown-menu">
+	  		<li><a href="{{url_for('questionnaire-preboarding')}}">Preboarding Questionnaire</a></li>	  				
+	  		<li><a href="{{url_for('questionnaire-onboarding')}}">Onboarding Questionnaire</a></li>	  				
+	  		<li><a href="{{url_for('questionnaire-24hfood')}}">24 hr food recall</a></li>	  				
+	  		<li><a href="{{url_for('coach-physical')}}">Physical Measurements Feedback</a></li>	  				
+	  		<li><a href="{{url_for('coach-nutrition')}}">Nutrition Feedback</a></li>	  				
+	  		<li><a href="{{url_for('coach-activity')}}">Physical Activity Feedback</a></li>	  				
+	  		<li><a href="{{url_for('input-insidetracker')}}">Bloodwork Feedback</a></li>	  				
+	  	</ul>
+	    </li>
+
 	<!-- Tab: Physical Measurements -->
 	  <li class="dropdown">
 		<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-		Physical Measurements
+		Measurements
 		<span class="caret"></span>
 		</a>
 		<ul class="dropdown-menu">
@@ -62,7 +80,7 @@
 	<!-- Tab: Physical Activity -->
 	  <li class="dropdown">
 	  	<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-	  	Physical Activity
+	  	Activity
 		<span class="caret"></span>
 	  	</a>
 		<ul class="dropdown-menu">
