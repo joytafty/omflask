@@ -2,7 +2,7 @@ import flask, flask.views
 import os
 
 class Main(flask.views.MethodView):
-	def get(self, page="index"):
+	def get(self, page="base"):
 		page += ".html"
 		if os.path.isfile('templates/' + page):
 			return flask.render_template(page)

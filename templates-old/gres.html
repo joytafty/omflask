@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel="stylesheet">
+		<style> body { padding-top: 80px; } </style>
+		<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+	{% block head %}
+		<title>Thank you for submitting your notes</title>
+	{% endblock %}
+	</head>	
+
+	<body>
+	<!-- Begin Content -->	
+		<div class="row-fluid">
+		  <!-- Content block -->
+		  {% block content %}
+		  <div class="span6">
+		  <p class="text-center">Thank you Coach. Your notes have been recorded and will be momentarily updated in your client page.</p>  
+		  </div>
+		  {% endblock %}
+		  <!-- Comment block for custom coach vs. client view -->
+		  {% block comments %}
+		  {% endblock %}
+		</div>
+	<!-- End Content -->	
+
+	<!-- Flashing message -->	
+		<div id="flashed">
+		{% with messages = get_flashed_messages() %}
+		{% for message in messages %}
+			{{message}}
+		{% endfor %}
+		{% endwith %}
+		
+		{% block footer %}
+		{% endblock %}
+		</div>
+	</div> 
+	<!-- End Container -->	
+
+		<script src="http://code.jquery.com/jquery-latest.js"></script>
+    	<script src="js/bootstrap.min.js"></script>
+	</body>
+</html>

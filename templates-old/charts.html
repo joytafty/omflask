@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>OptMe Dashboard</title>
+    <!-- <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet"> -->
+    <link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://raw.github.com/NickQiZhu/dc.js/master/test/dc.css"/>
+    <!-- Loading D3 Visualization Library -->
+    <script type="text/javascript" src="http://mbostock.github.com/d3/d3.min.js"></script>
+    <script type="text/javascript" src="../static/js/dial.chart.js"></script>    
+    <!-- Loading Google Visualization Library -->
+    <script type='text/javascript' src='https://www.google.com/jsapi'></script>
+
+    <!-- Loading Google Spreadsheet API -->
+    <script type="text/javascript" src="google-spreadsheet.js"></script>
+    
+    <!-- PROTOTYPE: CVD risk Gauge Plot -->
+    <script type='text/javascript'>
+      google.load('visualization', '1', {packages:['corechart','gauge', 'ColumnChart', 'Table']});
+      google.setOnLoadCallback(drawAnthro);
+      google.setOnLoadCallback(drawPhys);
+      google.setOnLoadCallback(drawBMI);
+      google.setOnLoadCallback(drawStep);
+      google.setOnLoadCallback(drawDiet);
+      google.setOnLoadCallback(drawBP);
+      google.setOnLoadCallback(drawGaugeCVD);      
+
+      // Anthropometrics Measurements
+      function drawAnthro() {
+        var options = {'showRowNumber': true, 'allowHtml': true, width: '100%', height: '110%'};
+        var d = google.visualization.arrayToDataTable([
+          ['Measurements', 'Your Measure', 'Ideal Range', 'U.S. Average', 'Notes'],
+          ['Height (inches)', 0, 0, 0, true],
+          ['Weight (pounds)', 0, 0, 0, true],
+          ['Waist Circumference', 0, 0, 0, false],
+          ['Percent Body Fat', 0, 0, 0, true]
+        ]);
+          // Create and draw the visualization.
+      var dash = new google.visualization.Table(document.getElementById('anthro_div'));
+      dash.draw(d, options);
+      }
+
+      // BMI 
+      function drawBMI() {
+        var d = google.visualization.arrayToDataTable([
+          ['Level', '18.5', '18.6-24.9', '25.0-29.9', '>30'],
+          ['',  18.5, 6.3, 4.9, 4.0]
+          ]);
+
+        // d.addColumn({type:'string', role:'annotation'});
+        // d.addColumn({type:'string', role:'annotationText'});
+
+        var options = {
+          title: 'Body Mass Index (kg/m2)',
+          isStacked: true,
+          legend: {position: 'none'},
+          width: '80%', height: '80%',
+          colors: ['#f3b49f', '#ec8f6e', '#e6693e','#e0440e']
+        };
+
+        var bmibar = new google.visualization.BarChart(document.getElementById('bmi_div'));
+        bmibar.draw(d, options);
+      }
+
+      // Physical Activity
+      function drawPhys() {
+        var options = {
+          'showRowNumber': true, 
+          'allowHtml': true, 
+          width: '80%', 
+          height: '110%'
+        };
+        var d = google.visualization.arrayToDataTable([
+          ['Measurements', 'Your Measure', 'Ideal Range', 'Notes'],
+          ['Average daily steps', 0, 0, true],
+          ['Resting heart rate (bmp)', 0, 0, true]
+        ]);
+          // Create and draw the visualization.
+      var dash = new google.visualization.Table(document.getElementById('phys_div'));
+      dash.draw(d, options);
+      }
+
+      // FitBit Steps
+      function drawStep() {
+        // Create and populate the data table.
+        var data = google.visualization.arrayToDataTable([
+          ['Day', 'Week1', 'Week2', 'Average'],
+          ['Mon',  10000,      9308,         9654],
+          ['Tue',  11200,      13500,        12350],
+          ['Wed',  15700,      11607,        13603.5],
+          ['Thu',  13900,      10110,        12005],
+          ['Fri',  11067,      15700,        13383.5],
+          ['Sat',  13090,      11210,        12150],
+          ['Sun',  6910,       10360,         8635]
+        ]);
+
+        // Create and draw the visualization.
+        var ac = new google.visualization.ComboChart(document.getElementById('steps_div'));
+        ac.draw(data, {
+          title : 'Steps',
+          width: '80%',
+          height: '100%',
+          vAxis: {title: "Steps"},
+          hAxis: {title: "Day of Week"},
+          seriesType: "bars",
+          series: {2: {type: "line"}}
+        });
+      }
+
+      // Diet and Metabolism
+      function drawDiet() {
+        var options = {'showRowNumber': true, 'allowHtml': true, width: '100%', height: '110%'};
+        var d = google.visualization.arrayToDataTable([
+          ['Nutrient', 'Intake', 'Needs', 'Difference', 'Notes'],
+          ['Calories (kcals)', 0, 0, 0, true],
+          ['Fat (g)', 0, 0, 0, true],
+          ['Saturated Fat (g)', 0, 0, 0, true],
+          ['Protein (g)', 0, 0, 0, false],
+          ['Carbohygrate (g)', 0, 0, 0, true],
+          ['Fiber (g)', 0, 0, 0, true],
+          ['Sodium (mg)', 0, 0, 0, true]
+        ]);
+          // Create and draw the visualization.
+      var dash = new google.visualization.Table(document.getElementById('diet_div'));
+      dash.draw(d, options);
+      }
+
+
+      // Blood Pressure and Cholesterol
+      function drawBP() {
+        var d = google.visualization.arrayToDataTable([
+          ['Level', 'Normotension', 'Pre-Hypertension', 'Hypertension I', 'Hypertension II'],
+          ['Systolic',  50, 20, 20, 20]
+          ]);
+
+        var options = {
+          title: 'Blood Pressure (mmHg)',
+          isStacked: true,
+          width: '60%', height: '80%',
+          colors: ['#FFFFCC', '#A1DAB4', '#41B6C4','#225EA8']
+        };
+
+        var bpbar = new google.visualization.BarChart(document.getElementById('bp_div'));
+        bpbar.draw(d, options);
+      }
+
+      // CVD Risks
+      function drawGaugeCVD() {
+        var d = google.visualization.arrayToDataTable([
+          ['Label', 'Value'],
+          ['Full CVD BMI', 10],
+          ['Hard CVD BMI', 5],
+          ['Full CVD lipids', 12],
+          ['Hard CVD lipids', 8]
+        ]);
+
+        var options = {
+          width: '100%', height: 200,
+          redColor:'#FB6A4A',redFrom: 80, redTo: 100,
+          yellowColor: '#FCAE91', yellowFrom:50, yellowTo: 80,
+          greenColor: '#FEE5D9', greenFrom:0, greenTo:50,
+          minorTicks: 5
+        };
+
+        var chart = new google.visualization.Gauge(document.getElementById('gaugeCVD_div'));
+        chart.draw(d, options);
+
+        function changeTemp(dir) {
+          d.setValue(0, 0, d.getValue(0, 0) + dir * 25);
+          d.setValue(0, 1, d.getValue(0, 1) + dir * 20);
+          d.draw(d, options);
+        }
+      }
+    </script>
+  </head>
+
+  <body>
+
+  <!-- Main Chart Content -->  
+    <div class="container-fluid">
+      <div class="row-fluid">
+        {% block content %}
+        
+        <!-- Table Anthropometrics -->
+        <div class="span6">
+          <h4>Anthropometric Measures</h4>
+          <div id='anthro_div'></div>
+          <div id='bmi_div'></div>
+        </div> 
+        
+        <!-- Table Physical Activity -->
+        <div class="span6">
+          <h4>Physical Activity</h4>
+          <div id='phys_div'></div>
+          <div id='steps_div'></div>
+        </div> 
+
+        <!-- Table Diet -->
+        <div class="span6">
+          <h4>Diet and Metabolism</h4>
+          <div id='diet_div'></div>
+        </div> 
+
+        <!-- Bar Blood Pressure and Cholesterol -->
+        <div class="span6">
+          <h4>Blood Pressure and Cholesterol</h4>
+          <div id='bp_div'></div>
+        </div> 
+ 
+        <!-- CVD Risk Gauge Chart -->
+        <div class="span6">
+          <h4>Longevity</h4>
+          <h5>Your cardiovascular risks</h5>
+          <div id='gaugeCVD_div'>
+          <input type='button' value='Increase' onclick='changeTemp(1)' />
+          <input type='button' value='Decrease' onclick='changeTemp(-1)' />
+          </div>
+          <h5>Life expectency</h5>
+        </div> 
+        {% endblock %}
+      </div>
+    </div>
+
+  </body>
+</html>

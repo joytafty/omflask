@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel="stylesheet">
+<!-- <link href="{{ url_for('static', filename='css/lessbootstrap.css') }}" rel="stylesheet/less"> -->
+		<style> body { padding-top: 80px; } </style>
+		<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/less.js/1.4.1/less.min.js"></script>
+	{% block head %}
+		<title>Welcome to Optimize Me Dashboard</title>
+	{% endblock %}
+	</head>	
+
+	<body>
+	<!-- Begin TOP navbar -->
+	{% block navbar %}
+	<!-- Headers with navigation -->
+	<div class="navbar navbar-fixed-top">
+			<div class="container-fluid">
+				<a class="brand" href="/"><img src="/static/img/optmelogo-header.png" alt="OptMeLogo" height="24"></a>
+				<div class="nav-collapse">
+					<ul class="nav">
+					</ul>
+					{% block navbar_right %}
+					<ul class="nav pull-right">
+						{% if 'usr' in session %}
+						<form action="{{url_for('login')}}" method="post">
+							<button type="submit" name="logout" value="logout" class="btn">logout</button>
+						</form>
+ 						{% else %}
+ 						<form action="{{url_for('login')}}" method="post">
+							<button type="submit" name="logout" value="logout" class="btn">Go to login page</button>
+						</form>
+						{% endif %}
+					</ul>
+					{% endblock %}					
+				</div>
+			</div>
+	</div>
+	{% endblock %} 
+	<!-- End TOP navbar -->
+
+	<div class="container page">
+	{% if 'usr' in session %}
+	<!-- Begin NavTabs -->
+	<ul class="nav nav-tabs">
+	<!-- Tab: Welcome -->
+	  <li class="active"><a href="{{url_for('welcome')}}">Welcome</a></li>
+
+	  <!-- Tab: Questionnaire -->
+	    <li class="dropdown">
+	  	<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+	  	Questionnaires
+	  	<span class="caret"></span>
+	  	</a>
+	  	<ul class="dropdown-menu">
+	  		<li><a href="{{url_for('questionnaire-preboarding')}}">Preboarding Questionnaire</a></li>	  				
+	  		<li><a href="{{url_for('questionnaire-onboarding')}}">Onboarding Questionnaire</a></li>	  				
+	  		<li><a href="{{url_for('questionnaire-24hfood')}}">24 hr food recall</a></li>	  				
+	  		<li><a href="{{url_for('coach-physical')}}">Physical Measurements Feedback</a></li>	  				
+	  		<li><a href="{{url_for('coach-nutrition')}}">Nutrition Feedback</a></li>	  				
+	  		<li><a href="{{url_for('coach-activity')}}">Physical Activity Feedback</a></li>	  				
+	  		<li><a href="{{url_for('input-insidetracker')}}">Bloodwork Feedback</a></li>	  				
+	  	</ul>
+	    </li>
+
+	<!-- Tab: Physical Measurements -->
+	  <li class="dropdown">
+		<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+		Measurements
+		<span class="caret"></span>
+		</a>
+		<ul class="dropdown-menu">
+			<li><a href="{{url_for('coach-physical')}}">Coach's Notes on Physical Measurements</a></li>	  				
+			<li><a href="{{url_for('client-physical')}}">Client View for Physical Measurements</a></li>	  				
+		</ul>
+	  </li>
+
+	<!-- Tab: Physical Activity -->
+	  <li class="dropdown">
+	  	<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+	  	Activity
+		<span class="caret"></span>
+	  	</a>
+		<ul class="dropdown-menu">
+			<li><a href="{{url_for('coach-activity')}}">Coach's Notes on Physical Activity</a></li>	  				
+			<li><a href="{{url_for('client-activity')}}">Client View for Physical Activity</a></li>	  				
+		</ul>
+	  </li>
+	<!-- Tab: Nutrition -->
+	  <li class="dropdown">
+		<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+		Nutrition
+		<span class="caret"></span>
+		</a>
+		<ul class="dropdown-menu">
+			<li><a href="{{url_for('coach-nutrition')}}">Coach's Notes on Nutrition</a></li>	  				
+			<li><a href="{{url_for('client-nutrition')}}">Client View on Nutrition</a></li>	  				
+		</ul>
+	  </li>
+	<!-- Tab: Cardiovascular Health -->
+	  <li><a href="#">Cardiovascular Health</a></li>
+	<!-- Tab: Bloodwork -->
+	  <li><a href="#">Blood Work</a></li>
+	<!-- Tab: Aging -->
+	  <li><a href="#">Aging</a></li>
+	</ul>
+	{% endif %}
+	<!-- End NavTabs -->
+
+	<!-- Begin Content -->	
+		<div class="row-fluid">
+		  <!-- Content block -->
+		  {% block content %}
+		  {% endblock %}
+		  <!-- Comment block for custom coach vs. client view -->
+		  {% block comments %}
+		  {% endblock %}
+		</div>
+	<!-- End Content -->	
+
+	<!-- Flashing message -->	
+		<div id="flashed">
+		{% with messages = get_flashed_messages() %}
+		{% for message in messages %}
+			{{message}}
+		{% endfor %}
+		{% endwith %}
+		
+		{% block footer %}
+<!-- 		<footer class="footer">
+			<p>&copy; <img src="/static/img/optmelogo-footer.png" alt="OptMeLogo-footer"></p>
+		</footer>
+ -->		{% endblock %}
+		</div>
+	</div> 
+	<!-- End Container -->	
+
+		<script src="http://code.jquery.com/jquery-latest.js"></script>
+    	<script src="js/bootstrap.min.js"></script>
+	</body>
+</html>

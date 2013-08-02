@@ -1,0 +1,47 @@
+{% extends "activity.html" %}
+{% block comments %}
+<div class="span6">  
+  <h4> Notes on Your Physical Activity </h4>
+ <div>
+   <!-- Coach response -->
+   <p id='client'></p>
+   <p id='results'></p>
+     <script id='script'>
+      localStorage.clear();
+      var repo_url = "https://docs.google.com/spreadsheet/pub?key="; 
+      var key = "0AvOHpkjVVc0ldGVYYUVYd1ZacE1ScDBweGltRHdxMEE";
+      var output = "&output=html"
+      var source_url = repo_url + key + output;
+      var url_parameter = document.location.search.split(/\?url=/)[1]
+      var url = url_parameter || source_url;
+      var googleSpreadsheet = new GoogleSpreadsheet();
+      googleSpreadsheet.url(url);
+      googleSpreadsheet.load(function(result) {
+       var formdata = result.data;
+       var ncol = 4;
+       var fncidx = formdata.indexOf('Client First Name');
+       var lncidx = formdata.indexOf('Client Last Name');
+       var nrow = (formdata.length/ncol);
+       var clidx = 0;
+       var fnvalpos = ncol*(clidx+1) + fncidx;
+       var lnvalpos = ncol*(clidx+1) + lncidx;
+       var fnval = formdata[fnvalpos];
+       var lnval = formdata[lnvalpos];
+       console.log(result);
+       console.log(fnval + lnval);
+
+       $('#client').html(JSON.stringify(
+        'Welcome back ' + formdata[fnvalpos] + 
+        '. Here is your weekly recommendations')
+       .replace(/,/g,",\n"));
+
+       $('#results').html(JSON.stringify(formdata[7]).replace(/,/g,",\n"));
+     });
+    </script>
+    <script>
+      $('#iframe').attr("src",url);
+      $('input[name]').val(url);
+    </script>
+  </div>
+</div>
+{% endblock %}

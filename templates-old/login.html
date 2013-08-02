@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %} - Log In{% endblock %}
+{% block content %}
+<!-- 	<h3>Please log in to access your dashboard</h3>
+ -->	<!-- Logged in -->
+	{% if 'usr' in session %}
+		<p>Welcome back {{session['usr']}} ! </p>
+		<a href="{{ url_for('welcome') }}">Go to your main page</a>
+	<!-- Not Logged in -->	
+	{% else %}
+		<p>You're not logged in.</p>
+		<form action="{{url_for('login')}}" method="post">
+			<p>Username: <br /><input type="text" name="usr" /></p>
+			<p>Password: <br /><input type="password" name="pswd" /></p>
+			<p><button type="submit" value="submit" class="btn">login</button></p>
+		</form>
+	{% endif %}
+{% endblock %}	

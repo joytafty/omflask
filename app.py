@@ -4,13 +4,13 @@ import json
 
 # Views
 from main import Main
-from login import Login, Welcome
-from gform import Qpreboarding, Qonboarding, Q24hfood, QInsideTracker
-from physical import Physical, coachPhysical, clientPhysical, gformPhysical, gres
-from nutrition import Nutrition, coachNutrition, clientNutrition, gformNutrition
-from activity import Activity, coachActivity, clientActivity, gformActivity
-from charts import Charts
-from d3charts import d3Charts,dcCharts
+# from login import Login, Welcome
+# from gform import Qpreboarding, Qonboarding, Q24hfood, QInsideTracker
+# from physical import Physical, coachPhysical, clientPhysical, gformPhysical, gres
+# from nutrition import Nutrition, coachNutrition, clientNutrition, gformNutrition
+# from activity import Activity, coachActivity, clientActivity, gformActivity
+# from charts import Charts
+# from d3charts import d3Charts,dcCharts
 #----------------------------------------
 # initialization
 #----------------------------------------
@@ -54,85 +54,85 @@ app.add_url_rule('/',
 # 6. Blood Work
 # 7. Aging (Longevity)
 
-app.add_url_rule('/login/',
-                 view_func=Login.as_view('login'),
-                 methods=["GET", "POST"])
+# app.add_url_rule('/login/',
+#                  view_func=Login.as_view('login'),
+#                  methods=["GET", "POST"])
 
-# Welcome page
-app.add_url_rule('/welcome/',
-                 view_func=Welcome.as_view('welcome'),
-                 methods=["GET", "POST"])
+# # Welcome page
+# app.add_url_rule('/welcome/',
+#                  view_func=Welcome.as_view('welcome'),
+#                  methods=["GET", "POST"])
 
-# Form Views
-app.add_url_rule('/questionaire/preboarding/',
-                 view_func=Qpreboarding.as_view('questionnaire-preboarding'),
-                 methods=["GET", "POST"])
-app.add_url_rule('/questionaire/onboarding/',
-                 view_func=Qonboarding.as_view('questionnaire-onboarding'),
-                 methods=["GET", "POST"])
-app.add_url_rule('/questionaire/24hfood/',
-                 view_func=Q24hfood.as_view('questionnaire-24hfood'),
-                 methods=["GET", "POST"])
-app.add_url_rule('/input/insidetracker/',
-                 view_func=QInsideTracker.as_view('input-insidetracker'),
-                 methods=["GET", "POST"])
+# # Form Views
+# app.add_url_rule('/questionaire/preboarding/',
+#                  view_func=Qpreboarding.as_view('questionnaire-preboarding'),
+#                  methods=["GET", "POST"])
+# app.add_url_rule('/questionaire/onboarding/',
+#                  view_func=Qonboarding.as_view('questionnaire-onboarding'),
+#                  methods=["GET", "POST"])
+# app.add_url_rule('/questionaire/24hfood/',
+#                  view_func=Q24hfood.as_view('questionnaire-24hfood'),
+#                  methods=["GET", "POST"])
+# app.add_url_rule('/input/insidetracker/',
+#                  view_func=QInsideTracker.as_view('input-insidetracker'),
+#                  methods=["GET", "POST"])
 
-# Physical Measurements Views
-app.add_url_rule('/physical/',
-                 view_func=Physical.as_view('physical'),
-                 methods=["GET", "POST"])
-app.add_url_rule('/coach/physical/',
-                 view_func=coachPhysical.as_view('coach-physical'),
-                 methods=["GET", "POST"])
-app.add_url_rule('/client/physical/',
-                 view_func=clientPhysical.as_view('client-physical'),
-                 methods=["GET", "POST"])
-app.add_url_rule('/gformPhysical/',
-                 view_func=gformPhysical.as_view('gformphysical'),
-                 methods=["GET", "POST"])
-app.add_url_rule('/gres/',
-                 view_func=gres.as_view('gres'),
-                 methods=["GET", "POST"])
+# # Physical Measurements Views
+# app.add_url_rule('/physical/',
+#                  view_func=Physical.as_view('physical'),
+#                  methods=["GET", "POST"])
+# app.add_url_rule('/coach/physical/',
+#                  view_func=coachPhysical.as_view('coach-physical'),
+#                  methods=["GET", "POST"])
+# app.add_url_rule('/client/physical/',
+#                  view_func=clientPhysical.as_view('client-physical'),
+#                  methods=["GET", "POST"])
+# app.add_url_rule('/gformPhysical/',
+#                  view_func=gformPhysical.as_view('gformphysical'),
+#                  methods=["GET", "POST"])
+# app.add_url_rule('/gres/',
+#                  view_func=gres.as_view('gres'),
+#                  methods=["GET", "POST"])
 
-# Nutrition Views
-app.add_url_rule('/nutrition/',
-                 view_func=Nutrition.as_view('nutrition'),
-                 methods=["GET", "POST"])
-app.add_url_rule('/coach/nutrition/',
-                 view_func=coachNutrition.as_view('coach-nutrition'),
-                 methods=["GET", "POST"])
-app.add_url_rule('/client/nutrition/',
-                 view_func=clientNutrition.as_view('client-nutrition'),
-                 methods=["GET", "POST"])
-app.add_url_rule('/gformNutrition/',
-                 view_func=gformNutrition.as_view('gformnutrition'),
-                 methods=["GET", "POST"])
+# # Nutrition Views
+# app.add_url_rule('/nutrition/',
+#                  view_func=Nutrition.as_view('nutrition'),
+#                  methods=["GET", "POST"])
+# app.add_url_rule('/coach/nutrition/',
+#                  view_func=coachNutrition.as_view('coach-nutrition'),
+#                  methods=["GET", "POST"])
+# app.add_url_rule('/client/nutrition/',
+#                  view_func=clientNutrition.as_view('client-nutrition'),
+#                  methods=["GET", "POST"])
+# app.add_url_rule('/gformNutrition/',
+#                  view_func=gformNutrition.as_view('gformnutrition'),
+#                  methods=["GET", "POST"])
 
-# Activity Views
-app.add_url_rule('/activity/',
-                 view_func=Activity.as_view('activity'),
-                 methods=["GET", "POST"])
-app.add_url_rule('/coach/activity/',
-                 view_func=coachActivity.as_view('coach-activity'),
-                 methods=["GET", "POST"])
-app.add_url_rule('/client/activity/',
-                 view_func=clientActivity.as_view('client-activity'),
-                 methods=["GET", "POST"])
-app.add_url_rule('/gformNutrition/',
-                 view_func=gformActivity.as_view('gformactivity'),
-                 methods=["GET", "POST"])
+# # Activity Views
+# app.add_url_rule('/activity/',
+#                  view_func=Activity.as_view('activity'),
+#                  methods=["GET", "POST"])
+# app.add_url_rule('/coach/activity/',
+#                  view_func=coachActivity.as_view('coach-activity'),
+#                  methods=["GET", "POST"])
+# app.add_url_rule('/client/activity/',
+#                  view_func=clientActivity.as_view('client-activity'),
+#                  methods=["GET", "POST"])
+# app.add_url_rule('/gformNutrition/',
+#                  view_func=gformActivity.as_view('gformactivity'),
+#                  methods=["GET", "POST"])
 
 
-# Chart Views
-app.add_url_rule('/charts/',
-                 view_func=Charts.as_view('charts'),
-                 methods=["GET", "POST"])
-app.add_url_rule('/d3charts/',
-                 view_func=d3Charts.as_view('d3charts'),
-                 methods=["GET", "POST"])
-app.add_url_rule('/dcindex/',
-                 view_func=dcCharts.as_view('dcindex'),
-                 methods=["GET", "POST"])
+# # Chart Views
+# app.add_url_rule('/charts/',
+#                  view_func=Charts.as_view('charts'),
+#                  methods=["GET", "POST"])
+# app.add_url_rule('/d3charts/',
+#                  view_func=d3Charts.as_view('d3charts'),
+#                  methods=["GET", "POST"])
+# app.add_url_rule('/dcindex/',
+#                  view_func=dcCharts.as_view('dcindex'),
+#                  methods=["GET", "POST"])
 
 #----------------------------------------
 # handlers

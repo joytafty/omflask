@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %} - Optimize Me Home{% endblock %}
+{% block script %}
+    <link rel="stylesheet" type="text/css" href="https://raw.github.com/NickQiZhu/dc.js/master/test/dc.css"/>
+    <!-- Loading Google Visualization Library -->
+    <script type='text/javascript' src='https://www.google.com/jsapi'></script>
+    <!-- Loading Google Spreadsheet API -->
+    <script type="text/javascript" src="google-spreadsheet.js"></script>
+
+    <!-- PROTOTYPE: CVD risk Gauge Plot -->
+    <script type='text/javascript'>
+      google.load('visualization', '1', {packages:['gauge', 'ColumnChart', 'Table']});
+      google.setOnLoadCallback(drawAnthro);
+      // google.setOnLoadCallback(drawGauge);      
+
+      function drawAnthro() {
+        var d = google.visualization.arrayToDataTable([
+          ['Measurements', 'Your Measure', 'Ideal Range', 'Notes'],
+          ['Height (inches)', 0, 0, true],
+          ['Weight (pounds)', 0, 0, true],
+          ['Waist Circumference', 0, 0, false],
+          ['Percent Body Fat', 0, 0, true]
+        ]);
+          // Create and draw the visualization.
+      var dash = new google.visualization.Table(document.getElementById('table_div'));
+      dash.draw(d, null);
+      }
+{% endblock %}
+
+{% block content %}
+<!-- Table Anthropometrics -->
+<div id='table_div'></div>
+
+  <p>Welcome to Optimize Me!</p>
+	{% if 'usr' in session %}
+	 <p>Thank you for logging in.</p>
+{% else %}
+     <p>Please log in for more information.</p>
+{% endif %}
+{% endblock %}

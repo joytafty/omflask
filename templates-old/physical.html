@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+{% block head %}
+<title>Physical Measurements</title>
+<!-- Loading Google Visualization Library -->
+<script type='text/javascript' src='https://www.google.com/jsapi'></script>
+<script type="text/javascript" src="{{url_for('static', filename='js/google-spreadsheet.js')}}"></script>
+<script type='text/javascript'>
+	google.load('visualization', '1', {packages:['corechart','gauge', 'ColumnChart', 'Table']});
+	google.setOnLoadCallback(drawAnthro);
+	google.setOnLoadCallback(drawBMI);
+  google.setOnLoadCallback(drawBodyFat);
+
+	// Anthropometrics Measurements
+	function drawAnthro() {
+		var options = {'showRowNumber': false, 'allowHtml': true, width: '100%', height: '110%'};
+		var d = google.visualization.arrayToDataTable([
+			['Measurements', '', '', ''],
+			['Your Height', '6 feet', '', ''],
+			['Your Weight', '160 lbs' , 'Ideal Range', '150-170 lbs'],
+			['Waist Circumference', '32 inches', 'Ideal Range', '28-36 inches']
+			// ['Percent Body Fat', 0, 0]
+			]);
+          // Create and draw the visualization.
+          var dash = new google.visualization.Table(document.getElementById('anthro_div'));
+          dash.draw(d, options);
+        }
+
+      // BMI 
+      function drawBMI() {
+      	var d = google.visualization.arrayToDataTable([
+      		['Date', 'Your Measure', 'Category0', 'Category1', 'Category 2', 'Category 3', 'Category 4'],
+      		['current date', 29.0, 18.5, 6.3, 4.9, 4.9, 9.0],
+      		['new date 1', 24.0, 18.5, 6.3, 4.9, 4.9, 9.0],	
+      		['new date 2', 21.2, 18.5, 6.3, 4.9, 4.9, 9.0],	
+      		['new date 3', 20.2, 18.5, 6.3, 4.9, 4.9, 9.0]	
+      		]);
+
+      	d.addColumn({type:'string', role:'annotation'});
+      	d.addColumn({type:'string', role:'annotationText'});
+
+      	var bmibar = new google.visualization.SteppedAreaChart(document.getElementById('bmi_div'));
+      	bmibar.draw(d, {
+      		title: 'Body Mass Index (kg/m2)',
+      		isStacked: true,
+      		width: '100%',
+      		height: '100%', 
+      		colors: ['#000000', '#FEE08B', '#A6D96A', '#66BD63', '#FDAE61','#D73027'],
+      		series: {0: {type:'line'}},
+      		vAxis: {
+      			title: 'Body Mass Index (kg/m2)',
+      			viewWindowMode:'explicit',
+      			viewWindow:{
+      				max: 36,
+      				min: 14
+      			}
+      		}
+      	});
+      }
+
+ // BMI 
+ function drawBodyFat() {
+  var d = google.visualization.arrayToDataTable([
+    ['Date', 'Your Measure', 'Essential', 'Athelete', 'Fit', 'Average', 'Above Average'],
+    ['current date', 20.0, 5.0, 8.0, 4.0, 6.0, 9.0],
+    ['new date 1', 15.0, 5.0, 8.0, 4.0, 6.0, 9.0], 
+    ['new date 2', 12.2, 5.0, 8.0, 4.0, 6.0, 9.0], 
+    ['new date 3', 10.2, 5.0, 8.0, 4.0, 6.0, 9.0]  
+    ]);
+
+  d.addColumn({type:'string', role:'annotation'});
+  d.addColumn({type:'string', role:'annotationText'});
+
+  var bmibar = new google.visualization.SteppedAreaChart(document.getElementById('bodyfat_div'));
+  bmibar.draw(d, {
+    title: 'Percent Body Fat',
+    isStacked: true,
+    width: '100%',
+    height: '100%', 
+    colors: ['#000000', '#FEE08B', '#A6D96A', '#66BD63', '#FDAE61','#D73027'],
+    series: {0: {type:'line'}},
+    vAxis: {
+      title: 'Body Fat (percent of body weight)',
+      viewWindowMode:'explicit',
+      viewWindow:{
+        max: 28,
+        min: 2
+      }
+    }
+  });
+}
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="span6">  
+  <h4>Current measurements</h4>
+  <div class="row">
+    <div class="span1"></div>
+    <div class="span3"><small class="pull-right" style="vertical-align:text-bottom">Your Height</small></div>
+    <div class="span4"><text class="text-success" style="font-size:36px; color:#66BD63; vertical-align:middle";> x </text> <small>ft</small> <text class="text-success" style="font-size:36px; color:#66BD63; vertical-align:middle";> xx </text> <small>in</small></div>
+  </div>
+
+  <!-- Your Height -->
+  <div class="row">
+    <div class="span1"></div>
+    <div class="span3"><small class="pull-right">Your Weight</small></div>
+    <div class="span2"><text class="text-success" style="font-size:36px; color:#66BD63; vertical-align:bottom";> x </text> <small>lb</small> </div>
+    <div class="span3"><small class="pull-right">Ideal Range</small></div>
+    <div class="span3"><text class="text-success" style="font-size:24px; color:#66BD63; vertical-align:middle";>x1 - x2</text> <small>lb</small></div>
+  </div>
+
+    <!-- Your Waist Circumference -->
+  <div class="row">
+    <div class="span1"></div>
+    <div class="span3"><small class="pull-right">Waist</small></div>
+    <div class="span2"><text class="text-success" style="font-size:36px; color:#66BD63; vertical-align:bottom";> x </text> <small>in</small></div>
+    <div class="span3"><small class="pull-right">Ideal Range</small></div>
+    <div class="span3"><text class="text-success" style="font-size:24px; color:#66BD63; vertical-align:bottom";>x1 - x2</text> <small>in</small></div>
+  </div>
+  <div id='anthro_div' ></div>
+  <div id='bmi_div' style='height: 400px; vertical-align: middle;'></div>
+  <div id='bodyfat_div' style='height: 400px; vertical-align: middle;'></div>     
+</div>
+{% endblock %} <!-- End graph -->
+{% block comments %}
+Place holder for comments
+{% endblock %} <!-- End content -->

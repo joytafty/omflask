@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block head %}
+<title>Diet and Nutrition</title>
+<!-- Loading Google Visualization Library -->
+<script type='text/javascript' src='https://www.google.com/jsapi'></script>
+<script type="text/javascript" src="{{url_for('static', filename='js/google-spreadsheet.js')}}"></script>
+<script type='text/javascript'>
+	google.load('visualization', '1', {packages:['corechart','gauge', 'ColumnChart', 'Table']});
+	google.setOnLoadCallback(drawDiet);
+
+// Diet and Metabolism
+      function drawDiet() {
+        var options = {'showRowNumber': true, 'allowHtml': true, width: '100%', height: '110%'};
+        var d = google.visualization.arrayToDataTable([
+          ['Nutrient', 'Intake', 'Needs', 'Difference'],
+          ['Calories (kcals)', 0, 0, 0],
+          ['Fat (g)', 0, 0, 0],
+          ['Saturated Fat (g)', 0, 0, 0],
+          ['Protein (g)', 0, 0, 0],
+          ['Carbohygrate (g)', 0, 0, 0],
+          ['Fiber (g)', 0, 0, 0],
+          ['Sodium (mg)', 0, 0, 0]
+        ]);
+          // Create and draw the visualization.
+      var dash = new google.visualization.Table(document.getElementById('diet_div'));
+      dash.draw(d, options);
+      }
+
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="span6">  
+  <h4>Current dietary intake</h4>
+  <div id='diet_div' ></div>
+</div>
+{% endblock %} <!-- End graph -->
+{% block comments %}
+Place holder for comments
+{% endblock %} <!-- End content -->
