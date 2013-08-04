@@ -4,7 +4,7 @@ import json
 
 # Views
 from main import Main
-# from login import Login, Welcome
+from login import Login
 # from gform import Qpreboarding, Qonboarding, Q24hfood, QInsideTracker
 # from physical import Physical, coachPhysical, clientPhysical, gformPhysical, gres
 # from nutrition import Nutrition, coachNutrition, clientNutrition, gformNutrition
@@ -38,6 +38,7 @@ app.config["SECRET_KEY"] = 'T\x9cs;\x8b\xce-@\xac\xbb\xc9m\xeb\xe8\x1f\x85]\xd2M
 app.add_url_rule('/',
                  view_func=Main.as_view('main'),
                  methods=["GET"])
+
 # Dynamic URL rule
 # List of forms
 # 1. Preboarding questionaire
@@ -54,9 +55,9 @@ app.add_url_rule('/',
 # 6. Blood Work
 # 7. Aging (Longevity)
 
-# app.add_url_rule('/login/',
-#                  view_func=Login.as_view('login'),
-#                  methods=["GET", "POST"])
+app.add_url_rule('/signin/',
+                 view_func=Login.as_view('login'),
+                 methods=["GET", "POST"])
 
 # # Welcome page
 # app.add_url_rule('/welcome/',
