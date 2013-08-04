@@ -40,7 +40,7 @@
             <a href="#" data-img="optme-bgs1.jpg" class="bg active">
                 <img src="{{ url_for('static', filename='img/bgs/optme-bgs1.jpg') }}" />
             </a>            
-            <a href="#" data-img="optme-bgs2.jpg'" class="bg">
+            <a href="#" data-img="optme-bgs2.jpg" class="bg">
                 <img src="{{ url_for('static', filename='img/bgs/optme-bgs2.jpg') }}" />
             </a>            
         </div>
@@ -86,7 +86,7 @@
                 $btns.removeClass("active");
                 $(this).addClass("active");
                 var bg = $(this).data("img");
-
+                console.log(bg);
                 $("html").css("background-image", "url('../static/img/bgs/" + bg + "')");
             });
 

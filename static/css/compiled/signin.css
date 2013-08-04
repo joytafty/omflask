@@ -107,7 +107,7 @@
 .bg-switch {
   position: absolute;
   background: rgba(255, 255, 255, 0.8);
-  top: 60px;
+  top: 300px;
   border-radius: 0px 10px 10px 0px;
   padding: 10px 10px 0px 10px;
   z-index: 999; }
