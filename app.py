@@ -4,10 +4,14 @@ import json
 
 # Views
 from main import Main
-from login import Login
+from login import Login, Logout, Signup
+from profile import Profile
 # from gform import Qpreboarding, Qonboarding, Q24hfood, QInsideTracker
+from physical import Physical
 # from physical import Physical, coachPhysical, clientPhysical, gformPhysical, gres
+from nutrition import Nutrition
 # from nutrition import Nutrition, coachNutrition, clientNutrition, gformNutrition
+from activity import Activity
 # from activity import Activity, coachActivity, clientActivity, gformActivity
 # from charts import Charts
 # from d3charts import d3Charts,dcCharts
@@ -22,8 +26,8 @@ app.config.update(
 )
 
 app.config["SECRET_KEY"] = 'T\x9cs;\x8b\xce-@\xac\xbb\xc9m\xeb\xe8\x1f\x85]\xd2M\xf5\xae$I\x9a'
-
 ### marker for flask app generator - keep this line
+
 
 #----------------------------------------
 # controllers
@@ -58,11 +62,21 @@ app.add_url_rule('/',
 app.add_url_rule('/signin/',
                  view_func=Login.as_view('login'),
                  methods=["GET", "POST"])
+app.add_url_rule('/logout/',
+                 view_func=Logout.as_view('logout'),
+                 methods=["GET", "POST"])
+app.add_url_rule('/signup/',
+                 view_func=Signup.as_view('signup'),
+                 methods=["GET"])
 
-# # Welcome page
+# Welcome page
 # app.add_url_rule('/welcome/',
 #                  view_func=Welcome.as_view('welcome'),
 #                  methods=["GET", "POST"])
+
+app.add_url_rule('/user-profile/',
+                 view_func=Profile.as_view('profile'),
+                 methods=["GET"])
 
 # # Form Views
 # app.add_url_rule('/questionaire/preboarding/',
@@ -78,10 +92,18 @@ app.add_url_rule('/signin/',
 #                  view_func=QInsideTracker.as_view('input-insidetracker'),
 #                  methods=["GET", "POST"])
 
-# # Physical Measurements Views
-# app.add_url_rule('/physical/',
-#                  view_func=Physical.as_view('physical'),
-#                  methods=["GET", "POST"])
+# Physical Measurements Views
+app.add_url_rule('/physical/',
+                 view_func=Physical.as_view('physical'),
+                 methods=["GET", "POST"])
+app.add_url_rule('/activity/',
+                 view_func=Activity.as_view('activity'),
+                 methods=["GET", "POST"])
+app.add_url_rule('/nutrition/',
+                 view_func=Nutrition.as_view('nutrition'),
+                 methods=["GET", "POST"])
+
+
 # app.add_url_rule('/coach/physical/',
 #                  view_func=coachPhysical.as_view('coach-physical'),
 #                  methods=["GET", "POST"])
@@ -176,6 +198,7 @@ connect(DB_NAME,
 )
 
 db = MongoEngine(app)
+
 
 #----------------------------------------
 # launch

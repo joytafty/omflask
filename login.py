@@ -32,6 +32,16 @@ class Login(flask.views.MethodView):
     	# Return to login page
     	return flask.redirect(flask.url_for('login'))
 
+class Logout(flask.views.MethodView):
+    def get(self):
+        flask.session.pop('usr', None)
+        return flask.redirect(flask.url_for('login'))
+
+class Signup(flask.views.MethodView):
+    def get(self):
+        return flask.render_template('signup.html')
+
+
 # class Welcome(flask.views.MethodView):
 #     def get(self):
 #         return flask.render_template('welcome.html')

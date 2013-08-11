@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<!-- saved from url=(0021)http://0.0.0.0:5000/# -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style id="flot-default-styles">.flot-tick-label {font-size:smaller;color:#545454;}</style>
+    
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+    <!-- bootstrap -->
+    <link href="http://0.0.0.0:5000/static/css/bootstrap/bootstrap.css" rel="stylesheet">
+    <link href="http://0.0.0.0:5000/static/css/bootstrap/bootstrap-responsive.css" rel="stylesheet">
+    <link href="./Welcome to Optimize Me Dashboard_files/bootstrap-overrides.css" type="text/css" rel="stylesheet">    
+
+    <!-- libraries -->
+    <link href="./Welcome to Optimize Me Dashboard_files/jquery-ui-1.10.2.custom.css" rel="stylesheet" type="text/css">
+    <link href="./Welcome to Optimize Me Dashboard_files/font-awesome.css" type="text/css" rel="stylesheet">
+
+    <!-- global styles -->
+    <link rel="stylesheet" type="text/css" href="./Welcome to Optimize Me Dashboard_files/layout.css">
+    <link rel="stylesheet" type="text/css" href="./Welcome to Optimize Me Dashboard_files/elements.css">
+    <link rel="stylesheet" type="text/css" href="./Welcome to Optimize Me Dashboard_files/icons.css">
+
+    <!-- this page specific styles -->
+    
+    <link rel="stylesheet" href="./Welcome to Optimize Me Dashboard_files/index.css" type="text/css" media="screen">    
+    
+
+    <!-- open sans font -->
+    <link href="./Welcome to Optimize Me Dashboard_files/css" rel="stylesheet" type="text/css">
+
+    <!-- lato font -->
+    <link href="./Welcome to Optimize Me Dashboard_files/css(1)" rel="stylesheet" type="text/css">
+
+    <script src="./Welcome to Optimize Me Dashboard_files/jquery.min.js"></script>
+    <script src="./Welcome to Optimize Me Dashboard_files/bootstrap.min.js"></script>
+
+    
+        <title>Welcome to Optimize Me Dashboard</title>
+    
+    
+    
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body style="">
+
+    
+    <!-- navbar -->
+    <div class="navbar navbar-inverse">
+        <div class="navbar-inner">
+            <button type="button" class="btn btn-navbar visible-phone" id="menu-toggler">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+            <a class="brand" href="./Welcome to Optimize Me Dashboard_files/Welcome to Optimize Me Dashboard.html"><img src="./Welcome to Optimize Me Dashboard_files/optmelogo-header2.png"></a>
+
+            
+            <ul class="nav pull-right">                
+                <li class="hidden-phone">
+                    <input class="search" type="text">
+                </li>
+                <li class="notification-dropdown hidden-phone">
+                    <a href="./Welcome to Optimize Me Dashboard_files/Welcome to Optimize Me Dashboard.html" class="trigger">
+                        <i class="icon-warning-sign"></i>
+                        <span class="count">5</span>
+                    </a>
+                    <div class="pop-dialog">
+                        <div class="pointer right">
+                            <div class="arrow"></div>
+                            <div class="arrow_border"></div>
+                        </div>
+                        <div class="body">
+                            <a href="./Welcome to Optimize Me Dashboard_files/Welcome to Optimize Me Dashboard.html" class="close-icon"><i class="icon-remove-sign"></i></a>
+                            <div class="notifications">
+                                <h3>You have 5 new notifications</h3>
+                                <a href="./Welcome to Optimize Me Dashboard_files/Welcome to Optimize Me Dashboard.html" class="item">
+                                    <i class="icon-envelope-alt"></i> Your Onboarding appointment
+                                    <span class="time"><i class="icon-time"></i> 13 min.</span>
+                                </a>
+                                <a href="./Welcome to Optimize Me Dashboard_files/Welcome to Optimize Me Dashboard.html" class="item">
+                                    <i class="icon-envelope-alt"></i> Preboarding Questionnaire Submitted
+                                    <span class="time"><i class="icon-time"></i> 18 min.</span>
+                                </a>
+                                <a href="./Welcome to Optimize Me Dashboard_files/Welcome to Optimize Me Dashboard.html" class="item">
+                                    <i class="icon-envelope-alt"></i> Welcome to Optimize Me
+                                    <span class="time"><i class="icon-time"></i> 28 min.</span>
+                                </a>
+                                <a href="./Welcome to Optimize Me Dashboard_files/Welcome to Optimize Me Dashboard.html" class="item">
+                                    <i class="icon-signin"></i> New user registration
+                                    <span class="time"><i class="icon-time"></i> 49 min.</span>
+                                </a>
+                                <a href="./Welcome to Optimize Me Dashboard_files/Welcome to Optimize Me Dashboard.html" class="item">
+                                    <i class="icon-download-alt"></i> New order placed
+                                    <span class="time"><i class="icon-time"></i> 1 day.</span>
+                                </a>
+                                <div class="footer">
+                                    <a href="./Welcome to Optimize Me Dashboard_files/Welcome to Optimize Me Dashboard.html" class="logout">View all notifications</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="notification-dropdown hidden-phone">
+                    <a href="./Welcome to Optimize Me Dashboard_files/Welcome to Optimize Me Dashboard.html" class="trigger">
+                        <i class="icon-envelope-alt"></i>
+                    </a>
+                    <div class="pop-dialog">
+                        <div class="pointer right">
+                            <div class="arrow"></div>
+                            <div class="arrow_border"></div>
+                        </div>
+                        <div class="body">
+                            <a href="./Welcome to Optimize Me Dashboard_files/Welcome to Optimize Me Dashboard.html" class="close-icon"><i class="icon-remove-sign"></i></a>
+                            <div class="messages">
+                                <a href="./Welcome to Optimize Me Dashboard_files/Welcome to Optimize Me Dashboard.html" class="item">
+                                    <img src="./Welcome to Optimize Me Dashboard_files/contact-img.png" class="display">
+                                    <div class="name">Optimize Me</div>
+                                    <div class="msg">
+                                       Your onboarding appointment has been scheduled
+                                    </div>
+                                    <span class="time"><i class="icon-time"></i> 13 min.</span>
+                                </a>
+                                <a href="./Welcome to Optimize Me Dashboard_files/Welcome to Optimize Me Dashboard.html" class="item">
+                                    <img src="./Welcome to Optimize Me Dashboard_files/contact-img2.png" class="display">
+                                    <div class="name">Client </div>
+                                    <div class="msg">
+                                        Client Message.
+                                    </div>
+                                    <span class="time"><i class="icon-time"></i> 26 min.</span>
+                                </a>
+                                <a href="./Welcome to Optimize Me Dashboard_files/Welcome to Optimize Me Dashboard.html" class="item last">
+                                    <img src="./Welcome to Optimize Me Dashboard_files/contact-img.png" class="display">
+                                    <div class="name">Coach</div>
+                                    <div class="msg">
+                                        Coach Message.
+                                    </div>
+                                    <span class="time"><i class="icon-time"></i> 48 min.</span>
+                                </a>
+                                <div class="footer">
+                                    <a href="./Welcome to Optimize Me Dashboard_files/Welcome to Optimize Me Dashboard.html" class="logout">View all messages</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a href="http://0.0.0.0:5000/" class="dropdown-toggle hidden-phone" data-toggle="dropdown">
+                        Your account
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="http://0.0.0.0:5000/user-profile/">Personal info</a></li>
+                        <li><a href="http://0.0.0.0:5000/user-profile/">Account settings</a></li>
+                        <li><a href="http://0.0.0.0:5000/user-profile/">Schedule your appointment</a></li>
+                        <li><a href="http://0.0.0.0:5000/user-profile/">Export your data</a></li>
+                        <li><a href="http://0.0.0.0:5000/user-profile/">Send feedback</a></li>
+<!--                         <li><a href="/signin/" method="post">
+                        Log out
+                        </a></li> -->
+<!--                         <form action="/signin/" method="post">
+                        <input type="submit" name="logout" value="logout" class="btn">
+                        </form> -->
+                    </ul>
+                </li>
+                <li class="settings hidden-phone">
+                    <a href="./Welcome to Optimize Me Dashboard_files/Welcome to Optimize Me Dashboard.html" role="button">
+                        <i class="icon-cog"></i>
+                    </a>
+                </li>
+                <li class="settings hidden-phone">
+                    <a href="./Welcome to Optimize Me Dashboard_files/Welcome to Optimize Me Dashboard.html" role="button">
+                        <i class="icon-share-alt"></i>
+                    </a>
+                </li>
+            </ul>   
+                     
+        </div>
+    </div>
+    <!-- end navbar -->
+    
+
+    
+    <!-- sidebar -->
+    <div id="sidebar-nav">
+    
+        <ul id="dashboard-menu">
+
+            <li class="active">
+                <div class="pointer">
+                    <div class="arrow"></div>
+                    <div class="arrow_border"></div>
+                </div>
+                <a href="./Welcome to Optimize Me Dashboard_files/Welcome to Optimize Me Dashboard.html">
+                    <i class="icon-home"></i>
+                    <span>Summary</span>
+                </a>
+            </li>            
+            <li>
+                <a href="http://0.0.0.0:5000/physical/">
+                    <i class="icon-signal"></i>
+                    <span>Measurements</span>
+                </a>
+            </li>            
+            <li>
+                <a href="./Welcome to Optimize Me Dashboard_files/Welcome to Optimize Me Dashboard.html">
+                    <i class="icon-signal"></i>
+                    <span>Activity</span>
+                </a>
+            </li>
+            <li>
+                <a href="./Welcome to Optimize Me Dashboard_files/Welcome to Optimize Me Dashboard.html">
+                    <i class="icon-code-fork"></i>
+                    <span>Nutrition</span>
+                </a>
+            </li>
+            <li>
+                <a href="./Welcome to Optimize Me Dashboard_files/Welcome to Optimize Me Dashboard.html">
+                    <i class="icon-picture"></i>
+                    <span>CVD Health</span>
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-toggle" href="./Welcome to Optimize Me Dashboard_files/Welcome to Optimize Me Dashboard.html">
+                    <i class="icon-group"></i>
+                    <span>Blood Work</span>
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-toggle" href="./Welcome to Optimize Me Dashboard_files/Welcome to Optimize Me Dashboard.html">
+                    <i class="icon-edit"></i>
+                    <span>Aging</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://0.0.0.0:5000/user-profile/">
+                    <i class="icon-cog"></i>
+                    <span>My Info</span>
+                </a>
+            </li>
+        </ul>
+        
+    </div>
+    <!-- end sidebar -->
+    
+
+	<!-- main container -->
+    <div class="content">    
+        <div class="container-fluid">
+        
+            <!-- upper main stats -->
+<!--             <div id="main-stats">
+                <div class="row-fluid stats-row">
+                    <div class="span3 stat">
+                        <div class="data">
+                            <span class="number">2457</span>
+                            a health metric
+                        </div>
+                        <span class="date">Today</span>
+                    </div>
+                    <div class="span3 stat">
+                        <div class="data">
+                            <span class="number">3240</span>
+                            Another
+                        </div>
+                        <span class="date">This week</span>
+                    </div>
+                    <div class="span3 stat">
+                        <div class="data">
+                            <span class="number">322</span>
+                            and Another
+                        </div>
+                        <span class="date">a month ago</span>
+                    </div>
+                    <div class="span3 stat last">
+                        <div class="data">
+                            <span class="number">2340</span>
+                            All others
+                        </div>
+                        <span class="date">last six months</span>
+                    </div>
+                </div>
+            </div> -->
+            <!-- end upper main stats -->
+            
+
+            
+            <div id="pad-wrapper">
+            
+            <p>Welcome back!</p>
+            
+                <!-- statistics chart built with jQuery Flot -->
+<!--                 <div class="row-fluid chart">
+                    <h4>
+                        Your Progress
+                         <div class="btn-group pull-right">
+                            <button class="glow left">DAY</button>
+                            <button class="glow middle active">MONTH</button>
+                            <button class="glow right">YEAR</button>
+                        </div>
+                    </h4>
+                    <div class="span12">
+                        <div id="statsChart"></div>
+                    </div> -->
+                </div>
+            
+                <!-- end statistics chart -->
+
+                <!-- UI Elements section -->
+                <!-- <div class="row-fluid section ui-elements">
+                    <h4>Additional Summary</h4>
+                    <div class="span5 knobs">
+                        <div class="knob-wrapper">
+                            <input type="text" value="50" class="knob" data-thickness=".3" data-inputColor="#333" data-fgColor="#30a1ec" data-bgColor="#d4ecfd" data-width="150">
+                            <div class="info">
+                                <div class="param">
+                                    <span class="line blue"></span>
+                                    Your Health Snapshot score
+                                </div>
+                            </div>
+                        </div>
+                        <div class="knob-wrapper">
+                            <input type="text" value="75" class="knob second" data-thickness=".3" data-inputColor="#333" data-fgColor="#3d88ba" data-bgColor="#d4ecfd" data-width="150">
+                            <div class="info">
+                                <div class="param">
+                                    <span class="line blue"></span>
+                                    % progress
+                                </div>
+                            </div>
+                        </div>                        
+                    </div>
+                </div> -->
+                <!-- end UI elements section -->
+
+        </div>
+    </div>
+
+
+	<!-- scripts -->
+    <script src="./Welcome to Optimize Me Dashboard_files/jquery-latest.js"></script>
+    <script src="./Welcome to Optimize Me Dashboard_files/bootstrap.min.js"></script>
+    <script src="./Welcome to Optimize Me Dashboard_files/jquery-ui-1.10.2.custom.min.js"></script>
+    <!-- knob -->
+    <script src="./Welcome to Optimize Me Dashboard_files/jquery.knob.js"></script>
+    <!-- flot charts -->
+    <script src="./Welcome to Optimize Me Dashboard_files/jquery.flot.js"></script>
+    <script src="./Welcome to Optimize Me Dashboard_files/jquery.flot.stack.js"></script>
+    <script src="./Welcome to Optimize Me Dashboard_files/jquery.flot.resize.js"></script>
+    <script src="./Welcome to Optimize Me Dashboard_files/theme.js"></script>
+
+    <script type="text/javascript">
+    //     $(function () {
+
+    //         // jQuery Knobs
+    //         $(".knob").knob();
+
+    //         // jQuery UI Sliders
+    //         $(".slider-sample1").slider({
+    //             value: 100,
+    //             min: 1,
+    //             max: 500
+    //         });
+    //         $(".slider-sample2").slider({
+    //             range: "min",
+    //             value: 130,
+    //             min: 1,
+    //             max: 500
+    //         });
+    //         $(".slider-sample3").slider({
+    //             range: true,
+    //             min: 0,
+    //             max: 500,
+    //             values: [ 40, 170 ],
+    //         });
+
+            
+
+    //         // jQuery Flot Chart
+    //         var visits = [[1, 50], [2, 40], [3, 45], [4, 23],[5, 55],[6, 65],[7, 61],[8, 70],[9, 65],[10, 75],[11, 57],[12, 59]];
+    //         var visitors = [[1, 25], [2, 50], [3, 23], [4, 48],[5, 38],[6, 40],[7, 47],[8, 55],[9, 43],[10,50],[11,47],[12, 39]];
+
+    //         var plot = $.plot($("#statsChart"),
+    //             [ { data: visits, label: "Your Measurements"},
+    //              { data: visitors, label: "U.S. Average" }], {
+    //                 series: {
+    //                     lines: { show: true,
+    //                             lineWidth: 1,
+    //                             fill: true, 
+    //                             fillColor: { colors: [ { opacity: 0.1 }, { opacity: 0.13 } ] }
+    //                          },
+    //                     points: { show: true, 
+    //                              lineWidth: 2,
+    //                              radius: 3
+    //                          },
+    //                     shadowSize: 0,
+    //                     stack: true
+    //                 },
+    //                 grid: { hoverable: true, 
+    //                        clickable: true, 
+    //                        tickColor: "#f9f9f9",
+    //                        borderWidth: 0
+    //                     },
+    //                 legend: {
+    //                         // show: false
+    //                         labelBoxBorderColor: "#fff"
+    //                     },  
+    //                 colors: ["#a7b5c5", "#30a0eb"],
+    //                 xaxis: {
+    //                     ticks: [[1, "JAN"], [2, "FEB"], [3, "MAR"], [4,"APR"], [5,"MAY"], [6,"JUN"], 
+    //                            [7,"JUL"], [8,"AUG"], [9,"SEP"], [10,"OCT"], [11,"NOV"], [12,"DEC"]],
+    //                     font: {
+    //                         size: 12,
+    //                         family: "Open Sans, Arial",
+    //                         variant: "small-caps",
+    //                         color: "#697695"
+    //                     }
+    //                 },
+    //                 yaxis: {
+    //                     ticks:3, 
+    //                     tickDecimals: 0,
+    //                     font: {size:12, color: "#9da3a9"}
+    //                 }
+    //              });
+
+    //         function showTooltip(x, y, contents) {
+    //             $('<div id="tooltip">' + contents + '</div>').css( {
+    //                 position: 'absolute',
+    //                 display: 'none',
+    //                 top: y - 30,
+    //                 left: x - 50,
+    //                 color: "#fff",
+    //                 padding: '2px 5px',
+    //                 'border-radius': '6px',
+    //                 'background-color': '#000',
+    //                 opacity: 0.80
+    //             }).appendTo("body").fadeIn(200);
+    //         }
+
+    //         var previousPoint = null;
+    //         $("#statsChart").bind("plothover", function (event, pos, item) {
+    //             if (item) {
+    //                 if (previousPoint != item.dataIndex) {
+    //                     previousPoint = item.dataIndex;
+
+    //                     $("#tooltip").remove();
+    //                     var x = item.datapoint[0].toFixed(0),
+    //                         y = item.datapoint[1].toFixed(0);
+
+    //                     var month = item.series.xaxis.ticks[item.dataIndex].label;
+
+    //                     showTooltip(item.pageX, item.pageY,
+    //                                 item.series.label + " of " + month + ": " + y);
+    //                 }
+    //             }
+    //             else {
+    //                 $("#tooltip").remove();
+    //                 previousPoint = null;
+    //             }
+    //         });
+    //     });
+    </script>
+
+</body></html>

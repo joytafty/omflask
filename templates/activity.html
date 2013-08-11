@@ -1,9 +1,22 @@
 {% extends "base.html" %}
-{% block head %}
+{% block title %}
 <title>Physical Activity</title>
+{% endblock %}
+
+{% block headscript %}
+<!-- flot charts -->
+<script src="{{ url_for('static', filename='js/jquery.flot.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery.flot.stack.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery.flot.resize.js') }}"></script>
+<!-- morrisjs -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+<script src="{{ url_for('static', filename='js/morris.min.js') }}"></script>
+<!-- call all plugins -->
+<script src="{{ url_for('static', filename='js/theme.js') }}"></script>
+
 <!-- Loading Google Visualization Library -->
 <script type='text/javascript' src='https://www.google.com/jsapi'></script>
-<script type="text/javascript" src="{{url_for('static', filename='js/google-spreadsheet.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static', filename='js/google-spreadsheet.js') }}"></script>
 <script type='text/javascript'>
 	google.load('visualization', '1', {packages:['corechart','gauge', 'ColumnChart', 'Table']});
 	google.setOnLoadCallback(drawPhys);
@@ -57,13 +70,39 @@
 </script>
 {% endblock %}
 
-{% block content %}
-<div class="span6">  
+{% block main %}
+<div class="span6 chart">
+    <h5>Steps Taken</h5>
+    <div id="hero-bar" style="height: 250px;"></div>
+</div>
+
+<script type="text/javascript">
+
+        // Morris Bar Chart
+        Morris.Bar({
+            element: 'hero-bar',
+            data: [
+                {Day: 'Mon', steps: 9654},
+                {Day: 'Tue', steps: 12350},
+                {Day: 'Wed', steps: 13603.5},
+                {Day: 'Thu', steps: 12005},
+                {Day: 'Fri', steps: 13383.5},
+                {Day: 'Sat', steps: 12150},
+                {Day: 'Sun', steps: 8635}
+            ],
+            xkey: 'Day',
+            ykeys: ['steps'],
+            labels: ['Steps'],
+            barRatio: 0.4,
+            xLabelMargin: 10,
+            hideHover: 'auto',
+            barColors: ["#3d88ba"]
+        });
+</script>
+
+<!-- <div class="span6">  
   <h4>Physical Activity</h4>
   <div id='phys_div' ></div>
   <div id='steps_div' ></div>
-</div>
+</div> -->
 {% endblock %} <!-- End graph -->
-{% block comments %}
-Place holder for comments
-{% endblock %} <!-- End content -->
