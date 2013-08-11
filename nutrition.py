@@ -6,9 +6,16 @@ from itertools import izip
 class Nutrition(flask.views.MethodView):
 	@utils.login_required	
 	def get(self, page="nutrition"):
-		# Nutrition data
-		x = {'date':[u'2012-06-27', u'2012-06-28', u'2012-06-29', u'2012-06-30'], 'users': [405, 368, 119, 11]};
-		x2 = [dict(date=d, user=u) for d, u in izip(x['date'], x['users'])];
+		# Nutrition data, will later load from file
+		x = {
+			'Nutrient': [u'Calories (kcals)', u'Fat (g)', u'Saturdated Fat (g)', u'Protein (g)', u'Carbohygrate (g)', u'Fiber (g)', u'Sodium (mg)'], 
+			'Intake': [1530, 10, 1, 0, 10, 10, 300],
+			'Need': [1800, 10, 10, 10, 10, 10, 1000]}
+
+		x['Difference'] = [x1 - x2 for (x1, x2) in zip(x['Need'], x['Intake'])]
+		x2 = [dict(Nutrient=n, Intake=i, Need=r, Difference=d) for n,i,r,d in izip(x['Nutrient'], x['Intake'], x['Need'], x['Difference'])]
+
+		print x2
 
 		page += ".html"
 		if os.path.isfile('templates/' + page):

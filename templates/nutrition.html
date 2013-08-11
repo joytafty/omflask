@@ -4,61 +4,82 @@
 {% endblock %}
 
 {% block headcss %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/compiled/index.css') }}" type="text/css" media="screen" />    
 <link rel="stylesheet" href="{{ url_for('static', filename='css/compiled/tables.css') }}" type="text/css" media="screen" />
 {% endblock %}
 
 {% block headscript %}
-<!-- Loading Google Visualization Library -->
-<script type='text/javascript' src='https://www.google.com/jsapi'></script>
-<script type="text/javascript" src="{{url_for('static', filename='js/google-spreadsheet.js')}}"></script>
-<script type='text/javascript'>
-	google.load('visualization', '1', {packages:['corechart','gauge', 'ColumnChart', 'Table']});
-	google.setOnLoadCallback(drawDiet);
+{% endblock %}
 
-// Diet and Metabolism
-function drawDiet() {
-  var options = {'showRowNumber': true, 'allowHtml': true, width: '100%', height: '110%'};
-  var d = google.visualization.arrayToDataTable([
-    ['Nutrient', 'Intake', 'Needs', 'Difference'],
-    ['Calories (kcals)', 0, 0, 0],
-    ['Fat (g)', 0, 0, 0],
-    ['Saturated Fat (g)', 0, 0, 0],
-    ['Protein (g)', 0, 0, 0],
-    ['Carbohygrate (g)', 0, 0, 0],
-    ['Fiber (g)', 0, 0, 0],
-    ['Sodium (mg)', 0, 0, 0]
-    ]);
-          // Create and draw the visualization.
-          var dash = new google.visualization.Table(document.getElementById('diet_div'));
-          dash.draw(d, options);
-        }
-      </script>
-      {% endblock %}
+{% block upperstat %}
+<!-- upper main stats -->
+<div id="main-stats">
+  <div class="row-fluid stats-row">
+    <div class="span3 stat">
+      <div class="data">
+        <span class="number">x (g)</span>
+        Less Calories
+      </div>
+      <span class="date">Today</span>
+    </div>
+    <div class="span3 stat">
+      <div class="data">
+        <span class="number">x (g)</span>
+        Less Saturated Fat
+      </div>
+      <span class="date">This week</span>
+    </div>
+    <div class="span3 stat">
+      <div class="data">
+        <span class="number">x (mg)</span>
+        Less Sodium
+      </div>
+      <span class="date">a month ago</span>
+    </div>
+    <div class="span3 stat last">
+      <div class="data">
+        <span class="number">x (g)</span>
+        More Fiber
+      </div>
+      <span class="date">last six months</span>
+    </div>
+  </div>
+</div><!-- end upper main stats -->
+{% endblock %}
 
-      {% block main %}
-      <div class="span6">  
+{% block main %}
+<!--       <div class="span6">  
         <h4>Current dietary intake</h4>
         <div id='diet_div' ></div>
-      </div>
+      </div> -->
 
       <div class="span6">
+        <h4>Current dietary intake</h4>
         <table class="table table-hover">
           <thead>
-          <tr>
+            <tr>
               <th class="span3">
-                  <input type="Date">
-                  Date
+                <!--                   <input type="Date"> -->
+                Nutrient
               </th>
               <th class="span3">
-                  <span class="line"></span>User
+                Intake
               </th>
-          </tr>
+              <th class="span3">
+                Need
+              </th>
+              <th class="span3">
+                <span class="line"></span>Difference
+              </th>
+            </tr>
           </thead>
           <tbody>
             {% for row in x %}
             <tr class="first">
-              <td>{{ row['date']|tojson|safe }}</td>
-              <td>{{ row['user'] }}</td>
+              <td>{{ row['Nutrient'] }}</td>
+              <td>{{ row['Intake'] }}</td>
+              <td>{{ row['Need'] }}</td>
+              <td>{{ row['Difference'] }}</td>
             </tr>
           </tbody>
           {% endfor %}  
