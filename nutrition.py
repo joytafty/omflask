@@ -15,8 +15,6 @@ class Nutrition(flask.views.MethodView):
 		x['Difference'] = [x1 - x2 for (x1, x2) in zip(x['Need'], x['Intake'])]
 		x2 = [dict(Nutrient=n, Intake=i, Need=r, Difference=d) for n,i,r,d in izip(x['Nutrient'], x['Intake'], x['Need'], x['Difference'])]
 
-		print x2
-
 		page += ".html"
 		if os.path.isfile('templates/' + page):
 			return flask.render_template(page, x=x2)
