@@ -14,7 +14,7 @@ from nutrition import Nutrition
 from activity import Activity
 # from activity import Activity, coachActivity, clientActivity, gformActivity
 # from charts import Charts
-# from d3charts import d3Charts,dcCharts
+from d3charts import d3Charts,dcCharts
 #----------------------------------------
 # initialization
 #----------------------------------------
@@ -150,12 +150,12 @@ app.add_url_rule('/nutrition/',
 # app.add_url_rule('/charts/',
 #                  view_func=Charts.as_view('charts'),
 #                  methods=["GET", "POST"])
-# app.add_url_rule('/d3charts/',
-#                  view_func=d3Charts.as_view('d3charts'),
-#                  methods=["GET", "POST"])
-# app.add_url_rule('/dcindex/',
-#                  view_func=dcCharts.as_view('dcindex'),
-#                  methods=["GET", "POST"])
+app.add_url_rule('/d3charts/',
+                 view_func=d3Charts.as_view('d3charts'),
+                 methods=["GET", "POST"])
+app.add_url_rule('/dcindex/',
+                 view_func=dcCharts.as_view('dcindex'),
+                 methods=["GET", "POST"])
 
 #----------------------------------------
 # handlers
