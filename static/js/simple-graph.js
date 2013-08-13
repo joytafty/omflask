@@ -1,6 +1,6 @@
 registerKeyboardHandler = function(callback) {
   var callback = callback;
-  d3.select(window).on("keydown", callback);  
+  d3.select(window).on("keydown", callback); 1
 };
 
 SimpleGraph = function(elemid, options) {
@@ -13,12 +13,13 @@ SimpleGraph = function(elemid, options) {
   this.options.xmin = options.xmin || 0;
   this.options.ymax = options.ymax || 10;
   this.options.ymin = options.ymin || 0;
+  this.points = this.options.points;
 
   this.padding = {
      "top":    this.options.title  ? 40 : 20,
-     "right":                 30,
+     "right":  50,
      "bottom": this.options.xlabel ? 60 : 10,
-     "left":   this.options.ylabel ? 70 : 45
+     "left":   this.options.ylabel ? 100 : 45
   };
 
   this.size = {
@@ -47,19 +48,22 @@ SimpleGraph = function(elemid, options) {
   this.dragged = this.selected = null;
 
   this.line = d3.svg.line()
-      .x(function(d, i) { console.log(this.points); 
-        return this.x(this.points[i].x); })
-      .y(function(d, i) { console.log(this.points); 
-        return this.y(this.points[i].y); });
+      .x(function(d, i) { return this.x(this.points[i].x); })
+      .y(function(d, i) { return this.y(this.points[i].y); });
 
   var xrange =  (this.options.xmax - this.options.xmin),
       yrange2 = (this.options.ymax - this.options.ymin) / 2,
       yrange4 = yrange2 / 2,
       datacount = this.size.width/30;
 
-  this.points = d3.range(datacount).map(function(i) { 
-    return { x: i * xrange / datacount, y: this.options.ymin + yrange4 + Math.random() * yrange2 }; 
-  }, self);
+  console.log(this.points)
+  console.log("yrange2 = " + yrange2)
+  console.log("xrange = " + xrange)
+  console.log("datacount = " + datacount)
+  // this.points = d3.range(datacount).map(function(i) { 
+  //   return { x: i * xrange / datacount, y: this.options.ymin + yrange4 + Math.random() * yrange2 }; 
+  // }, self);
+  console.log(this.points)
 
   this.vis = d3.select(this.chart).append("svg")
       .attr("width",  this.cx)
@@ -114,7 +118,7 @@ SimpleGraph = function(elemid, options) {
         .attr("class", "axis")
         .text(this.options.ylabel)
         .style("text-anchor","middle")
-        .attr("transform","translate(" + -40 + " " + this.size.height/2+") rotate(-90)");
+        .attr("transform","translate(" + -70 + " " + this.size.height/2+") rotate(-90)");
   }
 
   d3.select(this.chart)
@@ -165,7 +169,7 @@ SimpleGraph.prototype.update = function() {
       .attr("class", function(d) { return d === self.selected ? "selected" : null; })
       .attr("cx",    function(d) { return self.x(d.x); })
       .attr("cy",    function(d) { return self.y(d.y); })
-      .attr("r", 10.0)
+      .attr("r", 5.0)
       .style("cursor", "ns-resize")
       .on("mousedown.drag",  self.datapoint_drag())
       .on("touchstart.drag", self.datapoint_drag());

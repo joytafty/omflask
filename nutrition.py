@@ -8,7 +8,7 @@ class Nutrition(flask.views.MethodView):
 	def get(self, page="nutrition"):
 		# Nutrition data, will later load from file
 		x = {
-			'Nutrient': [u'Calories (kcals)', u'Fat (g)', u'Saturdated Fat (g)', u'Protein (g)', u'Carbohygrate (g)', u'Fiber (g)', u'Sodium (mg)'], 
+			'Nutrient': [u'Calories (kcals)', u'Fat (g)', u'Saturated Fat (g)', u'Protein (g)', u'Carbohydrate (g)', u'Fiber (g)', u'Sodium (mg)'], 
 			'Intake': [1530, 10, 1, 0, 10, 10, 300],
 			'Need': [1800, 10, 10, 10, 10, 10, 1000]}
 

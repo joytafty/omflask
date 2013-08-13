@@ -1,30 +1,35 @@
 {% extends "base.html" %}
+
+{% block headcss %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/compiled/user-profile.css') }}" type="text/css" media="screen" />
+{% endblock %}
+
 {% block title %}
 <title>Optimize Me - User Profile</title>
 {% endblock %}
 
 {% block headscript %}
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
-    <title>Test Graph</title>
+    <!-- <meta http-equiv="Content-Type" content="text/html;charset=utf-8"> -->
     <script type="text/javascript" src="http://mbostock.github.com/d3/d3.v2.js"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/simple-graph.js') }}"></script>
     <style type="text/css">
-      body { font: 13px sans-serif; }
+      body { font: 12px sans-serif; }
       rect { fill: #fff; }
       ul {
         list-style-type: none;
-        margin: 0.5em 0em 0.5em 0em;
-        width: 100%; }
-        ul li {
+        margin: 0em 0em 0em 0em;
+        width: 80%; }
+/*        ul li {
           display: table-cell;
           vertical-align: middle;
           margin: 0em;
-          padding: 0em 1em; }
+          padding: 0em 0em; }*/
       .axis { font-size: 1.5em; }
       .chart {
-        background-color: #F7F2C5;
-        width: 960px;
-        height: 500px; }
+        background-color: #FFFFFF;
+        width: 640px;
+        height: 400px; 
+      }
       circle, .line {
         fill: none;
         stroke: steelblue;
@@ -46,14 +51,41 @@
 {% endblock %}
 
 {% block main %}
-    <div id="chart1" class="span6 chart">Test zoomable graph</div>
+    <div id="chart1" class="span6 chart"></div>
     <script type="text/javascript">
       graph = new SimpleGraph("chart1", {
-          "xmax": 60, "xmin": 0,
-          "ymax": 40, "ymin": 0, 
+          "points": [
+          {"x": 0, "y":8250}, 
+          {"x": 1, "y":9150}, 
+          {"x": 2, "y":11300}, 
+          {"x": 3, "y":10400}, 
+          {"x": 4, "y":15400}, 
+          {"x": 4.5, "y":13200}, 
+          {"x": 5.6, "y":12467}, 
+          {"x": 7, "y":14433}, 
+          {"x": 8.1, "y":21400}, 
+          {"x": 9.4, "y":19960}, 
+          {"x": 10, "y":18405},
+          {"x": 11.4, "y":14778}, 
+          {"x": 12.1, "y":18400}, 
+          {"x": 13, "y":18703}, 
+          {"x": 14, "y":11760}, 
+          {"x": 15, "y":14405},
+          {"x": 16, "y":20778}, 
+          {"x": 17, "y":22400}, 
+          {"x": 18, "y":19903}, 
+          {"x": 19, "y":18903}, 
+          {"x": 20, "y":21903}, 
+          ],
+          "xmax": 20.5, "xmin": -0.5,
+          "ymax": 25000, "ymin": 2500, 
           "title": "Optimize Me Zoomable Chart",
-          "xlabel": "Time points",
-          "ylabel": "Readout"  
+          "xlabel": "Days in the program",
+          "ylabel": "Progress"
+          // "points": {
+          //   "x": [1 2 3 4],
+          //   "y": [10 90 80 142]
+          // }  
         });
       // console.log(graph)
     </script>

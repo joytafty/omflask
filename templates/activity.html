@@ -14,70 +14,91 @@
 <!-- call all plugins -->
 <script src="{{ url_for('static', filename='js/theme.js') }}"></script>
 
-<!-- Loading Google Visualization Library -->
-<script type='text/javascript' src='https://www.google.com/jsapi'></script>
-<script type="text/javascript" src="{{url_for('static', filename='js/google-spreadsheet.js') }}"></script>
-<script type='text/javascript'>
-	google.load('visualization', '1', {packages:['corechart','gauge', 'ColumnChart', 'Table']});
-	google.setOnLoadCallback(drawPhys);
-  google.setOnLoadCallback(drawStep);
-
-// Physical Activity
-      function drawPhys() {
-        var options = {
-          'showRowNumber': true, 
-          'allowHtml': true, 
-          width: '80%', 
-          height: '110%'
-        };
-        var d = google.visualization.arrayToDataTable([
-          ['Measurements', 'Your Measure', 'Ideal Range', 'Notes'],
-          ['Average daily steps', 0, 0, true],
-          ['Resting heart rate (bmp)', 0, 0, true]
-        ]);
-          // Create and draw the visualization.
-      var dash = new google.visualization.Table(document.getElementById('phys_div'));
-      dash.draw(d, options);
+<script type="text/javascript" src="http://mbostock.github.com/d3/d3.v2.js"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/simple-graph.js') }}"></script>
+    <style type="text/css">
+      body { font: 12px sans-serif; }
+      rect { fill: steelblue; }
+      ul {
+        list-style-type: none;
+        margin: 0em 0em 0em 0em;
+        width: 80%; }
+/*        ul li {
+          display: table-cell;
+          vertical-align: middle;
+          margin: 0em;
+          padding: 0em 0em; }*/
+      .axis { font-size: 1.5em; }
+      .chart {
+        background-color: #FFFFFF;
+        width: 640px;
+        height: 400px; 
       }
-
-      // FitBit Steps
-      function drawStep() {
-        // Create and populate the data table.
-        var data = google.visualization.arrayToDataTable([
-          ['Day', 'Week1', 'Week2', 'Average'],
-          ['Mon',  10000,      9308,         9654],
-          ['Tue',  11200,      13500,        12350],
-          ['Wed',  15700,      11607,        13603.5],
-          ['Thu',  13900,      10110,        12005],
-          ['Fri',  11067,      15700,        13383.5],
-          ['Sat',  13090,      11210,        12150],
-          ['Sun',  6910,       10360,         8635]
-        ]);
-
-        // Create and draw the visualization.
-        var ac = new google.visualization.ComboChart(document.getElementById('steps_div'));
-        ac.draw(data, {
-          title : 'Steps',
-          width: '80%',
-          height: '100%',
-          vAxis: {title: "Steps"},
-          hAxis: {title: "Day of Week"},
-          seriesType: "bars",
-          series: {2: {type: "line"}}
-        });
-      }
-
-</script>
+      circle, .line {
+        fill: none;
+        stroke: steelblue;
+        stroke-width: 2px; }
+      circle {
+        fill: white;
+        fill-opacity: 0.2;
+        cursor: move; }
+        circle.selected {
+          fill: #ff7f0e;
+          stroke: #ff7f0e; }
+        circle:hover {
+          fill: #ff7f0e;
+          stroke: #707f0e; }
+        circle.selected:hover {
+          fill: #ff7f0e;
+          stroke: #ff7f0e; }
+    </style>
 {% endblock %}
 
 {% block main %}
+<div id="chart1" class="span6 chart"></div>
+<script type="text/javascript">
+  graph = new SimpleGraph("chart1", {
+      "points": [
+      {"x": 0, "y":8250}, 
+      {"x": 1, "y":9150}, 
+      {"x": 2, "y":11300}, 
+      {"x": 3, "y":10400}, 
+      {"x": 4, "y":15400}, 
+      {"x": 4.5, "y":13200}, 
+      {"x": 5.6, "y":12467}, 
+      {"x": 7, "y":14433}, 
+      {"x": 8.1, "y":21400}, 
+      {"x": 9.4, "y":19960}, 
+      {"x": 10, "y":18405},
+      {"x": 11.4, "y":14778}, 
+      {"x": 12.1, "y":18400}, 
+      {"x": 13, "y":18703}, 
+      {"x": 14, "y":11760}, 
+      {"x": 15, "y":14405},
+      {"x": 16, "y":20778}, 
+      {"x": 17, "y":22400}, 
+      {"x": 18, "y":19903}, 
+      {"x": 19, "y":18903}, 
+      {"x": 20, "y":21903}, 
+      ],
+      "xmax": 20.5, "xmin": -0.5,
+      "ymax": 25000, "ymin": 2500, 
+      "title": "Optimize Me Zoomable Chart",
+      "xlabel": "Days in the program",
+      "ylabel": "Progress"
+      // "points": {
+      //   "x": [1 2 3 4],
+      //   "y": [10 90 80 142]
+      // }  
+    });
+</script>
+
 <div class="span6 chart">
     <h5>Steps Taken</h5>
     <div id="hero-bar" style="height: 250px;"></div>
 </div>
 
 <script type="text/javascript">
-
         // Morris Bar Chart
         Morris.Bar({
             element: 'hero-bar',
@@ -99,7 +120,6 @@
             barColors: ["#3d88ba"]
         });
 </script>
-
 <!-- <div class="span6">  
   <h4>Physical Activity</h4>
   <div id='phys_div' ></div>
